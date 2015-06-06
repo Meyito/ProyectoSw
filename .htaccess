@@ -1,0 +1,3 @@
+# Activar RewriteEngine
+RewriteEngine on
+RewriteRule ^(\w+)/?$ index.php?accion=$1

@@ -42,14 +42,68 @@
 		}
 
 		/**
+		*	Método que se encarga de iniciar la variable de sesión con el username y la foto de perfil del usuario
+		*	@param   $nombre - nombre del usuario
+		*/
+		public function cargarPerfil($cedula)
+		{
+			/*
+			$usuario = new usuarioBD();
+			$datos = $usuario->obtenerDatos($cedula);
+			$_SESSION["username"] = $datos[1];
+			*/
+
+			$_SESSION["username"]="Angie Melissa D.";
+		}
+
+		/**
 		*	Metodo que inicia sesión y crea una clase del tipo de usuario correspondiente
 		*	@param $cedula - Numero de cedula del usuario a verificar
 		*	@param $contrasena - Contrasena del usuario a verificar
 		*/
 		public function login($cedula, $password){
 			$passwordSSH=$this->encriptarPassword($password);
-			//AQUI YA ARRANCAN LAS CONEXIONES CON EL MODELO
-			echo $passwordSSH;
+
+			//Conexion al Modelo de Usuarios
+			//$usuarioBD = new usuarioBD();
+
+			//se validan los datos correspondientes
+			//$datos = $usuarioBD->login($cedula, $passwordSSH);
+			
+			/*Si los datos son  correctos
+			if($datos!=false){
+				$_SESSION["nombre"] = $datos;
+
+				Aqui se debe validar tambien que el usuario pertenezca tambien al tipo de 
+				cargo que dijo(admin/cliente/operario), si esta bien se asigna la variable
+				de sesion correspondiente. Si no lance una alerta
+				$_SESSION["tipoUsuario"] = "usuario";
+
+				se carga el perfil con los datos necesarios
+				$this->cargarPerfil($datos);
+				header('Location: index.php');
+			}*/
+
+			/*else{
+				se lanza mensaje de error
+				$this->inicioErrorLog();
+			}*/
+
+			//esto es de prueba
+			$datos=$_POST["cedula"];
+			if($_POST["tipo"]=="Administrador"){
+				$_SESSION["tipo"]="Administrador";
+				$this->cargarPerfil($datos);
+				header('Location: index.php');
+			}else if($_POST["tipo"]=="Cliente"){
+				$_SESSION["tipo"]="Cliente";
+				$this->cargarPerfil($datos);
+				header('Location: index.php');
+			}else if($_POST["tipo"]=="Operario"){
+				$_SESSION["tipo"]="Operario";
+				$this->cargarPerfil($datos);
+				header('Location: index.php');
+			}
 		}
 
 		/**
