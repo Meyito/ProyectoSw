@@ -4,8 +4,35 @@
 
 	class Cliente extends Controlador{
 
-		public function inicioValidado()
-		{
+		public function inicioValidado(){
+			$plantilla = $this -> init();
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/cliente-home.html");
+			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
+			$this->mostrarVista($plantilla);
+		}
+
+		public function vistaPedidos(){
+			$plantilla = $this -> init();
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/cliente-pedidos.html");
+			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
+			$this->mostrarVista($plantilla);
+		}
+
+		public function vistaCotizaciones(){
+			$plantilla = $this -> init();
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/cliente-cotizaciones.html");
+			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
+			$this->mostrarVista($plantilla);
+		}
+
+		public function crearPedido(){
+			$plantilla = $this -> init();
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/crearPedido.html");
+			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
+			$this->mostrarVista($plantilla);
+		}
+
+		public function init(){
 			$plantilla = $this->leerPlantilla("Aplicacion/Vista/principal.html");
 
 			$barraSup=$this->leerPlantilla("Aplicacion/Vista/barraSup.html");
@@ -15,12 +42,10 @@
 
 			$barraLat = $this->leerPlantilla("Aplicacion/Vista/barraLateralCliente.html");
 
-			$workspace = $this->leerPlantilla("Aplicacion/Vista/cliente-home.html");
-
 			$plantilla = $this->reemplazar($plantilla, "{{barraSuperior}}", $barraSup);
 			$plantilla = $this->reemplazar($plantilla, "{{barraLateral}}", $barraLat);
-			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
-			$this->mostrarVista($plantilla);
-		}		
+
+			return $plantilla;
+		}	
 	}
 ?>
