@@ -7,14 +7,8 @@
 		public function login($DNI,$password,$tipo)
 		{
 			$this->conectar();
-<<<<<<< HEAD
 			$aux = $this->consultar("SELECT nombre FROM Usuario WHERE DNI = '".$DNI."' 
 									AND password = '".$password."' AND tipo = ".$tipo." ");
-=======
-			$aux = $this->consultar("SELECT `nombre` FROM `Usuario` WHERE `DNI` = ".$DNI." 
-									AND `password` = '".$password."' AND `tipo` = ".$tipo."");
-			
->>>>>>> origin/master
 			$this->desconectar();
 			$cont = 0;
 			$nombre = "";
