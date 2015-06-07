@@ -74,52 +74,6 @@ else
 	echo("No se creo la tabla Usuario<br>");
 }
 
-//Creacion tabla Cliente
-$tabla = "CREATE TABLE Cliente(
-	DNI_Cliente varchar(10),
-	PRIMARY KEY(DNI_Cliente),
-	FOREIGN KEY(DNI_Cliente) REFERENCES Usuario(DNI)
-	)";
-if(mysqli_query($conexion,$tabla))
-{
-	echo("Se creo la tabla Cliente<br>");
-}
-else
-{
-	echo("No se creo la tabla Cliente<br>");
-}
-
-//Creacion tabla Operario
-$tabla = "CREATE TABLE Operario(
-	DNI_Operario varchar(10),
-	privilegio int NOT NULL,
-	PRIMARY KEY(DNI_Operario),
-	FOREIGN KEY(DNI_Operario) REFERENCES Usuario(DNI)
-	)";
-if(mysqli_query($conexion,$tabla))
-{
-	echo("Se creo la tabla Operario<br>");
-}
-else
-{
-	echo("No se creo la tabla Operario<br>");
-}
-
-//Creacion tabla Administrador
-$tabla = "CREATE TABLE Administrador(
-	DNI_Administrador varchar(10),
-	PRIMARY KEY(DNI_Administrador),
-	FOREIGN KEY(DNI_Administrador) REFERENCES Usuario(DNI)
-	)";
-if(mysqli_query($conexion,$tabla))
-{
-	echo("Se creo la tabla Administrador<br>");
-}
-else
-{
-	echo("No se creo la tabla Administrador<br>");
-}
-
 //Creacion tabla Cotizacion
 $tabla = "CREATE TABLE Cotizacion(
 	codigo int AUTO_INCREMENT,

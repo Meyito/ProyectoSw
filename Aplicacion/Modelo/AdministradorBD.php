@@ -35,18 +35,13 @@
 			$this->conectar();
 			
 			$aux = $this->consultar("INSERT INTO Usuario VALUES('".$DNI."','".$password."','".$nombre."',3,'".$telefono."','".$correo_electronico."','".$direccion."')");
+			$this->desconectar();
+
 			if($aux)
 			{
-				$aux = $this->consultar("INSERT INTO Cliente VALUES('".$DNI."')");
-				if($aux)
-				{
-					$this->desconectar();
-					return true;
-				}
-				
+				return true;
 			}
 			
-			$this->desconectar();
 			return false;
 			
 		}
@@ -55,18 +50,13 @@
 			$this->conectar();
 			
 			$aux = $this->consultar("INSERT INTO Usuario VALUES('".$DNI."','".$password."','".$nombre."',2,'".$telefono."','".$correo_electronico."','".$direccion."')");
+			$this->desconectar();
+
 			if($aux)
 			{
-				$aux = $this->consultar("INSERT INTO Operario VALUES('".$DNI."')");
-				if($aux)
-				{
-					$this->desconectar();
-					return true;
-				}
-				
+				return true;
 			}
 			
-			$this->desconectar();
 			return false;
 		}
 
@@ -79,49 +69,16 @@
 			return $aux;
 		}
 		
-
 		//DELETES
-		public function eliminarCliente($DNI)
+		
+		public function eliminarUsuario($DNI)
 		{
 			$this->conectar();
-			$aux = $this->consultar("DELETE FROM Cliente WHERE DNI_Cliente = '".$DNI."'");
-			if($aux)
-			{
-				$aux = $this->consultar("DELETE FROM Usuario WHERE DNI = '".$DNI."'");
-				$this->desconectar();
-				if($aux)
-				{
-					return true;
-				}
-				
-			}
-			else
-			{
-				$this->desconectar();
-				return false;
-			}
-			
+			$aux = $this->consultar("DELETE FROM Usuario WHERE DNI = '".$DNI."'");
+			$this->desconectar();
+			return $aux;
 		}
-		public function eliminarOperario($DNI)
-		{
-			$this->conectar();
-			$aux = $this->consultar("DELETE FROM Operario WHERE DNI_Operario = '".$DNI."'");
-			if($aux)
-			{
-				$aux = $this->consultar("DELETE FROM Usuario WHERE DNI = '".$DNI."'");
-				$this->desconectar();
-				if($aux)
-				{
-					return true;
-				}
-				
-			}
-			else
-			{
-				$this->desconectar();
-				return false;
-			}
-		}
+
 		//SELECTS
 		public function visualizarPrendas($codigoPedido)
 		{
