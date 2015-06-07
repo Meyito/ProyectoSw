@@ -58,7 +58,7 @@ class ClienteBD extends Modelo
 			$this->desconectar();
 			return false;
 		}
-	public function visualizarPedidosVigentes()
+	public function visualizarPedidosVigentes($codigoCliente)
 	{
 		$this->conectar();
 		$aux = $this->consultar("SELECT * FROM Pedido WHERE estado = 'vigente'");
@@ -70,7 +70,7 @@ class ClienteBD extends Modelo
 		}
 		return $datos;
 	}
-	public function visualizarPedidosHistoricos()
+	public function visualizarPedidosFinalizados($codigoCliente)
 	{
 		$this->conectar();
 		$aux = $this->consultar("SELECT * FROM Pedido WHERE estado = 'finalizado'");

@@ -137,6 +137,14 @@
 			}
 			return $datos;
 		}
+		public function modificarPedido($codigoPedido,$estado)
+		{
+			$this->conectar();
+			$aux = $this->consultar("UPDATE Pedido SET estado = '".$estado."' WHERE codigo = ".$codigoPedido." ");
+			$this->desconectar();
+			return $aux;
+
+		}
 		public function modificarPrenda($codigo,$cantidad,$descripcion,$codigoEstado,$codigoCotizacion,$codigoDisenio,$codigoBodega)
 		{
 			$this->conectar();
@@ -151,6 +159,17 @@
 		{
 			$this->conectar();
 			$aux = $consultar("SELECT * FROM Cotizacion");
+			$datos = array();
+			while($fila = mysqli_fetch_array($aux))
+			{
+				array_push($datos, $fila);
+			}
+			return $datos;
+		}
+		public function visualizarCotizacionesPendientes()
+		{
+			$this->conectar();
+			$aux = $consultar("SELECT * FROM Cotizacion WHERE estado = 'pendiente'");
 			$datos = array();
 			while($fila = mysqli_fetch_array($aux))
 			{
