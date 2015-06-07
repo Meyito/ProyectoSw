@@ -31,24 +31,33 @@ class ClienteBD extends Modelo
 		}
 
 	public function cambiarContrasenia($DNI,$password,$newPassword)
-	{
-		$this->conectar();
-		$aux = $this->consultar("SELECT DNI FROM Usuario WHERE DNI = '".$DNI."' 
-								AND password = '".$password."'");
-		if($aux!=false)
 		{
-			$aux = $this->consultar("UPDATE Usuario SET password = '".$newPassword."'
-									WHERE DNI = '".$DNI."' AND password = '".$password."'");
-			
-			if($aux)
+			$this->conectar();
+			$aux = $this->consultar("SELECT DNI FROM Usuario WHERE DNI = '".$DNI."' 
+									AND password = '".$password."'");
+			if($aux!=false)
 			{
-				$this->desconectar();
-				return true;
+				$cont = 0;
+				while($fila = mysqli_fetch_array($aux))
+				{
+					$cont++:
+				}
+				if($cont == 0 || $cont > 1)
+				{
+					return false;
+				}
+				$aux = $this->consultar("UPDATE Usuario SET password = '".$newPassword."'
+										WHERE DNI = '".$DNI."'");
+				
+				if($aux)
+				{
+					$this->desconectar();
+					return true;
+				}
 			}
+			$this->desconectar();
+			return false;
 		}
-		$this->desconectar();
-		return false;
-	}
 	public function visualizarPedidosVigentes()
 	{
 		$this->conectar();

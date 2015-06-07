@@ -37,8 +37,17 @@
 									AND password = '".$password."'");
 			if($aux!=false)
 			{
+				$cont = 0;
+				while($fila = mysqli_fetch_array($aux))
+				{
+					$cont++:
+				}
+				if($cont == 0 || $cont > 1)
+				{
+					return false;
+				}
 				$aux = $this->consultar("UPDATE Usuario SET password = '".$newPassword."'
-										WHERE DNI = '".$DNI."' AND password = '".$password."'");
+										WHERE DNI = '".$DNI."'");
 				
 				if($aux)
 				{
@@ -178,6 +187,62 @@
 				}
 			return false;
 
+		}
+		public function visualizarDisenio()
+		{
+			$this->conectar();
+			$aux = $this->consultar("SELECT * FROM Disenio");
+			$this->desconectar();
+			$datos = array();
+			while($fila = mysqli_fetch_array($aux))
+			{
+				array_push($datos,$fila);
+			}
+			return $datos;
+		}
+		public function eliminarDisenio($codigo)
+		{
+			$this->conectar();
+			$aux = $this->consultar("DELETE FROM Disenio WHERE codigo = '".$codigo."'");
+			$this->desconectar();
+			return $aux;
+		}
+		public function registrarBodega($nombre,$descripcion)
+		{
+			$this->conectar();
+			if($descripcion == "")
+			{
+				$aux = $this->consultar("INSERT INTO Bodega(nombre) VALUES ('".$nombre."')");
+			}
+			else
+			{
+				$aux = $this->consultar("INSERT INTO Bodega(nombre,descripcion) VALUES ('".$nombre."','".$descripcion."')");
+			}
+			$this->desconectar();
+			if($aux)
+				{
+					return $aux;
+				}
+			return false;
+		}
+		public function visualizarBodega()
+		{
+			$this->conectar();
+			$aux = $this->consultar("SELECT * FROM Bodega");
+			$this->desconectar();
+			$datos = array();
+			while($fila = mysqli_fetch_array($aux))
+			{
+				array_push($datos,$fila);
+			}
+			return $datos;
+		}
+		public function eliminarBodega($codigo)
+		{
+			$this->conectar();
+			$aux = $this->consultar("DELETE FROM Bodega WHERE codigo = '".$codigo."'");
+			$this->desconectar();
+			return $aux;
 		}
 		public function responderCotizacion($codigoOperario,$codigo,$descripcion,$precioTotal)
 		{

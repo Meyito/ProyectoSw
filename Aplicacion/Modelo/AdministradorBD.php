@@ -36,8 +36,17 @@
 									AND password = '".$password."'");
 			if($aux!=false)
 			{
+				$cont = 0;
+				while($fila = mysqli_fetch_array($aux))
+				{
+					$cont++:
+				}
+				if($cont == 0 || $cont > 1)
+				{
+					return false;
+				}
 				$aux = $this->consultar("UPDATE Usuario SET password = '".$newPassword."'
-										WHERE DNI = '".$DNI."' AND password = '".$password."'");
+										WHERE DNI = '".$DNI."'");
 				
 				if($aux)
 				{
