@@ -68,14 +68,13 @@
 		{
 			$this->conectar();
 			$aux = $this->consultar("SELECT h.codigo,h.cantidad,h.descripcion,e.nombre,b.nombre
-									FROM Prenda h,Bodega b,Pedido p,Cotizacion c,Estado e,Diseño d,Foto f
+									FROM Prenda h,Bodega b,Pedido p,Cotizacion c,Estado e,Diseño d
 									WHERE p.codigo = ".$codigoPedido." 
 									AND p.codigoCotizacion = c.codigo
 									AND c.codigo = h.codigoCotizacion
 									AND h.codigoEstado = e.codigo
 									AND h.codigoBodega = b.codigo
-									AND h.codigoDiseño = d.codigo
-									AND d.codigoFoto = f.codigo");
+									AND h.codigoDiseño = d.codigo");
 			$this->desconectar();
 			$datos = array();
 			while($fila = mysqli_fetch_array($aux))
@@ -119,37 +118,20 @@
 		public function registrarDisenio($url,$descripcion)
 		{
 			$this->conectar();
-			$aux = $this->consultar("INSERT INTO Foto(url) VALUES('".$url."')");
-			if($aux)
+			if($descripcion == "")
 			{
-				$aux = $this->consultar("SELECT codigo FROM Foto WHERE url = '".$url."'");
-				if($aux!=false)
-				{
-					$dato = 0;
-					while($fila = mysqli_fetch_array($aux))
-					{
-						$dato = $fila[0];
-					}
-					if($dato!=0)
-					{
-						if($decripcion == "")
-						{
-							$aux = $this->consultar("INSERT INTO Disenio(codigoFoto) VALUES('".$dato."')");
-							$this->desconectar();
-							return $aux;
-						}
-						else
-						{
-							$aux = $this->consultar("INSERT INTO Disenio(codigoFoto,descripcion) VALUES('".$dato."','"$descripcion"')");
-							$this->desconectar();
-							return $aux;
-						}
-					}
-
-				}
+				$aux = $this->consultar("INSERT INTO Disenio(url) VALUES ('".$url."')");
+			}
+			else
+			{
+				$aux = $this->consultar("INSERT INTO Disenio(url,descripcion) VALUES ('".$url."','".$descripcion."')");
 			}
 			$this->desconectar();
-			return $aux;
+			if($aux)
+				{
+					return $aux;
+				}
+			return false;
 
 		}
 		public function responderCotizacion($codigoOperario,$codigo,$descripcion,$precioTotal)

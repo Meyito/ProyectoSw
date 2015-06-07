@@ -38,28 +38,12 @@ else
 	echo("No se creo la tabla Bodega<br>");
 }
 
-//Creacion tabla Foto
-$tabla = "CREATE TABLE Foto(
-	codigo int AUTO_INCREMENT,
-	url varchar(100) NOT NULL,
-	PRIMARY KEY(codigo)
-	)";
-if(mysqli_query($conexion,$tabla))
-{
-	echo("Se creo la tabla Foto<br>");
-}
-else
-{
-	echo("No se creo la tabla Foto<br>");
-}
-
 //Creacion tabla Diseño
 $tabla = "CREATE TABLE Disenio(
 	codigo int AUTO_INCREMENT,
-	codigoFoto int NULL,
+	url varchar(100) NULL,
 	descripcion varchar(100),
-	PRIMARY KEY(codigo),
-	FOREIGN KEY(codigoFoto) REFERENCES Foto(codigo)
+	PRIMARY KEY(codigo)
 	)";
 if(mysqli_query($conexion,$tabla))
 {
