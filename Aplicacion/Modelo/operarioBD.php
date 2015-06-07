@@ -4,14 +4,63 @@
 
 	class Operario extends Modelo
 	{
-		public function visualizarPedidosPendientes()
+		
+		public function visualizarPedidosVigentes()
 		{
 			$this->conectar();
-			$aux = $consultar("SELECT * FROM Pedido WHERE estado='pendiente'");
+			$aux = $this->consultar("SELECT * FROM Pedido WHERE estado = 'vigente'");
+			$this->desconectar();
 			$datos = array();
 			while($fila = mysqli_fetch_array($aux))
-			{	
-				array_push($datos,$fila);
+			{
+				array_push($datos, $fila);
+			}
+			return $datos;
+		}
+		public function visualizarPedidosFinalizados()
+		{
+			$this->conectar();
+			$aux = $this->consultar("SELECT * FROM Pedido WHERE estado = 'finalizado'");
+			$this->desconectar();
+			$datos = array();
+			while($fila = mysqli_fetch_array($aux))
+			{
+				array_push($datos, $fila);
+			}
+		}
+		public function visualizarPedidosCliente($codigoCliente,$estado)
+		{
+			$this->conectar();
+			if($estado == "")
+			{
+				$aux = $this->consultar("SELECT p.codigo,p.fecha_Creacion,p.fecha_Recoleccion,p.fecha_Entrega,p.direccion 
+										FROM Cotizacion c,Pedido p WHERE p.codigoCotizacion = c.codigo
+										AND c.DNI_Cliente = '".$codigoCliente."'");
+			}
+			else
+			{
+				$aux = $this->consultar("SELECT p.codigo,p.fecha_Creacion,p.fecha_Recoleccion,p.fecha_Entrega,p.direccion 
+										FROM Cotizacion c,Pedido p WHERE p.codigoCotizacion = c.codigo
+										AND c.DNI_Cliente = '".$codigoCliente."' 
+										AND p.estado='".$estado."'");
+			}
+			$this->desconectar();
+			$datos = array();
+			while($fila = mysqli_fetch_array($aux))
+			{
+				array_push($datos, $fila);
+			}
+			return $datos;
+		}
+		public function visualizarPedidos()
+		{
+			$this->conectar();
+			$aux = $this->consultar("SELECT * FROM Pedido");
+			$this->desconectar();
+			$datos = array();
+			while($fila = mysqli_fetch_array($aux))
+			{
+				array_push($datos, $fila);
 			}
 			return $datos;
 		}
