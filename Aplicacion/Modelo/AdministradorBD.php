@@ -1,14 +1,15 @@
 <?php
 	include_once "Aplicacion/Modelo/modelo.php";
 
-	class Administrador extends Modelo
+	class AdministradorBD extends Modelo
 	{
 
 		public function login($DNI,$password,$tipo)
 		{
 			$this->conectar();
-			$aux = $this->consultar("SELECT nombre FROM Usuario WHERE DNI = '".$DNI."' 
-									AND password = '".$password."' AND tipo = ".$tipo."");
+			$aux = $this->consultar("SELECT `nombre` FROM `Usuario` WHERE `DNI` = ".$DNI." 
+									AND `password` = '".$password."' AND `tipo` = ".$tipo."");
+			
 			$this->desconectar();
 			$cont = 0;
 			$nombre = "";
@@ -17,14 +18,16 @@
 				$nombre = $fila[0];
 				$cont++;
 			}
-			if($cont>0)
-			{
-				return false;
-			}
-			else
+			
+			if($cont==1)
 			{
 				return $nombre;
 			}
+			else
+			{
+				return false;
+			}
+			
 		}
 
 		//INSERTS

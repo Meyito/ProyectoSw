@@ -1,5 +1,9 @@
 <?php
 
+	include_once "Aplicacion/Modelo/AdministradorBD.php";
+	include_once "Aplicacion/Modelo/clienteBD.php";
+	include_once "Aplicacion/Modelo/operarioBD.php";
+
 	class Controlador{
 
 		/**
@@ -61,9 +65,20 @@
 		*	@param $cedula - Numero de cedula del usuario a verificar
 		*	@param $contrasena - Contrasena del usuario a verificar
 		*/
-		public function login($cedula, $password){
+		public function login($cedula, $password, $tipo){
 			$passwordSSH=$this->encriptarPassword($password);
 
+			if($tipo=="Administrador"){
+				$adminBD=new AdministradorBD();
+				$datos=$adminBD->login($cedula, $passwordSSH, 1);
+				if($datos!=false){
+					$_SESSION["tipo"]="Administrador";
+					$this->cargarPerfil($datos);
+					header('Location: index.php');
+				}else{
+					echo "error";
+				}
+			}
 			//Conexion al Modelo de Usuarios
 			//$usuarioBD = new usuarioBD();
 
@@ -91,11 +106,7 @@
 
 			//esto es de prueba
 			$datos=$_POST["cedula"];
-			if($_POST["tipo"]=="Administrador"){
-				$_SESSION["tipo"]="Administrador";
-				$this->cargarPerfil($datos);
-				header('Location: index.php');
-			}else if($_POST["tipo"]=="Cliente"){
+			if($_POST["tipo"]=="Cliente"){
 				$_SESSION["tipo"]="Cliente";
 				$this->cargarPerfil($datos);
 				header('Location: index.php');

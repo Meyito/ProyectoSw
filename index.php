@@ -95,7 +95,7 @@
 	}
 	//Para los usuarios que no estan logueados
 	else if(isset($_POST["tipo"])){
-		$ppal->login($_POST["cedula"], $_POST["password"]);
+		$ppal->login($_POST["cedula"], $_POST["password"], $_POST["tipo"]);
 	}
 
 	//Muestra el inicio de la aplicacion

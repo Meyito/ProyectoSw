@@ -2,7 +2,7 @@
 
 include_once "Aplicacion/Modelo/modelo.php";
 
-class Cliente extends Modelo
+class ClienteBD extends Modelo
 {
 	public function visualizarPedidosVigentes()
 	{
