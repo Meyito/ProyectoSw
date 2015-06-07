@@ -17,7 +17,7 @@
 		*/
 		public function conectar()
 		{
-			$this->conexion = mysqli_connect("localhost","root","","alangame") or die(mysql_error($conexion));
+			$this->conexion = mysqli_connect("localhost","root","","Lavanderia") or die(mysql_error($conexion));
 		}
 
 		/**
