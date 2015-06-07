@@ -64,6 +64,26 @@
 			}
 			return $datos;
 		}
+		public function visualizarPrendas($codigoPedido)
+		{
+			$this->conectar();
+			$aux = $this->consultar("SELECT h.codigo,h.cantidad,h.descripcion,e.nombre,b.nombre
+									FROM Prenda h,Bodega b,Pedido p,Cotizacion c,Estado e,Diseño d,Foto f
+									WHERE p.codigo = '".$codigoPedido."' 
+									AND p.codigoCotizacion = c.codigo
+									AND c.codigo = h.codigoCotizacion
+									AND h.codigoEstado = e.codigo
+									AND h.codigoBodega = b.codigo
+									AND h.codigoDiseño = d.codigo
+									AND d.codigoFoto = f.codigo");
+			$this->desconectar();
+			$datos = array();
+			while($fila = mysqli_fetch_array($aux))
+			{
+				array_push($datos, $fila);
+			}
+			return $datos;
+		}
 		public function visualizarCotizacion()
 		{
 			$this->conectar();
