@@ -116,22 +116,52 @@
 			}
 			return $datos;
 		}
-		public function responderCotizacion($codigo,$descripcion,$precioTotal)
+		public function registrarDisenio($url,$descripcion)
+		{
+			$this->conectar();
+			$aux = $this->consultar("INSERT INTO Foto(url) VALUES('".$url."')");
+			if($aux)
+			{
+				$aux = $this->consultar("SELECT codigo FROM Foto WHERE url = '".$url."'");
+				if($aux!=false)
+				{
+					$datos = 0;
+					while($fila = mysqli_fetch_array($aux))
+					{
+						$datos = $fila[0];
+					}
+					if($datos!=0)
+					{
+						if($decripcion == "")
+						{
+							
+						}
+					}
+
+				}
+			}
+			$this->desconectar();
+			return $aux;
+
+		}
+		public function responderCotizacion($codigoOperario,$codigo,$descripcion,$precioTotal)
 		{
 			$this->conectar();
 			if($descripcion == "")
 			{
-				$aux = $consultar("UPDATE Cotizacion SET estado = 'respuesta',precioTotal = ".$precioTotal."
+				$aux = $consultar("UPDATE Cotizacion SET DNI_Operario = '".$codigoOperario."',estado = 'respuesta',precioTotal = ".$precioTotal."
 									WHERE codigo='".$codigo."'");
 			}
 			else
 			{
-				$aux = $consultar("UPDATE Cotizacion SET descripcion = '".$descripcion."',estado = 'respuesta',precioTotal = '".$precioTotal."'
+				$aux = $consultar("UPDATE Cotizacion SET DNI_Operario = '".$codigoOperario."',descripcion = '".$descripcion."',estado = 'respuesta',precioTotal = '".$precioTotal."'
 									WHERE codigo='".$codigo."'");
 			}
 			$this->desconectar();
 			return $aux;
 		}
+
+
 	}
 
 ?>
