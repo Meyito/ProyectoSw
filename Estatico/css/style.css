@@ -427,6 +427,25 @@ h1,h2,h3,h4,h5,h6,p{
     box-shadow: 0 0 1px #CCC;
 }
 
+.form-settings{
+	position: absolute; 
+	top: 50%;
+	left: 50%;
+	vertical-align: middle;
+	width: 35rem;
+	height: 20rem;
+	background-color: #FFF;
+	transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    text-align: center;
+    padding-top: 1rem;
+    padding-right: 3rem;
+    padding-left: 3rem;
+    font-size: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 0 1px #CCC;
+}
+
 .pruebaTabla{
 	display: table;
 	width: 100%;
@@ -446,6 +465,11 @@ h1,h2,h3,h4,h5,h6,p{
 
 .registro{
 	width: 32rem;
+}
+
+.form-settings .registro{
+	width: 20rem;
+	padding-bottom: 1rem;
 }
 
 .form-login{
@@ -591,6 +615,11 @@ input[type="password"]{
 .ocultar{
 	display: none;
 }
+
+.botonSettings{
+	width: 14rem !important;
+}
+
 a{
 	text-decoration: none;
 }

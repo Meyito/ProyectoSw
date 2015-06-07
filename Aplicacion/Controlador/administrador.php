@@ -32,6 +32,13 @@
 			$this->mostrarVista($plantilla);
 		}
 
+		public function vistaConfiguracion(){
+			$plantilla = $this -> init();
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/settings.html");
+			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
+			$this->mostrarVista($plantilla);
+		}
+
 		public function vistaRegistroCliente(){
 			$plantilla = $this -> init();
 			$workspace = $this->leerPlantilla("Aplicacion/Vista/registro.html");
@@ -65,11 +72,26 @@
 		}
 
 		public function registrarCliente($nombre, $cedula, $password, $email, $direccion, $tel){
-			echo "CLIENTE".$nombre." ".$cedula." ".$password." ".$email." ".$direccion." ".$tel;
+			$password2=$this->encriptarPassword($password);
+			echo "CLIENTE".$nombre." ".$cedula." ".$password2." ".$email." ".$direccion." ".$tel;
 		}
 
 		public function registrarOperario($nombre, $cedula, $password, $email, $direccion, $tel){
-			echo "OPERARIO".$nombre." ".$cedula." ".$password." ".$email." ".$direccion." ".$tel;
+			$password2=$this->encriptarPassword($password);
+			echo "OPERARIO".$nombre." ".$cedula." ".$password2." ".$email." ".$direccion." ".$tel;
+		}
+
+		public function cambiarPassword($actual, $nueva, $confirmacion){
+			$nueva2=$this->encriptarPassword($nueva);
+			$confirmacion2=$this->encriptarPassword($confirmacion);
+
+			if($nueva2==$confirmacion2){
+				//query
+				echo "contraseñas iguales :)";
+				$actual2=$this->encriptarPassword($actual);
+			}else{
+				echo "contraseñas diferentes :(";
+			}
 		}
 	}
 ?>

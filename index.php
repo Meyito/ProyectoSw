@@ -19,6 +19,8 @@
 					$admin->registrarCliente($_POST["nombre"], $_POST["cedula"], $_POST["password"], $_POST["email"], $_POST["direccion"], $_POST["tel"]);
 				}else if($_POST["tipo"]=="registroOperario"){
 					$admin->registrarOperario($_POST["nombre"], $_POST["cedula"], $_POST["password"], $_POST["email"], $_POST["direccion"], $_POST["tel"]);
+				}if($_POST["tipo"]=="settings"){
+					$admin->cambiarPassword($_POST["password"], $_POST["nuevop"], $_POST["confp"]);
 				}
 
 			}
@@ -42,7 +44,7 @@
 					session_destroy();
 					header('location:index.php');
 				}else if($_GET["accion"]=="settings"){
-					echo "hace algo admin";
+					$admin->vistaConfiguracion();
 				}
 			}else{
 				$admin->inicioValidado();
