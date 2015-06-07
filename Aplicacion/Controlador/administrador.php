@@ -1,6 +1,7 @@
 <?php
 
 	require_once "Aplicacion/Controlador/controlador.php";
+	include_once "Aplicacion/Modelo/AdministradorBD.php";
 
 	class Administrador extends Controlador{
 
@@ -40,11 +41,16 @@
 		}
 
 		public function vistaRegistroCliente(){
+			$plantilla=$this->cargarRegistroCliente();
+			$this->mostrarVista($plantilla);
+		}
+
+		public function cargarRegistroCliente(){
 			$plantilla = $this -> init();
 			$workspace = $this->leerPlantilla("Aplicacion/Vista/registro.html");
 			$workspace = $this->reemplazar($workspace, "{{tipo}}", "registroCliente");
 			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
-			$this->mostrarVista($plantilla);
+			return $plantilla;
 		}
 
 		public function vistaRegistroOperario(){
@@ -72,8 +78,18 @@
 		}
 
 		public function registrarCliente($nombre, $cedula, $password, $email, $direccion, $tel){
+			$admin=new AdministradorBD();
 			$password2=$this->encriptarPassword($password);
-			echo "CLIENTE".$nombre." ".$cedula." ".$password2." ".$email." ".$direccion." ".$tel;
+			$ok=$admin->registrarCliente($cedula,$password2,$nombre,$tel,$email,$direccion);
+			if($ok){
+				$plantilla = $this->cargarRegistroCliente();
+				$plantilla = $this->alerta($plantilla, "Registro Exitoso", "");
+				$this->mostrarVista($plantilla);
+			}else{
+				$plantilla = $this->cargarRegistroCliente();
+				$plantilla = $this->alerta($plantilla, "Registro No Exitoso", "Por favor verifique que los datos ingresados sean validos");
+				$this->mostrarVista($plantilla);
+			}
 		}
 
 		public function registrarOperario($nombre, $cedula, $password, $email, $direccion, $tel){
