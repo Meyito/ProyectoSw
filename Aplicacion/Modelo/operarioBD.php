@@ -105,6 +105,10 @@
 			}
 			return $datos;
 		}
+		public function visualizarCotizacion($DNI_cliente)
+		{
+
+		}
 		public function responderCotizacion($codigo,$descripcion,$estado,$precioTotal)
 		{
 			$this->conectar();

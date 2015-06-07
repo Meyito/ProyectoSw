@@ -8,7 +8,7 @@
 		{
 			$this->conectar();
 			$aux = $this->consultar("SELECT nombre FROM Usuario WHERE DNI = '".$DNI."' 
-									AND password = '".$password."' AND tipo = ".$tipo."");
+									AND password = '".$password."' AND tipo = ".$tipo." ");
 			$this->desconectar();
 			$cont = 0;
 			$nombre = "";
