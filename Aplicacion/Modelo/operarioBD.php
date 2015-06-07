@@ -87,7 +87,7 @@
 		public function modificarPrenda($codigo,$cantidad,$descripcion,$codigoEstado,$codigoCotizacion,$codigoDisenio,$codigoBodega)
 		{
 			$this->conectar();
-			$aux = $this->consultar("UPDATE Prenda SET cantidad = ".$cantidad.",descripcion = ".$descripcion.",
+			$aux = $this->consultar("UPDATE Prenda SET cantidad = ".$cantidad.",descripcion = '".$descripcion."',
 									codigoEstado = ".$codigoEstado.",codigoCotizacion = ".$codigoCotizacion.",
 									codigoDisenio = ".$codigoDisenio.",codigoBodega = ".$codigoBodega." 
 									WHERE codigo = ".$codigo." ");
