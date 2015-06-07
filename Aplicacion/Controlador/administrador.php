@@ -34,10 +34,15 @@
 		}
 
 		public function vistaConfiguracion(){
+			$plantilla = $this -> cargarConfiguracion();
+			$this->mostrarVista($plantilla);
+		}
+
+		public function cargarConfiguracion(){
 			$plantilla = $this -> init();
 			$workspace = $this->leerPlantilla("Aplicacion/Vista/settings.html");
 			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
-			$this->mostrarVista($plantilla);
+			return $plantilla;
 		}
 
 		public function vistaRegistroCliente(){
@@ -117,11 +122,22 @@
 			$confirmacion2=$this->encriptarPassword($confirmacion);
 
 			if($nueva2==$confirmacion2){
-				//query
-				echo "contraseñas iguales :)";
 				$actual2=$this->encriptarPassword($actual);
+				$admin=new AdministradorBD();
+				$ok=$admin->cambiarContrasenia($_SESSION["dni"],$actual2,$nueva2);
+				if($ok){
+					$plantilla=$this->cargarConfiguracion();
+					$plantilla=$this->alerta($plantilla, "Contraseña actual cambiada exitosamente", "");
+					$this->mostrarVista($plantilla);
+				}else{
+					$plantilla=$this->cargarConfiguracion();
+					$plantilla=$this->alerta($plantilla, "ERROR", "Contraseña incorrecta");
+					$this->mostrarVista($plantilla);
+				}
 			}else{
-				echo "contraseñas diferentes :(";
+				$plantilla=$this->cargarConfiguracion();
+				$plantilla=$this->alerta($plantilla, "ERROR", "Las contraseñas no son iguales");
+				$this->mostrarVista($plantilla);
 			}
 		}
 	}
