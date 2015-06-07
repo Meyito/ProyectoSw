@@ -40,7 +40,7 @@ class ClienteBD extends Modelo
 				$cont = 0;
 				while($fila = mysqli_fetch_array($aux))
 				{
-					$cont++:
+					$cont++;
 				}
 				if($cont == 0 || $cont > 1)
 				{
