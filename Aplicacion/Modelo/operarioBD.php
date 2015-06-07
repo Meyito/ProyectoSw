@@ -41,7 +41,7 @@
 			{
 				$aux = $this->consultar("SELECT p.codigo,p.fecha_Creacion,p.fecha_Recoleccion,p.fecha_Entrega,p.direccion 
 										FROM Cotizacion c,Pedido p WHERE p.codigoCotizacion = c.codigo
-										AND c.DNI_Cliente = '".$codigoCliente."' 
+										AND c.DNI_Cliente = '".$codigoCliente."'
 										AND p.estado='".$estado."'");
 			}
 			$this->desconectar();
@@ -87,7 +87,12 @@
 		public function modificarPrenda($codigo,$cantidad,$descripcion,$codigoEstado,$codigoCotizacion,$codigoDisenio,$codigoBodega)
 		{
 			$this->conectar();
+			$aux = $this->consultar("UPDATE Prenda SET cantidad = ".$cantidad.",descripcion = ".$descripcion.",
+									codigoEstado = ".$codigoEstado.",codigoCotizacion = ".$codigoCotizacion.",
+									codigoDisenio = ".$codigoDisenio.",codigoBodega = ".$codigoBodega." 
+									WHERE codigo = ".$codigo." ");
 			$this->desconectar();
+			return $aux;
 		}
 		public function visualizarCotizacion()
 		{
