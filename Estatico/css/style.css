@@ -407,6 +407,47 @@ h1,h2,h3,h4,h5,h6,p{
 	height: 100%;
 }
 
+
+.form-registro{
+	position: absolute; 
+	top: 50%;
+	left: 50%;
+	vertical-align: middle;
+	width: 50rem;
+	height: 35rem;
+	background-color: #FFF;
+	transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    text-align: center;
+    padding-top: 1rem;
+    padding-right: 3rem;
+    padding-left: 3rem;
+    font-size: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 0 1px #CCC;
+}
+
+.pruebaTabla{
+	display: table;
+	width: 100%;
+}
+
+.col{
+	display: table-row;
+}
+
+.celda{
+	display: table-cell;
+}
+
+.celda1{
+	width: 6rem;
+}
+
+.registro{
+	width: 32rem;
+}
+
 .form-login{
 	position: absolute; 
 	top: 50%;
@@ -440,13 +481,22 @@ h1,h2,h3,h4,h5,h6,p{
 	background-color: #16a085;
 	border: none;
 }
+
 .inputConTexto{
 	width: 100%;
 }
+
+.ajuste{
+	width: 0;
+	height: 0;
+	clear: both;
+}
+
 .inputConTexto input[type="text"]{
 	width: 74%;
 	float: right;
 }
+
 .inputConTexto .texto{
 	text-align: left;
 	margin-top: 1.5rem;
@@ -471,6 +521,7 @@ select{
 	border: none;
 }
 
+
 input{
 	height: 3rem;
 	box-sizing: border-box;
@@ -486,6 +537,7 @@ input[type="date"], input[type="datetime-local"],input[type="range"]{
 	border: 1px solid #BBB;
 }
 input[type="text"]{
+	width: 100%
 	border-radius: 0.2rem;
 	border: 1px solid #BBB;
 	transition: all .3s ease;
@@ -497,6 +549,48 @@ input[type="text"]:hover{
 	background-color: #ecf0f1;
 }
 
+input[type="password"]:hover{
+	border: 1px solid #999;
+	background-color: #ecf0f1;
+}
+
+input[type="email"]:hover{
+	border: 1px solid #999;
+	background-color: #ecf0f1;
+}
+
+input[type="tel"]:hover{
+	border: 1px solid #999;
+	background-color: #ecf0f1;
+}
+
+input[type="email"]{
+	border-radius: 0.2rem;
+	border: 1px solid #BBB;
+	transition: all .3s ease;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+input[type="tel"]{
+	border-radius: 0.2rem;
+	border: 1px solid #BBB;
+	transition: all .3s ease;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+input[type="password"]{
+	border-radius: 0.2rem;
+	border: 1px solid #BBB;
+	transition: all .3s ease;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.ocultar{
+	display: none;
+}
 a{
 	text-decoration: none;
 }

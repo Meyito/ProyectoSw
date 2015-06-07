@@ -4,12 +4,25 @@
 	require "Aplicacion/Controlador/controlador.php";
 	require "Aplicacion/Controlador/administrador.php";
 	require "Aplicacion/Controlador/cliente.php";
+	require "Aplicacion/Controlador/operario.php";
 
 	$ppal=new controlador();
 
 	//Si esta variable esta definida, el ususario esta logueado
 	if(isset($_SESSION["tipo"])){
-		if($_SESSION["tipo"]=="Administrador"){
+
+		if(isset($_POST["tipo"])){
+			if($_SESSION["tipo"]=="Administrador"){
+				$admin=new administrador();
+
+				if($_POST["tipo"]=="registroCliente"){
+					$admin->registrarCliente($_POST["nombre"], $_POST["cedula"], $_POST["password"], $_POST["email"], $_POST["direccion"], $_POST["tel"]);
+				}else if($_POST["tipo"]=="registroOperario"){
+					$admin->registrarOperario($_POST["nombre"], $_POST["cedula"], $_POST["password"], $_POST["email"], $_POST["direccion"], $_POST["tel"]);
+				}
+
+			}
+		}else if($_SESSION["tipo"]=="Administrador"){
 			$admin=new administrador();
 
 			if(isset($_GET["accion"])){
@@ -19,6 +32,10 @@
 					$admin->menuOperarios();
 				}else if($_GET["accion"]=="pedidos"){
 					$admin->vistaPedidos();
+				}else if($_GET["accion"]=="registrarCliente"){
+					$admin->vistaRegistroCliente();
+				}else if($_GET["accion"]=="registrarOperario"){
+					$admin->vistaRegistroOperario();
 				}else if($_GET["accion"]=="logout"){
 					$_SESSION["nombre"] = false;
 					$_SESSION["tipoUsuario"] = false;
@@ -50,6 +67,27 @@
 				}
 			}else{
 				$cliente->inicioValidado();
+			}
+		}else if($_SESSION["tipo"]=="Operario"){
+			$operario=new operario();
+
+			if(isset($_GET["accion"])){
+				if($_GET["accion"]=="pedidos"){
+					$operario->vistaPedidos();
+				}else if($_GET["accion"]=="disenos"){
+					$operario->menuDisenos();
+				}else if($_GET["accion"]=="solicitudes"){
+					$operario->vistaSolicitudes();
+				}else if($_GET["accion"]=="logout"){
+					$_SESSION["nombre"] = false;
+					$_SESSION["tipoUsuario"] = false;
+					session_destroy();
+					header('location:index.php');
+				}else if($_GET["accion"]=="settings"){
+					echo "hace algo operario";
+				}
+			}else{
+				$operario->inicioValidado();
 			}
 		}
 	}

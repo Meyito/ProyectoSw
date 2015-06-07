@@ -32,6 +32,22 @@
 			$this->mostrarVista($plantilla);
 		}
 
+		public function vistaRegistroCliente(){
+			$plantilla = $this -> init();
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/registro.html");
+			$workspace = $this->reemplazar($workspace, "{{tipo}}", "registroCliente");
+			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
+			$this->mostrarVista($plantilla);
+		}
+
+		public function vistaRegistroOperario(){
+			$plantilla = $this -> init();
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/registro.html");
+			$workspace = $this->reemplazar($workspace, "{{tipo}}", "registroOperario");
+			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
+			$this->mostrarVista($plantilla);
+		}
+
 		public function init(){
 			$plantilla = $this->leerPlantilla("Aplicacion/Vista/principal.html");
 
@@ -46,6 +62,14 @@
 			$plantilla = $this->reemplazar($plantilla, "{{barraLateral}}", $barraLat);
 
 			return $plantilla;
+		}
+
+		public function registrarCliente($nombre, $cedula, $password, $email, $direccion, $tel){
+			echo "CLIENTE".$nombre." ".$cedula." ".$password." ".$email." ".$direccion." ".$tel;
+		}
+
+		public function registrarOperario($nombre, $cedula, $password, $email, $direccion, $tel){
+			echo "OPERARIO".$nombre." ".$cedula." ".$password." ".$email." ".$direccion." ".$tel;
 		}
 	}
 ?>

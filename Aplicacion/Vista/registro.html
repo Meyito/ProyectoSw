@@ -1,0 +1,73 @@
+				<div class="form-registro">
+					<form action="index.php" method="POST">
+						
+						<div class="pruebaTabla">
+							<div class="col">
+								<div class="celda celda1">
+									NOMBRE:
+								</div>
+
+								<div class="celda">
+									<input class="registro" type="text" name="nombre" required>
+								</div>
+							</div>
+						
+							<div class="col">
+								<div class="celda celda1">
+									CC:
+								</div>
+
+								<div class="celda celda2">
+									<input class="registro" type="text" name="cedula" required>
+								</div>
+							</div>
+
+							<div class="col">
+								<div class="celda celda1">
+									CONTRASEÑA:
+								</div>
+
+								<div class="celda">
+									<input class="registro" type="password" name="password" required>
+								</div>
+							</div>
+
+							<div class="col">
+								<div class="celda celda1">
+									CORREO:
+								</div>
+
+								<div class="celda">
+									<input class="registro" type="email" name="email" required>
+								</div>
+							</div>
+
+							<div class="col">
+								<div class="celda celda1">
+									DIRECCION:
+								</div>
+
+								<div class="celda">
+									<input class="registro" type="text" name="direccion" required>
+								</div>
+							</div>
+
+							<div class="col">
+								<div class="celda celda1">
+									TELEFONO:
+								</div>
+
+								<div class="celda">
+									<input class="registro" type="tel" name="tel" required>
+								</div>
+							</div>
+
+						</div>
+
+						<input class="ocultar" type="text" name="tipo" value="{{tipo}}">
+
+						<div class="inputBoton">
+							<input type="submit" value="REGISTRAR">
+						</div>
+					</form>
+				</div>
