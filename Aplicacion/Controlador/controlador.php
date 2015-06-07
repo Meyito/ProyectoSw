@@ -76,7 +76,9 @@
 					$this->cargarPerfil($datos);
 					header('Location: index.php');
 				}else{
-					echo "error";
+					$inicio = $this->leerPlantilla("Aplicacion/Vista/index.html");
+					$inicio = $this->alerta($inicio, "No se ha podido iniciar sesión", "Verifique sus datos e intentelo nuevamente");
+					$this->mostrarVista($inicio);
 				}
 			}
 			//Conexion al Modelo de Usuarios
@@ -127,5 +129,17 @@
 		public function encriptarPassword($password){
 			return sha1($password);
 		}
+
+		/**
+		*	Método que se encarga de agregar una alerta al documento html
+		*	@param   $plantilla - plantilla sobre la cua se debe mostrar la alerta
+		*	@param   $titulo - titulo de la alerta
+		*	@param   $alerta - mensaje de la alerta
+		*	@return  un string del html de la plantilla que permite la ejecucion de la alerta
+		*/
+		public function alerta($plantilla, $titulo, $alerta)
+		{
+			return $plantilla."<script>alerta(\"".$titulo."\",\"".$alerta."\",3000);</script>";
+		}	
 	}
 ?>

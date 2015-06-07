@@ -1,49 +1,24 @@
-var menu=document.getElementById("menu");
-var desplegable=document.getElementById("desplegable");
-var contenido=document.getElementById("contenido");
-var bandera=false;
-var banderaClick=false;
+/**
+*	Genera alertas modales
+*/
+function alerta () {
+	var content = "";
+	if(arguments.length >= 2){
 
-
-function mostrarDesplegable(){
-	desplegable.style.marginLeft="0";
-	if(window.innerWidth>=1200){
-		contenido.style.width="76%";
-	}else if(window.innerWidth>=992 && window.innerWidth<1992){
-		contenido.style.width="68%";
-	}else if(window.innerWidth>=768 && window.innerWidth<992){
-		contenido.style.width="60%";
-	}
-}
-
-function ocultarDesplegable(){
-	if(!banderaClick){
-
-		if(window.innerWidth>=1200){
-			contenido.style.width="94%";
-			desplegable.style.marginLeft="-18%";
-		}else if(window.innerWidth>=992 && window.innerWidth<1992){
-			contenido.style.width="92%";
-			desplegable.style.marginLeft="-24%";
-		}else if(window.innerWidth>=768 && window.innerWidth<992){
-			contenido.style.width="90%";
-			desplegable.style.marginLeft="-30%";
-		}
-	}
-}
-
-function fijarDesplegable(){
-	if(!bandera){
-		bandera=true;
-		mostrarDesplegable();
-		banderaClick=true;
+		content = "<h3>"+arguments[0]+"</h3><p>"+arguments[1]+"</p>";
 	}else{
-		bandera=false;
-		ocultarDesplegable();
-		banderaClick=false;
+		content= "<p>"+arguments[0]+"</p>";
 	}
-}
 
-menu.addEventListener("mouseenter", mostrarDesplegable);
-menu.addEventListener("mouseleave", ocultarDesplegable);
-menu.addEventListener("click", fijarDesplegable);
+	var div = document.createElement("div");
+	var claseDiv = "alerta";
+	div.setAttribute("class", claseDiv);
+	div.innerHTML = content;
+	document.body.appendChild(div);
+	setTimeout(function() {
+		div.style.opacity = "0";
+	}, arguments[2] || 10000);
+	setTimeout(function() {
+		document.body.removeChild(div);
+	}, arguments[2]+1000 ||  11000);
+}
