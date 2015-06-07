@@ -54,11 +54,16 @@
 		}
 
 		public function vistaRegistroOperario(){
+			$plantilla = $this->cargarRegistroOperario();
+			$this->mostrarVista($plantilla);
+		}
+
+		public function cargarRegistroOperario(){
 			$plantilla = $this -> init();
 			$workspace = $this->leerPlantilla("Aplicacion/Vista/registro.html");
 			$workspace = $this->reemplazar($workspace, "{{tipo}}", "registroOperario");
 			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
-			$this->mostrarVista($plantilla);
+			return $plantilla;
 		}
 
 		public function init(){
@@ -93,8 +98,18 @@
 		}
 
 		public function registrarOperario($nombre, $cedula, $password, $email, $direccion, $tel){
+			$admin=new AdministradorBD();
 			$password2=$this->encriptarPassword($password);
-			echo "OPERARIO".$nombre." ".$cedula." ".$password2." ".$email." ".$direccion." ".$tel;
+			$ok=$admin->registrarOperario($cedula,$password2,$nombre,$tel,$email,$direccion);
+			if($ok){
+				$plantilla = $this->cargarRegistroOperario();
+				$plantilla = $this->alerta($plantilla, "Registro Exitoso", "");
+				$this->mostrarVista($plantilla);
+			}else{
+				$plantilla = $this->cargarRegistroOperario();
+				$plantilla = $this->alerta($plantilla, "Registro No Exitoso", "Por favor verifique que los datos ingresados sean validos");
+				$this->mostrarVista($plantilla);
+			}
 		}
 
 		public function cambiarPassword($actual, $nueva, $confirmacion){
