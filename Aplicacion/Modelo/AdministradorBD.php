@@ -29,6 +29,26 @@
 			
 		}
 
+		public function cambiarContrasenia($DNI,$password,$newPassword)
+		{
+			$this->conectar();
+			$aux = $this->consultar("SELECT DNI FROM Usuario WHERE DNI = '".$DNI."' 
+									AND password = '".$password."'");
+			if($aux!=false)
+			{
+				$aux = $this->consultar("UPDATE Usuario SET password = '".$newPassword."'
+										WHERE DNI = '".$DNI."' AND password = '".$password."'");
+				
+				if($aux)
+				{
+					$this->desconectar();
+					return true;
+				}
+			}
+			$this->desconectar();
+			return false;
+		}
+
 		//INSERTS
 		public function registrarCliente($DNI,$password,$nombre,$telefono,$correo_electronico,$direccion)
 		{
