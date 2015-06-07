@@ -49,15 +49,10 @@
 		*	Método que se encarga de iniciar la variable de sesión con el username y la foto de perfil del usuario
 		*	@param   $nombre - nombre del usuario
 		*/
-		public function cargarPerfil($cedula)
-		{
-			/*
-			$usuario = new usuarioBD();
-			$datos = $usuario->obtenerDatos($cedula);
-			$_SESSION["username"] = $datos[1];
-			*/
-
-			$_SESSION["username"]="Angie Melissa D.";
+		public function cargarPerfil($nombre, $cedula, $tipo){
+			$_SESSION["tipo"]=$tipo;
+			$_SESSION["username"]=$nombre;
+			$_SESSION["dni"]=$cedula;
 		}
 
 		/**
@@ -72,8 +67,7 @@
 				$adminBD=new AdministradorBD();
 				$datos=$adminBD->login($cedula, $passwordSSH, 1);
 				if($datos!=false){
-					$_SESSION["tipo"]="Administrador";
-					$this->cargarPerfil($datos);
+					$this->cargarPerfil($datos, $cedula, $tipo);
 					header('Location: index.php');
 				}else{
 					$inicio = $this->leerPlantilla("Aplicacion/Vista/index.html");
