@@ -125,16 +125,24 @@
 				$aux = $this->consultar("SELECT codigo FROM Foto WHERE url = '".$url."'");
 				if($aux!=false)
 				{
-					$datos = 0;
+					$dato = 0;
 					while($fila = mysqli_fetch_array($aux))
 					{
-						$datos = $fila[0];
+						$dato = $fila[0];
 					}
-					if($datos!=0)
+					if($dato!=0)
 					{
 						if($decripcion == "")
 						{
-							
+							$aux = $this->consultar("INSERT INTO Disenio(codigoFoto) VALUES('".$dato."')");
+							$this->desconectar();
+							return $aux;
+						}
+						else
+						{
+							$aux = $this->consultar("INSERT INTO Disenio(codigoFoto,descripcion) VALUES('".$dato."','"$descripcion"')");
+							$this->desconectar();
+							return $aux;
 						}
 					}
 
