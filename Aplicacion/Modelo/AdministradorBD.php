@@ -8,7 +8,7 @@
 		{
 			$this->conectar();
 			$aux = $this->consultar("SELECT nombre FROM Usuario WHERE DNI = '".$DNI."' 
-									AND password = '".$password."' AND tipo = '".$tipo."'");
+									AND password = '".$password."' AND tipo = ".$tipo."");
 			$this->desconectar();
 			$cont = 0;
 			$nombre = "";
@@ -126,7 +126,7 @@
 			$this->conectar();
 			$aux = $this->consultar("SELECT h.codigo,h.cantidad,h.descripcion,e.nombre,b.nombre
 									FROM Prenda h,Bodega b,Pedido p,Cotizacion c,Estado e,Diseño d,Foto f
-									WHERE p.codigo = '".$codigoPedido."' 
+									WHERE p.codigo = ".$codigoPedido."
 									AND p.codigoCotizacion = c.codigo
 									AND c.codigo = h.codigoCotizacion
 									AND h.codigoEstado = e.codigo
@@ -148,13 +148,13 @@
 			{
 				$aux = $this->consultar("SELECT p.codigo,p.fecha_Creacion,p.fecha_Recoleccion,p.fecha_Entrega,p.direccion 
 										FROM Cotizacion c,Pedido p WHERE p.codigoCotizacion = c.codigo
-										AND c.DNI_Cliente = '".$codigoCliente."'");
+										AND c.DNI_Cliente = ".$codigoCliente."");
 			}
 			else
 			{
 				$aux = $this->consultar("SELECT p.codigo,p.fecha_Creacion,p.fecha_Recoleccion,p.fecha_Entrega,p.direccion 
 										FROM Cotizacion c,Pedido p WHERE p.codigoCotizacion = c.codigo
-										AND c.DNI_Cliente = '".$codigoCliente."' 
+										AND c.DNI_Cliente = ".$codigoCliente." 
 										AND p.estado='".$estado."'");
 			}
 			$this->desconectar();

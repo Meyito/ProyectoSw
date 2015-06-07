@@ -69,7 +69,7 @@
 			$this->conectar();
 			$aux = $this->consultar("SELECT h.codigo,h.cantidad,h.descripcion,e.nombre,b.nombre
 									FROM Prenda h,Bodega b,Pedido p,Cotizacion c,Estado e,Diseño d,Foto f
-									WHERE p.codigo = '".$codigoPedido."' 
+									WHERE p.codigo = ".$codigoPedido." 
 									AND p.codigoCotizacion = c.codigo
 									AND c.codigo = h.codigoCotizacion
 									AND h.codigoEstado = e.codigo
@@ -83,6 +83,11 @@
 				array_push($datos, $fila);
 			}
 			return $datos;
+		}
+		public function modificarPrenda($codigo,$cantidad,$descripcion,$codigoEstado,$codigoCotizacion,$codigoDisenio,$codigoBodega)
+		{
+			$this->conectar();
+			$this->desconectar();
 		}
 		public function visualizarCotizacion()
 		{
