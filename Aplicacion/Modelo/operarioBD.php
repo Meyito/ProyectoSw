@@ -116,17 +116,17 @@
 			}
 			return $datos;
 		}
-		public function responderCotizacion($codigo,$descripcion,$estado,$precioTotal)
+		public function responderCotizacion($codigo,$descripcion,$precioTotal)
 		{
 			$this->conectar();
 			if($descripcion == "")
 			{
-				$aux = $consultar("UPDATE Cotizacion SET estado = '".$estado."',precioTotal = '".$precioTotal."'
+				$aux = $consultar("UPDATE Cotizacion SET estado = 'respuesta',precioTotal = ".$precioTotal."
 									WHERE codigo='".$codigo."'");
 			}
 			else
 			{
-				$aux = $consultar("UPDATE Cotizacion SET descripcion = '".$descripcion."',estado = '".$estado."',precioTotal = '".$precioTotal."'
+				$aux = $consultar("UPDATE Cotizacion SET descripcion = '".$descripcion."',estado = 'respuesta',precioTotal = '".$precioTotal."'
 									WHERE codigo='".$codigo."'");
 			}
 			$this->desconectar();
