@@ -105,9 +105,16 @@
 			}
 			return $datos;
 		}
-		public function visualizarCotizacion($DNI_cliente)
+		public function visualizarCotizacionCliente($DNI_Cliente)
 		{
-
+			$this->conectar();
+			$aux = $consultar("SELECT * FROM Cotizacion WHERE DNI_Cliente = '".$DNI_Cliente."'");
+			$datos = array();
+			while($fila = mysqli_fetch_array($aux))
+			{
+				array_push($datos, $fila);
+			}
+			return $datos;
 		}
 		public function responderCotizacion($codigo,$descripcion,$estado,$precioTotal)
 		{
