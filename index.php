@@ -12,6 +12,7 @@
 	if(isset($_SESSION["tipo"])){
 
 		if(isset($_POST["tipo"])){
+
 			if($_SESSION["tipo"]=="Administrador"){
 				$admin=new administrador();
 
@@ -23,8 +24,17 @@
 					$admin->cambiarPassword($_POST["password"], $_POST["nuevop"], $_POST["confp"]);
 				}
 
+			}else if($_SESSION["tipo"]=="Operario"){
+				$op=new operario();
+
+				if($_POST["tipo"]=="settings"){
+					$op->cambiarPassword($_POST["password"], $_POST["nuevop"], $_POST["confp"]);
+				}
+
 			}
+
 		}else if($_SESSION["tipo"]=="Administrador"){
+
 			$admin=new administrador();
 
 			if(isset($_GET["accion"])){
@@ -48,8 +58,10 @@
 				}
 			}else{
 				$admin->inicioValidado();
-			}			
+			}	
+
 		}else if($_SESSION["tipo"]=="Cliente"){
+
 			$cliente=new cliente();
 
 			if(isset($_GET["accion"])){
@@ -70,7 +82,9 @@
 			}else{
 				$cliente->inicioValidado();
 			}
+
 		}else if($_SESSION["tipo"]=="Operario"){
+
 			$operario=new operario();
 
 			if(isset($_GET["accion"])){
@@ -86,7 +100,7 @@
 					session_destroy();
 					header('location:index.php');
 				}else if($_GET["accion"]=="settings"){
-					echo "hace algo operario";
+					$operario->vistaConfiguracion();
 				}
 			}else{
 				$operario->inicioValidado();
