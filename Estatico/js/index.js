@@ -62,7 +62,24 @@ function anterior(){
     prevDot.addClass('active-dot');
 }
 
+function editarCliente(){
+    var input=document.getElementById("ocultar");
+    var form=document.getElementById("formulario");
 
+    input.value="editarCliente";
+    form.submit();
+}
+
+function eliminarCliente(){
+    var input=document.getElementById("ocultar");
+    var form=document.getElementById("formulario");
+
+    input.value="eliminarCliente";
+    form.submit();
+
+}
 
 document.getElementById("arrow-next").addEventListener("click", siguiente);
 document.getElementById("arrow-prev").addEventListener("click", anterior);
+document.getElementById("editarCliente").addEventListener("click", editarCliente);
+document.getElementById("eliminarCliente").addEventListener("click", eliminarCliente);

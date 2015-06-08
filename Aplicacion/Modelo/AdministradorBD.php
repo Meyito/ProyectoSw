@@ -191,7 +191,7 @@
 		{
 			$this->conectar();
 			$aux = $this->consultar("SELECT * FROM Usuario WHERE tipo = 3");
-			$this->desconectar;
+			$this->desconectar();
 			$datos = array();
 			while($fila=mysqli_fetch_array($aux))
 			{

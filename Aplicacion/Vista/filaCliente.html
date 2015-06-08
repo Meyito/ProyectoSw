@@ -1,0 +1,19 @@
+<div class="col2">
+			<div class="celda">{{nombre}}</div>
+			<div class="celda">{{cedula}}</div>
+			<div class="celda">{{tel}}</div>
+			<div class="celda">{{direccion}}</div>
+			<div class="celda">{{correo}}</div>
+			<div class="celda">
+				<form id="formulario" class="formulario" href="index.php" method="POST">
+					<input type="text" class="ocultar" name="dni" value="{{cedula}}">
+					<input id="ocultar" type="text" class="ocultar" name="tipo" value="prueba">
+					<div id="eliminarCliente" class="icono">
+						<span class="icon-user-minus"></span>
+					</div>
+					<div id="editarCliente" class="icono">
+						<span class="icon-user-check"></span>
+					</div>
+				</form>
+			</div>
+</div>

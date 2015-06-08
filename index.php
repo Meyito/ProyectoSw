@@ -22,6 +22,9 @@
 					$admin->registrarOperario($_POST["nombre"], $_POST["cedula"], $_POST["password"], $_POST["email"], $_POST["direccion"], $_POST["tel"]);
 				}if($_POST["tipo"]=="settings"){
 					$admin->cambiarPassword($_POST["password"], $_POST["nuevop"], $_POST["confp"]);
+				}if($_POST["tipo"]=="editarCliente"){
+					echo $_POST["tipo"]."      ".$_POST["dni"];
+					//$admin->cambiarPassword($_POST["password"], $_POST["nuevop"], $_POST["confp"]);
 				}
 
 			}else if($_SESSION["tipo"]=="Operario"){
