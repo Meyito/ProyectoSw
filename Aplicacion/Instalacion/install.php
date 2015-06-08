@@ -1,10 +1,10 @@
 <?php
-$conexion = mysqli_connect("sandbox2.ufps.edu.co","ufps_88","ufps_uy") or die (("Error " . mysqli_error($conexion)));
+$conexion = mysqli_connect("localhost","root","") or die (("Error " . mysqli_error($conexion)));
 $creacion = "CREATE DATABASE Lavanderia";
 mysqli_query($conexion,$creacion);
 mysqli_close($conexion);
 
-$conexion = mysqli_connect("sandbox2.ufps.edu.co","ufps_88","ufps_uy","Lavanderia") or die(("Error " . mysqli_error($conexion)));
+$conexion = mysqli_connect("localhost","root","","Lavanderia") or die(("Error " . mysqli_error($conexion)));
 //Creacion tabla Estado
 $tabla = "CREATE TABLE Estado(
 	codigo int AUTO_INCREMENT,
