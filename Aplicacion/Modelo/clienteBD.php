@@ -60,6 +60,7 @@ class ClienteBD extends Modelo
 	}
 	public function visualizarPedidosCliente($codigoCliente,$estado)
 	{
+		$aux = false;
 		$this->conectar();
 		if($estado == "")
 		{
@@ -84,6 +85,7 @@ class ClienteBD extends Modelo
 	}
 	public function registrarDisenios($url,$descripcion)
 	{
+		$aux = false;
 		$this->conectar();
 		if($descripcion == "")
 		{
@@ -110,6 +112,7 @@ class ClienteBD extends Modelo
 	}
 	public function registrarPrenda($cantidad,$descripcion,$codigoEstado,$codigoCotizacion,$codigoDisenio,$codigoBodega)
 	{
+		$aux = false;
 		$this->conectar();
 		if($descripcion == "")
 		{
@@ -158,9 +161,18 @@ class ClienteBD extends Modelo
 		}
 		return $datos;
 	}
-	public function responderCotizacion($DNI,$estado)
+	public function responderCotizacion($codigo,$DNI,$estado)
 	{
-
+		$this->conectar();
+		$aux = $this->consultar("UPDATE Cotizacion SET estado = '".$estado."' WHERE codigo = ".$codigo." 
+								AND DNI_Cliente = '".$DNI."'");
+		if($aux && $estado == 'aceptada')
+		{
+			$aux = $this->consultar("INSERT INTO Pedido(estado,codigoCotizacion,fecha_Creacion) VALUES('vigente',".$codigo.",CURDATE())");
+		}
+		
+		$this->desconectar();
+		return $aux;
 	}
 	public function modificarCotizacion($DNI,$descripcion)
 	{
@@ -171,6 +183,7 @@ class ClienteBD extends Modelo
 	}
 	public function generarCotizacion($DNI_Cliente,$descripcion)
 	{
+		$aux = false;
 		$this->conectar();
 		if($descripcion == "")
 		{
