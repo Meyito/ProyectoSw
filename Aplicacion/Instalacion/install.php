@@ -85,8 +85,8 @@ $tabla = "CREATE TABLE Cotizacion(
 	descripcion varchar(100),
 	precioTotal int,
 	PRIMARY KEY(codigo),
-	FOREIGN KEY(DNI_Cliente) REFERENCES Cliente(DNI_Cliente),
-	FOREIGN KEY(DNI_Operario) REFERENCES Operario(DNI_Operario)
+	FOREIGN KEY(DNI_Cliente) REFERENCES Usuario(DNI),
+	FOREIGN KEY(DNI_Operario) REFERENCES Usuario(DNI)
 	)";
 if(mysqli_query($conexion,$tabla))
 {
