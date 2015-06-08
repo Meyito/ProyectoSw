@@ -1,0 +1,24 @@
+<div class="form-registro">
+	<div class="warning">
+		<span class="icon-notification"></span>
+	</div>
+	<div class="notificacion">
+		¿Esta seguro que desea eliminar el {{cargo}}:<br>
+		{{dni}} - {{nombre}}<br>
+		del sistema?
+	</div>
+	
+	<div class="botones">
+	<form action="index.php" method="POST">
+		<input type="text" class="ocultar" name="eliminar" value="{{dni}}">
+		<input type="submit" value="ELIMINAR">
+	</form>
+
+	<form action="index.php" method="POST">
+		<input type="text" class="ocultar" name="cancelar" value="">
+		<input type="submit" value="CANCELAR">
+	</form>
+
+	</div>
+
+</div>

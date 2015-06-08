@@ -22,9 +22,14 @@
 					$admin->registrarOperario($_POST["nombre"], $_POST["cedula"], $_POST["password"], $_POST["email"], $_POST["direccion"], $_POST["tel"]);
 				}if($_POST["tipo"]=="settings"){
 					$admin->cambiarPassword($_POST["password"], $_POST["nuevop"], $_POST["confp"]);
+				}if($_POST["tipo"]=="consultarCliente"){
+					$admin->vistaConsultarClienteDNI($_POST["cedula"]);
 				}if($_POST["tipo"]=="editarCliente"){
-					echo $_POST["tipo"]."      ".$_POST["dni"];
-					//$admin->cambiarPassword($_POST["password"], $_POST["nuevop"], $_POST["confp"]);
+					$admin->vistaEditarCliente($_POST["dni"]);
+				}if($_POST["tipo"]=="edicionCliente"){
+					$admin->vistaEdicionCliente($_POST["cedula"], $_POST["email"], $_POST["direccion"]);
+				}if($_POST["tipo"]=="eliminarCliente"){
+					$admin->vistaEliminarCliente($_POST["dni"]);
 				}
 
 			}else if($_SESSION["tipo"]=="Operario"){

@@ -500,19 +500,19 @@ h1,h2,h3,h4,h5,h6,p{
 	width: 8rem;
 }
 
-#eliminarCliente:hover{
+.eliminarCliente:hover{
 	color: #c0392b;
 }
 
-#eliminarCliente{
+.eliminarCliente{
 	color: #e74c3c;
 }
 
-#editarCliente:hover{
+.editarCliente:hover{
 	color: #f39c12;
 }
 
-#editarCliente{
+.editarCliente{
 	color: #f1c40f;
 }
 

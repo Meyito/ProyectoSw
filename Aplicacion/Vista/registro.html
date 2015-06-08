@@ -8,7 +8,7 @@
 								</div>
 
 								<div class="celda">
-									<input class="registro" type="text" name="nombre" required>
+									<input class="registro" type="text" name="nombre" value="{{nombre}}" {{editable}}>
 								</div>
 							</div>
 						
@@ -18,7 +18,7 @@
 								</div>
 
 								<div class="celda celda2">
-									<input class="registro" type="text" name="cedula" required>
+									<input class="registro" type="text" name="cedula" value="{{cedula}}" {{editable}}>
 								</div>
 							</div>
 
@@ -28,7 +28,7 @@
 								</div>
 
 								<div class="celda">
-									<input class="registro" type="password" name="password" required>
+									<input class="registro" type="password" name="password" value="{{password}}" {{editable}}>
 								</div>
 							</div>
 
@@ -38,7 +38,7 @@
 								</div>
 
 								<div class="celda">
-									<input class="registro" type="email" name="email" required>
+									<input class="registro" type="email" name="email" value="{{correo}}" required>
 								</div>
 							</div>
 
@@ -48,7 +48,7 @@
 								</div>
 
 								<div class="celda">
-									<input class="registro" type="text" name="direccion" required>
+									<input class="registro" type="text" name="direccion" value="{{dir}}" required>
 								</div>
 							</div>
 
@@ -58,7 +58,7 @@
 								</div>
 
 								<div class="celda">
-									<input class="registro" type="tel" name="tel" required>
+									<input class="registro" type="tel" name="tel" value="{{tel}}" required>
 								</div>
 							</div>
 
@@ -67,7 +67,7 @@
 						<input class="ocultar" type="text" name="tipo" value="{{tipo}}">
 
 						<div class="inputBoton">
-							<input type="submit" value="REGISTRAR">
+							<input type="submit" value="{{OPCION}}">
 						</div>
 					</form>
 				</div>

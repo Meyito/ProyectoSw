@@ -34,7 +34,29 @@
 		}
 
 		public function vistaConsultarClientes(){
-			$plantilla=$this->procesarConsulta();
+			$plantilla=$this->cargarConsultarClientes();
+			$this->mostrarVista($plantilla);
+		}
+
+		public function cargarConsultarClientes(){
+			$adminBD=new AdministradorBD();
+			$datos=$adminBD->visualizarClientes();
+
+			$plantilla = $this -> init();
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/consultarClientes.html");
+			$plantilla=$this->procesarConsulta($plantilla, $workspace, "Cliente", $datos);
+
+			return $plantilla;
+		}
+
+		public function vistaConsultarClienteDNI($dni){
+			$adminBD=new AdministradorBD();
+			$datos=$adminBD->visualizarCliente($dni);
+
+			$plantilla = $this -> init();
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/consultarClientes.html");
+			$plantilla=$this->procesarConsulta($plantilla, $workspace, "Cliente", $datos);
+			
 			$this->mostrarVista($plantilla);
 		}
 
@@ -50,15 +72,72 @@
 			return $plantilla;
 		}
 
+		public function vistaEditarCliente($dni){
+			$adminBD=new AdministradorBD();
+			$datos=$adminBD->visualizarCliente($dni);
+			$plantilla=$this->cargarEditarCliente($datos);
+			$this->mostrarVista($plantilla);
+		}
+
+		public function vistaELiminarCliente($dni){
+			$adminBD=new AdministradorBD();
+			$datos=$adminBD->visualizarCliente($dni);
+			$plantilla=$this->init();
+			$workspace=$this->leerPlantilla("Aplicacion/Vista/confirmarEliminar.html");
+			$plantilla=$this->reemplazar($plantilla, "{{workspace}}", $workspace);
+			$this->mostrarVista($plantilla);
+		}
+
 		public function vistaRegistroCliente(){
 			$plantilla=$this->cargarRegistroCliente();
+			$this->mostrarVista($plantilla);
+		}
+
+		public function vistaEdicionCliente($DNI, $mail, $dir){
+			$adminBD=new AdministradorBD();
+			$ok=$adminBD->modificarUsuario($DNI,$mail,$dir);
+			$plantilla=$this->cargarConsultarClientes();
+			if($ok){
+				$plantilla=$this->alerta($plantilla, "EDICIÓN EXITOSA", "");
+			}else{
+				$plantilla=$this->alerta($plantilla, "NO SE PUDO REALIZAR LA EDICIÓN", "Por favor revisar los datos ingresados.");
+			}
+
 			$this->mostrarVista($plantilla);
 		}
 
 		public function cargarRegistroCliente(){
 			$plantilla = $this -> init();
 			$workspace = $this->leerPlantilla("Aplicacion/Vista/registro.html");
+
+			$workspace = $this->reemplazar($workspace, "{{dir}}", "");
+			$workspace = $this->reemplazar($workspace, "{{tel}}", "");
+			$workspace = $this->reemplazar($workspace, "{{correo}}", "");
+			$workspace = $this->reemplazar($workspace, "{{password}}", "");
+			$workspace = $this->reemplazar($workspace, "{{cedula}}", "");
+			$workspace = $this->reemplazar($workspace, "{{nombre}}", "");
+			$workspace = $this->reemplazar($workspace, "{{editable}}", "required");
+			$workspace = $this->reemplazar($workspace, "{{OPCION}}", "REGISTRAR");
+
 			$workspace = $this->reemplazar($workspace, "{{tipo}}", "registroCliente");
+			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
+			return $plantilla;
+		}
+
+		public function cargarEditarCliente($datos){
+			$plantilla = $this -> init();
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/registro.html");
+
+			$workspace = $this->reemplazar($workspace, "{{dir}}", $datos[0][6]);
+			$workspace = $this->reemplazar($workspace, "{{tel}}", $datos[0][4]);
+			$workspace = $this->reemplazar($workspace, "{{correo}}", $datos[0][5]);
+			$workspace = $this->reemplazar($workspace, "{{password}}", "********");
+			$workspace = $this->reemplazar($workspace, "{{cedula}}", $datos[0][0]);
+			$workspace = $this->reemplazar($workspace, "{{nombre}}", $datos[0][2]);
+			$workspace = $this->reemplazar($workspace, "{{editable}}", "readonly");
+			$workspace = $this->reemplazar($workspace, "{{OPCION}}", "EDITAR");
+
+			$workspace = $this->reemplazar($workspace, "{{tipo}}", "edicionCliente");
 			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
 			return $plantilla;
 		}
@@ -146,27 +225,25 @@
 			}
 		}
 
-		public function procesarConsulta(){
-			$adminBD=new AdministradorBD();
-			$datos=$adminBD->visualizarClientes();
+		public function procesarConsulta($plantilla, $workspace, $cargo, $datos){
 
 			$tam=count($datos);
 
-			$plantilla = $this -> init();
-			$workspace = $this->leerPlantilla("Aplicacion/Vista/consultarClientes.html");
-
 			if($tam<=8){
-				$slides=$this->leerPlantilla("Aplicacion/Vista/slideConsultarCliente.html");
+				$slides=$this->leerPlantilla("Aplicacion/Vista/slideConsultarUsuario.html");
 				$slides=$this->reemplazar($slides, "{{tipo}}", "active-slide");
 
 				$filas="";
 				for($i=0; $i<$tam; $i++){
-					$aux=$this->leerPlantilla("Aplicacion/Vista/filaCliente.html");
+					$aux=$this->leerPlantilla("Aplicacion/Vista/filaUsuario.html");
+					$aux=$this->reemplazar($aux, "{{cargo}}", $cargo);
 					$aux=$this->reemplazar($aux, "{{nombre}}", $datos[$i][2]);
 					$aux=$this->reemplazar($aux, "{{cedula}}", $datos[$i][0]);
 					$aux=$this->reemplazar($aux, "{{tel}}", $datos[$i][4]);
 					$aux=$this->reemplazar($aux, "{{direccion}}", $datos[$i][6]);
 					$aux=$this->reemplazar($aux, "{{correo}}", $datos[$i][5]);
+
+					$aux=$this->reemplazar($aux, "{{num}}", $i."");
 
 					$filas=$filas.$aux;
 				}
@@ -180,7 +257,7 @@
 				$puntos="";
 
 				for($i=0; $i<$tam; $i++){
-					$auxSlide=$this->leerPlantilla("Aplicacion/Vista/slideConsultarCliente.html");
+					$auxSlide=$this->leerPlantilla("Aplicacion/Vista/slideConsultarUsuario.html");
 					
 					if($i==0){
 						$auxSlide=$this->reemplazar($auxSlide, "{{tipo}}", "active-slide");
@@ -192,7 +269,10 @@
 
 					$filas="";
 					for($j=0; ($j<7 && $i<$tam); $j++, $i++){
-						$aux=$this->leerPlantilla("Aplicacion/Vista/filaCliente.html");
+						$aux=$this->leerPlantilla("Aplicacion/Vista/filaUsuario.html");
+
+						$aux=$this->reemplazar($aux, "{{n}}", $j."");
+						$aux=$this->reemplazar($aux, "{{cargo}}", $cargo);
 						$aux=$this->reemplazar($aux, "{{nombre}}", $datos[$i][2]);
 						$aux=$this->reemplazar($aux, "{{cedula}}", $datos[$i][0]);
 						$aux=$this->reemplazar($aux, "{{tel}}", $datos[$i][4]);
@@ -214,6 +294,9 @@
 			
 
 			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
+			if($tam==0){
+				$plantilla=$this->alerta($plantilla, "".$cargo." no encontrado", "No existe ningun ".$cargo." registrado con esa cédula.");
+			}
 
 			return $plantilla;
 		}
