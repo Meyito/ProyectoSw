@@ -31,6 +31,13 @@
 					$op->cambiarPassword($_POST["password"], $_POST["nuevop"], $_POST["confp"]);
 				}
 
+			}else if($_SESSION["tipo"]=="Cliente"){
+				$cliente=new cliente();
+
+				if($_POST["tipo"]=="settings"){
+					$cliente->cambiarPassword($_POST["password"], $_POST["nuevop"], $_POST["confp"]);
+				}
+
 			}
 
 		}else if($_SESSION["tipo"]=="Administrador"){
@@ -77,7 +84,7 @@
 					session_destroy();
 					header('location:index.php');
 				}else if($_GET["accion"]=="settings"){
-					echo "hace algo cliente";
+					$cliente->vistaConfiguracion();
 				}
 			}else{
 				$cliente->inicioValidado();

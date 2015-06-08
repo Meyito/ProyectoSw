@@ -64,6 +64,7 @@
 			$passwordSSH=$this->encriptarPassword($password);
 
 			if($tipo=="Administrador"){
+
 				$adminBD=new AdministradorBD();
 				$datos=$adminBD->login($cedula, $passwordSSH, 1);
 				if($datos!=false){
@@ -74,7 +75,9 @@
 					$inicio = $this->alerta($inicio, "No se ha podido iniciar sesión", "Verifique sus datos e intentelo nuevamente");
 					$this->mostrarVista($inicio);
 				}
+
 			}else if($tipo=="Operario"){
+
 				$opBD=new OperarioBD();
 				$datos=$opBD->login($cedula, $passwordSSH, 2);
 				if($datos!=false){
@@ -85,6 +88,20 @@
 					$inicio = $this->alerta($inicio, "No se ha podido iniciar sesión", "Verifique sus datos e intentelo nuevamente");
 					$this->mostrarVista($inicio);
 				}
+
+			}else{
+
+				$clienteBD=new ClienteBD();
+				$datos=$clienteBD->login($cedula, $passwordSSH, 3);
+				if($datos!=false){
+					$this->cargarPerfil($datos, $cedula, $tipo);
+					header('Location: index.php');
+				}else{
+					$inicio = $this->leerPlantilla("Aplicacion/Vista/index.html");
+					$inicio = $this->alerta($inicio, "No se ha podido iniciar sesión", "Verifique sus datos e intentelo nuevamente");
+					$this->mostrarVista($inicio);
+				}
+
 			}
 		}
 
