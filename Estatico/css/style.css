@@ -469,7 +469,61 @@ h1,h2,h3,h4,h5,h6,p{
 	width: 100%;
 }
 
-.col{
+.pruebaTabla2{
+	display: table;
+	width: 95%;
+	margin: auto;
+}
+
+.tituloTabla{
+	display: table-header-group;
+	text-align: center;
+}
+
+.tituloTabla .celda:nth-child(1), .col2 .celda:nth-child(1){
+	border-left:  1px solid #1abc9c;
+	width: 24rem;
+}
+.tituloTabla .celda:nth-child(2){
+	width: 14rem;
+}
+.tituloTabla .celda:nth-child(3){
+	width: 15rem;
+}
+.tituloTabla .celda:nth-child(4){
+	width: 24rem;
+}
+.tituloTabla .celda:nth-child(5){
+	width: 24rem;
+}
+
+.arreglo{
+	height: 1rem;
+	width: 100%;
+}
+.tituloTabla .celda{
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+  	font-size: 1.5rem;
+  	box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+     	-moz-box-sizing: border-box; 
+    border-top: 1px solid #1abc9c;
+    border-bottom: 1px solid #1abc9c;
+    border-right:  1px solid #1abc9c;
+    /*color: #055E4D;*/
+    font-weight: bold;
+}
+
+.col2 .celda{
+	padding-top: .8rem;
+	padding-bottom: .8rem;
+	padding-left: .8rem;
+	font-size: 1.3rem;
+	border-bottom: 1px solid #1abc9c;
+    border-right:  1px solid #1abc9c;
+}
+.col, .col2{
 	display: table-row;
 }
 
@@ -668,6 +722,102 @@ footer h3, h4{
 }
 
 
+.slider {
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+}
+
+.slide {
+  display: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.active-slide {
+    display: block;
+}
+
+.slider-nav {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.arrow-prev {
+  margin-right: 45px;
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 9px;
+}
+
+.arrow-next {
+  margin-left: 45px;
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 9px;
+}
+
+.slider-dots {
+  list-style: none;
+  display: inline-block;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.slider-dots li {
+  color: #bbbcbc;
+  display: inline;
+  font-size: 30px;
+  margin-right: 5px;
+}
+
+.slider-dots li.active-dot {
+  color: #363636;
+}
+
+
+.barraBusqueda{
+	background-color: #FFF;
+	box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+     	-moz-box-sizing: border-box; 
+    border-radius: 12px;
+    height: 5rem;
+    width: 90%;
+    margin: auto;
+    margin-top: 1rem;
+    box-shadow: 0 0 1px #CCC;
+}
+
+.espacioConsulta{
+	background-color: #FFF;
+	box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+     	-moz-box-sizing: border-box; 
+    border-radius: 12px;
+    width: 90%;
+    margin: auto;
+    margin-top: 1rem;
+    box-shadow: 0 0 1px #CCC;
+}
+
+.buscar{
+	width: 14rem;
+	margin-right: 1rem;
+}
+
+.botonEnviar{
+	margin-right: 1.5rem;
+	width: 6rem;
+	color: #FFF;
+	background-color: #16a085;
+	border: none;
+}
+
+.izq{
+	width: 100%;
+	text-align: right;
+}
 
 
 

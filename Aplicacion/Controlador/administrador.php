@@ -33,6 +33,13 @@
 			$this->mostrarVista($plantilla);
 		}
 
+		public function vistaConsultarClientes(){
+			$plantilla = $this -> init();
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/consultarClientes.html");
+			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
+			$this->mostrarVista($plantilla);
+		}
+
 		public function vistaConfiguracion(){
 			$plantilla = $this -> cargarConfiguracion();
 			$this->mostrarVista($plantilla);

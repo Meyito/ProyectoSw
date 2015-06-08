@@ -55,6 +55,8 @@
 					$admin->vistaRegistroCliente();
 				}else if($_GET["accion"]=="registrarOperario"){
 					$admin->vistaRegistroOperario();
+				}else if($_GET["accion"]=="consultarClientes"){
+					$admin->vistaConsultarClientes();
 				}else if($_GET["accion"]=="logout"){
 					$_SESSION["nombre"] = false;
 					$_SESSION["tipoUsuario"] = false;
