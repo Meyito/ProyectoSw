@@ -41,7 +41,8 @@ else
 //Creacion tabla Diseño
 $tabla = "CREATE TABLE Disenio(
 	codigo int AUTO_INCREMENT,
-	url varchar(100) NULL,
+	url varchar(100) NOT NULL,
+	tipo varchar(20) NOT NULL,
 	descripcion varchar(100),
 	PRIMARY KEY(codigo)
 	)";
