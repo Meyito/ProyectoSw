@@ -110,6 +110,13 @@ class ClienteBD extends Modelo
 		}
 		return $datos;
 	}
+	public function eliminarDisenio($codigo)
+	{
+		$this->conectar();
+		$aux = $this->consultar("DELETE FROM Disenio WHERE codigo = '".$codigo."'");
+		$this->desconectar();
+		return $aux;
+	}
 	public function registrarPrenda($cantidad,$descripcion,$codigoEstado,$codigoCotizacion,$codigoDisenio,$codigoBodega)
 	{
 		$aux = false;
