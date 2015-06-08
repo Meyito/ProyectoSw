@@ -82,6 +82,20 @@ class ClienteBD extends Modelo
 		}
 		return $datos;
 	}
+	public function registrarDisenios($url,$descripcion)
+	{
+		$this->conectar();
+		if($descripcion == "")
+		{
+			$aux = $this->consultar("INSERT INTO Disenio(url) VALUES ('".$url."')");
+		}
+		else
+		{
+			$aux = $this->consultar("INSERT INTO Disenio(url,descripcion) VALUES ('".$url."','".$descripcion."')");
+		}
+		$this->desconectar();
+		return $aux;
+	}
 	public function visualizarDisenios()
 	{
 		$this->conectar();
@@ -113,7 +127,23 @@ class ClienteBD extends Modelo
 	}
 	public function visualizarPrendaPedido($DNI_Cliente,$codigoPedido)
 	{
-
+		$this->conectar();
+		$aux = $this->consultar("SELECT h.codigo,h.cantidad,h.descripcion,e.nombre,b.nombre
+								FROM Prenda h,Bodega b,Pedido p,Cotizacion c,Estado e,Diseño d
+								WHERE p.codigo = ".$codigoPedido."
+								AND p.codigoCotizacion = c.codigo
+								AND c.DNI_Cliente = '".$DNI_Cliente."'
+								AND c.codigo = h.codigoCotizacion
+								AND h.codigoEstado = e.codigo
+								AND h.codigoBodega = b.codigo
+								AND h.codigoDiseño = d.codigo");
+		$this->desconectar();
+		$datos = array();
+		while($fila = mysqli_fetch_array($aux))
+		{
+			array_push($datos, $fila);
+		}
+		return $datos;
 	}
 	public function visualizarPrendaCotizacion($DNI_Cliente,$codigoCotizacion)
 	{
