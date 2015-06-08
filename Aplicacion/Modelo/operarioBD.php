@@ -84,6 +84,7 @@
 		}
 		public function visualizarPedidosCliente($codigoCliente,$estado)
 		{
+			$aux = false;
 			$this->conectar();
 			if($estado == "")
 			{
@@ -190,6 +191,7 @@
 		}
 		public function registrarDisenio($url,$descripcion)
 		{
+			$aux = false;
 			$this->conectar();
 			if($descripcion == "")
 			{
@@ -228,6 +230,7 @@
 		}
 		public function registrarBodega($nombre,$descripcion)
 		{
+			$aux = false;
 			$this->conectar();
 			if($descripcion == "")
 			{
@@ -265,6 +268,7 @@
 		}
 		public function responderCotizacion($codigoOperario,$codigo,$descripcion,$precioTotal)
 		{
+			$aux = false;
 			$this->conectar();
 			if($descripcion == "")
 			{
