@@ -250,7 +250,7 @@
 			$this->desconectar();
 			return $aux;
 		}
-		public function registrarBodega($nombre,$descripcion)
+		public function registrarBodega($nombre,$direccion)
 		{
 			$aux = false;
 			$this->conectar();
@@ -260,7 +260,7 @@
 			}
 			else
 			{
-				$aux = $this->consultar("INSERT INTO Bodega(nombre,descripcion) VALUES ('".$nombre."','".$descripcion."')");
+				$aux = $this->consultar("INSERT INTO Bodega(nombre,direccion) VALUES ('".$nombre."','".$direccion."')");
 			}
 			$this->desconectar();
 			if($aux)
