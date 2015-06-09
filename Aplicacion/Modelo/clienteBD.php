@@ -190,7 +190,7 @@ class ClienteBD extends Modelo
 		$this->desconectar();
 		return $aux;
 	}
-	public function generarCotizacion($DNI_Cliente,$descripcion)
+	public function generarCotizacion($DNI_Cliente,$descripcion,$cantidad,$codigoDisenio)
 	{
 		$aux = false;
 		$this->conectar();
@@ -206,10 +206,10 @@ class ClienteBD extends Modelo
 		$this->desconectar();
 		return $aux;
 	}
-	public function visualizarCotizaciones($codigoCliente)
+	public function visualizarCotizaciones($codigoCliente,$estado)
 	{
 		$this->conectar();
-		$aux = $this->consultar("SELECT * FROM Cotizacion WHERE DNI_Cliente = '".$codigoCliente."'");
+		$aux = $this->consultar("SELECT * FROM Cotizacion WHERE DNI_Cliente = '".$codigoCliente."' AND estado = '".$estado."'");
 		$this->desconectar();
 		$datos = array();
 		while($fila = mysqli_fetch_array($aux))
