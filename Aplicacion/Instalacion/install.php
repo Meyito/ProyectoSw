@@ -84,9 +84,14 @@ $tabla = "CREATE TABLE Cotizacion(
 	fecha Date NOT NULL,
 	descripcion varchar(100),
 	precioTotal int,
+	cantidad int,
+	codigoDisenio int,
+	codigoBodega int,
 	PRIMARY KEY(codigo),
 	FOREIGN KEY(DNI_Cliente) REFERENCES Usuario(DNI),
-	FOREIGN KEY(DNI_Operario) REFERENCES Usuario(DNI)
+	FOREIGN KEY(DNI_Operario) REFERENCES Usuario(DNI),
+	FOREIGN KEY(codigoDisenio) REFERENCES Disenio(codigo),
+	FOREIGN KEY(codigoBodega) REFERENCES Bodega(codigo)
 	)";
 if(mysqli_query($conexion,$tabla))
 {
@@ -101,6 +106,7 @@ else
 $tabla = "CREATE TABLE Pedido(
 	codigo int AUTO_INCREMENT,
 	estado varchar(20) NOT NULL,
+	codigoEstado int NOT NULL,
 	codigoCotizacion int NOT NULL,
 	fecha_Creacion Date NOT NULL,
 	fecha_Recoleccion Date,
@@ -108,6 +114,7 @@ $tabla = "CREATE TABLE Pedido(
 	direccion varchar(30),
 	PRIMARY KEY(codigo),
 	FOREIGN KEY(codigoCotizacion) REFERENCES Cotizacion(codigo),
+	FOREIGN KEY(codigoEstado) REFERENCES Estado(codigo),
 	UNIQUE KEY(codigoCotizacion)
 	)";
 if(mysqli_query($conexion,$tabla))
@@ -119,30 +126,6 @@ else
 	echo("No se creo la tabla Pedido<br>");
 }
 
-//Creacion tabla Prenda
-$tabla = "CREATE TABLE Prenda(
-	codigo int AUTO_INCREMENT,
-	cantidad int,
-	descripcion varchar(100),
-	codigoEstado int NOT NULL,
-	codigoCotizacion int NOT NULL,
-	codigoDisenio int NOT NULL,
-	codigoBodega int NOT NULL,
-	PRIMARY KEY(codigo),
-	FOREIGN KEY(codigoEstado) REFERENCES Estado(codigo),
-	FOREIGN KEY(codigoCotizacion) REFERENCES Cotizacion(codigo),
-	FOREIGN KEY(codigoDisenio) REFERENCES Disenio(codigo),
-	FOREIGN KEY(codigoBodega) REFERENCES Bodega(codigo),
-	UNIQUE KEY(codigoCotizacion)
-	)";
-if(mysqli_query($conexion,$tabla))
-{
-	echo("Se creo la tabla Prenda<br>");
-}
-else
-{
-	echo("No se creo la tabla Prenda<br>");
-}
 
 mysqli_close($conexion);
 ?>
