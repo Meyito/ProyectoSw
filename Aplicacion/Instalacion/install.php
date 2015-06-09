@@ -42,7 +42,6 @@ else
 $tabla = "CREATE TABLE Disenio(
 	codigo int AUTO_INCREMENT,
 	url varchar(100) NOT NULL,
-	tipo varchar(20) NOT NULL,
 	descripcion varchar(100),
 	PRIMARY KEY(codigo)
 	)";
@@ -60,6 +59,7 @@ $tabla = "CREATE TABLE Usuario(
 	DNI varchar(10),
 	password varchar(40) NOT NULL,
 	nombre varchar(20) NOT NULL,
+	tipo int NOT NULL,
 	telefono varchar(15),
 	correo_electronico varchar(30),
 	direccion varchar(30),
