@@ -257,7 +257,7 @@
 			$this->desconectar();
 			return $aux;
 		}
-		public function responderCotizacion($codigoOperario,$codigo,$descripcion,$precioTotal)
+		public function responderCotizacion($codigoOperario,$codigo,$precioTotal)
 		{
 			$aux = false;
 			$this->conectar();
