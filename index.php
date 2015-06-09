@@ -65,13 +65,9 @@
 					$cliente->cambiarPassword($_POST["password"], $_POST["nuevop"], $_POST["confp"]);
 				}if($_POST["tipo"]=="solPedido"){
 					$nombre=$ppal->procesarImagen($_FILES['imagen']['tmp_name']);
-					$cliente->registrarDisenios($nombre,"");
-
-					$codImagen=$cliente->consultarCodDis($nombre);
-
-					$cliente->solicitarCotizacion($_SESSION["dni"], $codImagen, $_POST["numJeans"], $_POST["desc"]);
+					$cliente->solicitarCotizacion($_SESSION["dni"], $nombre, $_POST["numJeans"], $_POST["desc"]);
 				}
-
+			
 			}
 
 		}else if($_SESSION["tipo"]=="Administrador"){

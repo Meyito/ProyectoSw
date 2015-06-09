@@ -93,23 +93,40 @@
 
 		public function consultarCodDis($nombre){
 			//AQUI LLAMO AL METODO PENDIENTE DE DANIEL
-			return 1;
+			$cBD=new ClienteBD();
+			$cod=$cBD->obtenerCodigoDisenio($nombre);
+
+			return $cod[0][0];
 		}
 
-		public function solicitarCotizacion($dni, $codImagen, $cant, $desc){
+		public function solicitarCotizacion($dni, $nombre, $cant, $desc){
 			//AQUI LLAMO AL METODO REGISTRAR DE DANIEL :3
 			/*echo $dni."<br>";
 			echo $codImagen."<br>";
 			echo $cant."<br>";
 			echo $desc."<br>";*/
-
-			$ok=false;
 			$plantilla=$this->cargarCrearPedido();
-			if($ok){
-				$plantilla=$this->alerta($plantilla, "SOLICITUD ENVIADA EXITOSAMENTE", "");
+
+			if($cant>=70){
+
+				$cBD=new ClienteBD();
+
+				$this->registrarDisenios($nombre,"");
+				$codImagen=$this->consultarCodDis($nombre);
+
+				$ok=$cBD->generarCotizacion($dni,$desc,$cant,$codImagen);
+
+				if($ok){
+					$plantilla=$this->alerta($plantilla, "SOLICITUD ENVIADA EXITOSAMENTE", "");
+				}else{
+					$plantilla=$this->alerta($plantilla, "FALLO AL PROCESAR LA SOLICITUD", "Por favor intentelo nuevamente");
+				}
+
 			}else{
-				$plantilla=$this->alerta($plantilla, "FALLO AL PROCESAR LA SOLICITUD", "Por favor intentelo nuevamente");
+				$plantilla=$this->alerta($plantilla, "SOLICITUD NO ENVIADA", "Solo se pueden realizar solicitudes para <br> lotes de 70 o más Jeans");
 			}
+
+			
 
 			$this->mostrarVista($plantilla);
 		}

@@ -32,10 +32,27 @@
 		}
 
 		public function vistaSolicitudes(){
-			$plantilla = $this -> init();
-			$workspace = $this->leerPlantilla("Aplicacion/Vista/solicitudesOperario.html");
-			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
+			$plantilla = $this->cargarSolicitudes();
 			$this->mostrarVista($plantilla);
+		}
+
+		public function cargarSolicitudes(){
+			$opBD=new OperarioBD();
+
+			$datos=$opBD->visualizarCotizaciones("pendiente");
+			echo"holiiii";
+			echo count($datos);
+			for($i=0; $i<count($datos); $i++){
+				for($j=0; $j<count($datos[$i]); $j++){
+					echo $datos[$i][$j]."<br>";
+				}
+			}
+
+			$plantilla = $this -> init();
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/consultarSolicitudes.html");
+			$plantilla=$this->procesarConsulta($plantilla, $workspace, "Solicitudes", $datos);
+			
+			//return $plantilla;
 		}
 
 		public function vistaPedidos(){
@@ -107,6 +124,82 @@
 				$plantilla=$this->alerta($plantilla, "FALLO AL AGREGAR EL DISEÑO", "");
 			}
 			$this->mostrarVista($plantilla);
+		}
+
+		public function procesarConsulta($plantilla, $workspace, $tipo, $datos){
+
+			$tam=count($datos);
+
+
+			if($tam<=8){
+				$slides=$this->leerPlantilla("Aplicacion/Vista/slideConsultarSolicitudes.html");
+				$slides=$this->reemplazar($slides, "{{tipo}}", "active-slide");
+
+				$filas="";
+				for($i=0; $i<$tam; $i++){
+					$aux=$this->leerPlantilla("Aplicacion/Vista/filaUsuario.html");
+					$aux=$this->reemplazar($aux, "{{n}}", $i."");
+
+					$aux=$this->reemplazar($aux, "{{cargo}}", $cargo);
+					$aux=$this->reemplazar($aux, "{{nombre}}", $datos[$i][2]);
+					$aux=$this->reemplazar($aux, "{{cedula}}", $datos[$i][0]);
+					$aux=$this->reemplazar($aux, "{{tel}}", $datos[$i][4]);
+					$aux=$this->reemplazar($aux, "{{direccion}}", $datos[$i][6]);
+					$aux=$this->reemplazar($aux, "{{correo}}", $datos[$i][5]);
+
+					
+
+					$filas=$filas.$aux;
+				}
+
+				$slides=$this->reemplazar($slides, "{{filas}}", $filas);
+				$workspace=$this->reemplazar($workspace, "{{nav}}", "");
+				$workspace=$this->reemplazar($workspace, "{{slides}}", $slides);
+			}else{
+				$totalSlides="";
+				$nav=$this->leerPlantilla("Aplicacion/Vista/sliderNav.html");
+				$puntos="";
+
+				for($i=0; $i<$tam; $i++){
+					$auxSlide=$this->leerPlantilla("Aplicacion/Vista/slideConsultarUsuario.html");
+					
+					if($i==0){
+						$auxSlide=$this->reemplazar($auxSlide, "{{tipo}}", "active-slide");
+						$puntos="<li class='dot active-dot'>&bull;</li>";
+					}else{
+						$auxSlide=$this->reemplazar($auxSlide, "{{tipo}}", "");
+						$puntos=$puntos."<li class='dot'>&bull;</li>";
+					}
+
+					$filas="";
+					for($j=0; ($j<7 && $i<$tam); $j++, $i++){
+						$aux=$this->leerPlantilla("Aplicacion/Vista/filaUsuario.html");
+
+						$aux=$this->reemplazar($aux, "{{n}}", $j."");
+						$aux=$this->reemplazar($aux, "{{cargo}}", $cargo);
+						$aux=$this->reemplazar($aux, "{{nombre}}", $datos[$i][2]);
+						$aux=$this->reemplazar($aux, "{{cedula}}", $datos[$i][0]);
+						$aux=$this->reemplazar($aux, "{{tel}}", $datos[$i][4]);
+						$aux=$this->reemplazar($aux, "{{direccion}}", $datos[$i][6]);
+						$aux=$this->reemplazar($aux, "{{correo}}", $datos[$i][5]);
+
+						$filas=$filas.$aux;
+					}
+					$auxSlide=$this->reemplazar($auxSlide, "{{filas}}", $filas);
+
+					$totalSlides=$totalSlides.$auxSlide;
+				}
+
+				$nav=$this->reemplazar($nav, "{{puntos}}", $puntos);
+				$workspace=$this->reemplazar($workspace, "{{nav}}", $nav);
+				$workspace=$this->reemplazar($workspace, "{{slides}}", $totalSlides);
+			}
+
+			
+
+			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
+
+			return $plantilla;
 		}
 	}
 ?>
