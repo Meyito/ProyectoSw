@@ -109,6 +109,7 @@
 		}
 
 		//SELECTS
+		/*
 		public function visualizarPrendas($codigoPedido)
 		{
 			$this->conectar();
@@ -128,20 +129,23 @@
 			}
 			return $datos;
 		}
+		*/
 		public function visualizarPedidosCliente($codigoCliente,$estado)
 		{
 			$this->conectar();
 			if($estado == "")
 			{
-				$aux = $this->consultar("SELECT p.codigo,p.fecha_Creacion,p.fecha_Recoleccion,p.fecha_Entrega,p.direccion 
+				$aux = $this->consultar("SELECT p.codigo,p.fecha_Creacion,p.fecha_Recoleccion,p.fecha_Entrega,p.direccion,
+										c.DNI_Cliente,c.DNI_Operario,c.descripcion,c.precioTotal,c.cantidad,p.codigoEstado,c.codigoDisenio,c.codigoBodega
 										FROM Cotizacion c,Pedido p WHERE p.codigoCotizacion = c.codigo
 										AND c.DNI_Cliente = ".$codigoCliente."");
 			}
 			else
 			{
-				$aux = $this->consultar("SELECT p.codigo,p.fecha_Creacion,p.fecha_Recoleccion,p.fecha_Entrega,p.direccion 
+				$aux = $this->consultar("SELECT p.codigo,p.fecha_Creacion,p.fecha_Recoleccion,p.fecha_Entrega,p.direccion,
+										c.DNI_Cliente,c.DNI_Operario,c.descripcion,c.precioTotal,c.cantidad,p.codigoEstado,c.codigoDisenio,c.codigoBodega
 										FROM Cotizacion c,Pedido p WHERE p.codigoCotizacion = c.codigo
-										AND c.DNI_Cliente = ".$codigoCliente." 
+										AND c.DNI_Cliente = ".$codigoCliente."
 										AND p.estado='".$estado."'");
 			}
 			$this->desconectar();
@@ -152,10 +156,22 @@
 			}
 			return $datos;
 		}
-		public function visualizarPedidos()
+		public function visualizarPedidos($estado)
 		{
 			$this->conectar();
-			$aux = $this->consultar("SELECT * FROM Pedido");
+			if($estado == "")
+			{
+				$aux = $this->consultar("SELECT p.codigo,p.fecha_Creacion,p.fecha_Recoleccion,p.fecha_Entrega,p.direccion,
+										c.DNI_Cliente,c.DNI_Operario,c.descripcion,c.precioTotal,c.cantidad,p.codigoEstado,c.codigoDisenio,c.codigoBodega
+										FROM Cotizacion c,Pedido p WHERE p.codigoCotizacion = c.codigo");
+			}
+			else
+			{
+				$aux = $this->consultar("SELECT p.codigo,p.fecha_Creacion,p.fecha_Recoleccion,p.fecha_Entrega,p.direccion,
+										c.DNI_Cliente,c.DNI_Operario,c.descripcion,c.precioTotal,c.cantidad,p.codigoEstado,c.codigoDisenio,c.codigoBodega
+										FROM Cotizacion c,Pedido p WHERE p.codigoCotizacion = c.codigo
+										AND p.estado='".$estado."'");
+			}
 			$this->desconectar();
 			$datos = array();
 			while($fila = mysqli_fetch_array($aux))
@@ -164,6 +180,7 @@
 			}
 			return $datos;
 		}
+		/*
 		public function visualizarPedidosVigentes()
 		{
 			$this->conectar();
@@ -187,6 +204,7 @@
 				array_push($datos, $fila);
 			}
 		}
+		*/
 		public function visualizarClientes()
 		{
 			$this->conectar();
