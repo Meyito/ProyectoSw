@@ -118,6 +118,7 @@ class ClienteBD extends Modelo
 		$this->desconectar();
 		return $aux;
 	}
+	/*
 	public function registrarPrenda($cantidad,$descripcion,$codigoEstado,$codigoCotizacion,$codigoDisenio,$codigoBodega)
 	{
 		$aux = false;
@@ -169,11 +170,11 @@ class ClienteBD extends Modelo
 		}
 		return $datos;
 	}
+	*/
 	public function responderCotizacion($codigo,$DNI,$estado)
 	{
 		$this->conectar();
-		$aux = $this->consultar("UPDATE Cotizacion SET estado = '".$estado."' WHERE codigo = ".$codigo." 
-								AND DNI_Cliente = '".$DNI."'");
+		$aux = $this->consultar("UPDATE Cotizacion SET estado = '".$estado."' WHERE codigo = ".$codigo."");
 		if($aux && $estado == 'aceptada')
 		{
 			$aux = $this->consultar("INSERT INTO Pedido(estado,codigoCotizacion,fecha_Creacion) VALUES('vigente',".$codigo.",CURDATE())");
@@ -182,10 +183,10 @@ class ClienteBD extends Modelo
 		$this->desconectar();
 		return $aux;
 	}
-	public function modificarCotizacion($DNI,$descripcion)
+	public function modificarCotizacion($codigoCotizacion,$cantidad,$codigoDisenio,$descripcion)
 	{
 		$this->conectar();
-		$aux = $this->consultar(" UPDATE Cotizacion SET descripcion = '".$descripcion."',estado = 'pendiente' WHERE DNI = '".$DNI."'");
+		$aux = $this->consultar(" UPDATE Cotizacion SET cantidad = ".$cantidad.",codigoDisenio = ".$codigoDisenio.",descripcion = '".$descripcion."',estado = 'pendiente' WHERE codigo = ".$codigoCotizacion."");
 		$this->desconectar();
 		return $aux;
 	}
