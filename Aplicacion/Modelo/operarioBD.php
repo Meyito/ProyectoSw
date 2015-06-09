@@ -154,6 +154,19 @@
 			return $aux;
 		}
 		*/
+		public function visualizarCliente($DNI_Cliente)
+		{
+			$this->conectar();
+			$aux = $this->consultar("SELECT * FROM Usuario WHERE DNI = '".$DNI_Cliente."'
+									AND tipo = 3");
+			$this->desconectar();
+			$datos = array();
+			while($fila = mysqli_fetch_array($aux))
+			{
+				array_push($datos,$fila);
+			}
+			return $datos;
+		}
 		public function responderCotizacion($codigoOperario,$codigo,$precioTotal)
 		{
 			$aux = false;

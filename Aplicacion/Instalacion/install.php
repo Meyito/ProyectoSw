@@ -135,6 +135,8 @@ $query = "INSERT INTO Estado(nombre) VALUES('Pago Pendiente')";
 mysqli_query($conexion,$query);
 $query = "INSERT INTO Estado(nombre) VALUES('En Despacho')";
 mysqli_query($conexion,$query);
+$query = "INSERT INTO Estado(nombre) VALUES('Producto Entregado')";
+mysqli_query($conexion,$query);
 
 mysqli_close($conexion);
 ?>

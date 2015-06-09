@@ -58,6 +58,19 @@ class ClienteBD extends Modelo
 		$this->desconectar();
 		return false;
 	}
+	public function visualizarOperario($DNI_Cliente)
+		{
+			$this->conectar();
+			$aux = $this->consultar("SELECT * FROM Usuario WHERE DNI = '".$DNI_Cliente."'
+									AND tipo = 2");
+			$this->desconectar();
+			$datos = array();
+			while($fila = mysqli_fetch_array($aux))
+			{
+				array_push($datos,$fila);
+			}
+			return $datos;
+		}
 	public function visualizarPedidosCliente($DNI_Cliente,$estado)
 		{
 			$this->conectar();
