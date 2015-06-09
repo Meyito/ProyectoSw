@@ -1,6 +1,7 @@
 <?php
 
 	require_once "Aplicacion/Controlador/controlador.php";
+	include_once "Aplicacion/Modelo/operarioBD.php";
 
 	class Operario extends Controlador{
 
@@ -16,6 +17,18 @@
 			$workspace = $this->leerPlantilla("Aplicacion/Vista/op-gestionD.html");
 			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
 			$this->mostrarVista($plantilla);
+		}
+
+		public function vistaAnadirDisenos(){
+			$plantilla = $this -> cargarAnadirDis();
+			$this->mostrarVista($plantilla);
+		}
+
+		public function cargarAnadirDis(){
+			$plantilla = $this -> init();
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/nuevoDis.html");
+			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
+			return $plantilla;
 		}
 
 		public function vistaSolicitudes(){
@@ -82,6 +95,18 @@
 				$plantilla=$this->alerta($plantilla, "ERROR", "Las contraseñas no son iguales");
 				$this->mostrarVista($plantilla);
 			}
+		}
+
+		public function agregarImagen($nombre, $desc){
+			$opBD=new OperarioBD();
+			$ok=$opBD->registrarDisenio($nombre,$desc);
+			$plantilla=$this->cargarAnadirDis();
+			if($ok){
+				$plantilla=$this->alerta($plantilla, "DISEÑO AÑADIDO EXITOSAMENTE", "");
+			}else{
+				$plantilla=$this->alerta($plantilla, "FALLO AL AGREGAR EL DISEÑO", "");
+			}
+			$this->mostrarVista($plantilla);
 		}
 	}
 ?>

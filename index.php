@@ -53,6 +53,9 @@
 
 				if($_POST["tipo"]=="settings"){
 					$op->cambiarPassword($_POST["password"], $_POST["nuevop"], $_POST["confp"]);
+				}if($_POST["tipo"]=="agregarDis"){
+					$nombre=$ppal->procesarImagen($_FILES['imagen']['tmp_name']);
+					$op->agregarImagen($nombre, $_POST["descripcion"]);
 				}
 
 			}else if($_SESSION["tipo"]=="Cliente"){
@@ -129,6 +132,8 @@
 					$operario->menuDisenos();
 				}else if($_GET["accion"]=="solicitudes"){
 					$operario->vistaSolicitudes();
+				}else if($_GET["accion"]=="nuevoDis"){
+					$operario->vistaAnadirDisenos();
 				}else if($_GET["accion"]=="logout"){
 					$_SESSION["nombre"] = false;
 					$_SESSION["tipoUsuario"] = false;

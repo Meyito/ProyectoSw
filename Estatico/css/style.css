@@ -427,6 +427,25 @@ h1,h2,h3,h4,h5,h6,p{
     box-shadow: 0 0 1px #CCC;
 }
 
+.form-solPedido{
+	position: absolute; 
+	top: 50%;
+	left: 50%;
+	vertical-align: middle;
+	width: 40rem;
+	height: 26rem;
+	background-color: #FFF;
+	transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    text-align: center;
+    padding-top: 1rem;
+    padding-right: 3rem;
+    padding-left: 3rem;
+    font-size: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 0 1px #CCC;
+}
+
 .form-warning{
 	position: absolute; 
 	top: 50%;
@@ -444,6 +463,37 @@ h1,h2,h3,h4,h5,h6,p{
     font-size: 2rem;
     border-radius: 12px;
     box-shadow: 0 0 1px #CCC;
+}
+
+.form-dis{
+	position: absolute; 
+	top: 50%;
+	left: 50%;
+	vertical-align: middle;
+	width: 40rem;
+	height: 20rem;
+	background-color: #FFF;
+	transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    text-align: center;
+    padding-top: 2rem;
+    padding-right: 3rem;
+    padding-left: 3rem;
+    font-size: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 1px #CCC;
+}
+
+.form-dis .botonEnviar{
+	width: 20rem !important;
+}
+
+.contenedor1{
+	font-size: 1.5rem;
+}
+
+.desc{
+	width:36rem;
 }
 
 .warning span{
@@ -604,6 +654,38 @@ h1,h2,h3,h4,h5,h6,p{
     font-weight: bold;
 }
 
+.pedido{
+	width: 10rem!important;
+}
+
+.chooser{
+	
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+}
+
+.descPed{
+	width: 24rem;
+}
+
+.algo{
+	display: inline-block;
+	text-align: left;
+	margin-top: 1rem;
+}
+
+.algo2{
+	margin-top: 1.5rem;
+}
+
+.algo2 input{
+	width:14rem!important;
+}
+
+.algo p, .algo input{
+	display: inline-block;
+}
+
 .icono{
 	font-size: 1.5rem;
 	box-sizing: border-box;
@@ -626,6 +708,7 @@ h1,h2,h3,h4,h5,h6,p{
 }
 .col, .col2{
 	display: table-row;
+	width: 100%;
 }
 
 .celda{

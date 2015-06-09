@@ -126,6 +126,29 @@
 		public function alerta($plantilla, $titulo, $alerta)
 		{
 			return $plantilla."<script>alerta(\"".$titulo."\",\"".$alerta."\",3000);</script>";
-		}	
+		}
+
+		/**
+		*	Método que se encarga de asignar el nombre con el que se guardará la imagen de perfil del usuario
+		*	@param   $imagen - nombre de la nueva imagen de perfil del usuario
+		*	@return  un string con el nombre con el que se almacenará la imagen
+		*/
+		public function procesarImagen($imagen)
+		{
+			$nombre = $_FILES['imagen']['name'];
+			if($nombre!=""){
+				if(!file_exists("Estatico/img/modelo/".$nombre)){
+					move_uploaded_file($_FILES['imagen']['tmp_name'],"Estatico/img/modelo/".$nombre);
+				}else{
+					$cont=1;
+					while(file_exists("Estatico/img/modelo/"."[".$cont."]".$nombre)){
+						$cont++;
+					}
+					move_uploaded_file($_FILES['imagen']['tmp_name'],"Estatico/img/modelo/"."[".$cont."]".$nombre);
+					$nombre =  "[".$cont."]".$_FILES['imagen']['name'];
+				}
+			}
+			return $nombre;
+		}
 	}
 ?>
