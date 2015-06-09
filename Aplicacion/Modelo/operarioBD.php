@@ -62,7 +62,7 @@
 		{
 			$aux = false;
 			$this->conectar();
-			$aux = $this->consultar("");
+			$aux = $this->consultar("UPDATE Pedido SET codigoEstado = ".$codigoEstado.",fecha_Recoleccion = '".$fechaRecoleccion."',fecha_Entrega = '".$fechaEntrega."',direccion = '".$direccion."',codigoBodega = ".$codigoBodega." ");
 			$this->desconectar();
 			return $aux;
 		}

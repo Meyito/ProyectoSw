@@ -25,7 +25,7 @@ else
 $tabla = "CREATE TABLE Bodega(
 	codigo int AUTO_INCREMENT,
 	nombre varchar(20) NOT NULL,
-	descripcion varchar(150),
+	direccion varchar(50),
 	PRIMARY KEY(codigo)
 	)";
 
@@ -125,6 +125,16 @@ else
 	echo("No se creo la tabla Pedido<br>");
 }
 
+$query = "INSERT INTO Bodega(nombre,direccion) VALUES('Bodega Principal','Inserte Direccion Aqui')";
+mysqli_query($conexion,$query);
+$query = "INSERT INTO Estado(nombre) VALUES('En Almacenamiento')";
+mysqli_query($conexion,$query);
+$query = "INSERT INTO Estado(nombre) VALUES('En Tratamiento')";
+mysqli_query($conexion,$query);
+$query = "INSERT INTO Estado(nombre) VALUES('Pago Pendiente')";
+mysqli_query($conexion,$query);
+$query = "INSERT INTO Estado(nombre) VALUES('En Despacho')";
+mysqli_query($conexion,$query);
 
 mysqli_close($conexion);
 ?>
