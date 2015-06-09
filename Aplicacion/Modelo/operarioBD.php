@@ -59,10 +59,22 @@
 			return false;
 		}
 		
-		public function visualizarPedidosVigentes()
+		public function visualizarPedidos($estado)
 		{
 			$this->conectar();
-			$aux = $this->consultar("SELECT * FROM Pedido WHERE estado = 'vigente'");
+			if($estado == "")
+			{
+				$aux = $this->consultar("SELECT p.codigo,p.fecha_Creacion,p.fecha_Recoleccion,p.fecha_Entrega,p.direccion,
+										c.DNI_Cliente,c.DNI_Operario,c.descripcion,c.precioTotal,c.cantidad,p.codigoEstado,c.codigoDisenio,p.codigoBodega
+										FROM Cotizacion c,Pedido p WHERE p.codigoCotizacion = c.codigo");
+			}
+			else
+			{
+				$aux = $this->consultar("SELECT p.codigo,p.fecha_Creacion,p.fecha_Recoleccion,p.fecha_Entrega,p.direccion,
+										c.DNI_Cliente,c.DNI_Operario,c.descripcion,c.precioTotal,c.cantidad,p.codigoEstado,c.codigoDisenio,p.codigoBodega
+										FROM Cotizacion c,Pedido p WHERE p.codigoCotizacion = c.codigo
+										AND p.estado='".$estado."'");
+			}
 			$this->desconectar();
 			$datos = array();
 			while($fila = mysqli_fetch_array($aux))
@@ -70,17 +82,6 @@
 				array_push($datos, $fila);
 			}
 			return $datos;
-		}
-		public function visualizarPedidosFinalizados()
-		{
-			$this->conectar();
-			$aux = $this->consultar("SELECT * FROM Pedido WHERE estado = 'finalizado'");
-			$this->desconectar();
-			$datos = array();
-			while($fila = mysqli_fetch_array($aux))
-			{
-				array_push($datos, $fila);
-			}
 		}
 		public function visualizarPedidosCliente($codigoCliente,$estado)
 		{
@@ -107,18 +108,7 @@
 			}
 			return $datos;
 		}
-		public function visualizarPedidos()
-		{
-			$this->conectar();
-			$aux = $this->consultar("SELECT * FROM Pedido");
-			$this->desconectar();
-			$datos = array();
-			while($fila = mysqli_fetch_array($aux))
-			{
-				array_push($datos, $fila);
-			}
-			return $datos;
-		}
+		/*
 		public function visualizarPrendas($codigoPedido)
 		{
 			$this->conectar();
@@ -156,6 +146,7 @@
 			$this->desconectar();
 			return $aux;
 		}
+		*/
 		public function visualizarCotizacion()
 		{
 			$this->conectar();
