@@ -125,7 +125,7 @@ else
 	echo("No se creo la tabla Pedido<br>");
 }
 
-$query = "INSERT INTO Bodega(nombre,direccion) VALUES('Bodega Principal','Inserte Direccion Aqui')";
+$query = "INSERT INTO Bodega(nombre,direccion) VALUES('Bodega Principal','Av. 5 # 16N-102 Ciudadela')";
 mysqli_query($conexion,$query);
 $query = "INSERT INTO Estado(nombre) VALUES('En Almacenamiento')";
 mysqli_query($conexion,$query);
