@@ -111,6 +111,18 @@ class ClienteBD extends Modelo
 		}
 		return $datos;
 	}
+	public function obtenerCodigoDisenio($url)
+	{
+		$this->conectar();
+		$aux = $this->consultar("SELECT codigo FROM Disenio WHERE url = '".$url."'");
+		$this->desconectar();
+		$datos = array();
+		while($fila = mysqli_fetch_array($aux))
+		{
+			array_push($datos,$fila);
+		}
+		return $datos;
+	}
 	public function eliminarDisenio($codigo)
 	{
 		$this->conectar();
