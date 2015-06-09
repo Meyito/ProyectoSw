@@ -58,7 +58,10 @@
 			$this->desconectar();
 			return false;
 		}
-		
+		public function modificarPedidos()
+		{
+
+		}
 		public function visualizarPedidos($estado)
 		{
 			$this->conectar();
@@ -147,6 +150,23 @@
 			return $aux;
 		}
 		*/
+		public function responderCotizacion($codigoOperario,$codigo,$precioTotal)
+		{
+			$aux = false;
+			$this->conectar();
+			if($descripcion == "")
+			{
+				$aux = $consultar("UPDATE Cotizacion SET DNI_Operario = '".$codigoOperario."',estado = 'respuesta',precioTotal = ".$precioTotal."
+									WHERE codigo='".$codigo."'");
+			}
+			else
+			{
+				$aux = $consultar("UPDATE Cotizacion SET DNI_Operario = '".$codigoOperario."',descripcion = '".$descripcion."',estado = 'respuesta',precioTotal = '".$precioTotal."'
+									WHERE codigo='".$codigo."'");
+			}
+			$this->desconectar();
+			return $aux;
+		}
 		public function visualizarCotizaciones($DNI_Cliente,$estado)
 		{
 			$aux = false;
@@ -264,23 +284,7 @@
 			$this->desconectar();
 			return $aux;
 		}
-		public function responderCotizacion($codigoOperario,$codigo,$precioTotal)
-		{
-			$aux = false;
-			$this->conectar();
-			if($descripcion == "")
-			{
-				$aux = $consultar("UPDATE Cotizacion SET DNI_Operario = '".$codigoOperario."',estado = 'respuesta',precioTotal = ".$precioTotal."
-									WHERE codigo='".$codigo."'");
-			}
-			else
-			{
-				$aux = $consultar("UPDATE Cotizacion SET DNI_Operario = '".$codigoOperario."',descripcion = '".$descripcion."',estado = 'respuesta',precioTotal = '".$precioTotal."'
-									WHERE codigo='".$codigo."'");
-			}
-			$this->desconectar();
-			return $aux;
-		}
+		
 
 
 	}
