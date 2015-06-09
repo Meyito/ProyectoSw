@@ -30,6 +30,22 @@
 					$admin->vistaEdicionCliente($_POST["cedula"], $_POST["email"], $_POST["direccion"]);
 				}if($_POST["tipo"]=="eliminarCliente"){
 					$admin->vistaEliminarCliente($_POST["dni"]);
+				}if($_POST["tipo"]=="eliminoCliente"){
+					$admin->vistaEliminoCliente($_POST["dni"]);
+				}if($_POST["tipo"]=="canceloCliente"){
+					$admin->vistaConsultarClientes();
+				}if($_POST["tipo"]=="consultarOperario"){
+					$admin->vistaConsultarOperarioDNI($_POST["cedula"]);
+				}if($_POST["tipo"]=="editarOperario"){
+					$admin->vistaEditarOperario($_POST["dni"]);
+				}if($_POST["tipo"]=="edicionOperario"){
+					$admin->vistaEdicionOperario($_POST["cedula"], $_POST["email"], $_POST["direccion"]);
+				}if($_POST["tipo"]=="eliminarOperario"){
+					$admin->vistaEliminarOperario($_POST["dni"]);
+				}if($_POST["tipo"]=="eliminoOperario"){
+					$admin->vistaEliminoOperario($_POST["dni"]);
+				}if($_POST["tipo"]=="canceloOperario"){
+					$admin->vistaConsultarOperarios();
 				}
 
 			}else if($_SESSION["tipo"]=="Operario"){
@@ -65,6 +81,8 @@
 					$admin->vistaRegistroOperario();
 				}else if($_GET["accion"]=="consultarClientes"){
 					$admin->vistaConsultarClientes();
+				}else if($_GET["accion"]=="consultarOperarios"){
+					$admin->vistaConsultarOperarios();
 				}else if($_GET["accion"]=="logout"){
 					$_SESSION["nombre"] = false;
 					$_SESSION["tipoUsuario"] = false;

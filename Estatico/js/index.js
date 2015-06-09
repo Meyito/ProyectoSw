@@ -62,56 +62,6 @@ function anterior(){
     prevDot.addClass('active-dot');
 }
 
-function editarCliente0(){
-    editarCliente(0);
-}
-function editarCliente1(){
-    editarCliente(1);
-}
-function editarCliente2(){
-    editarCliente(2);
-}
-function editarCliente3(){
-    editarCliente(3);
-}
-function editarCliente4(){
-    editarCliente(4);
-}
-function editarCliente5(){
-    editarCliente(5);
-}
-function editarCliente6(){
-    editarCliente(6);
-}
-function editarCliente7(){
-    editarCliente(7);
-}
-
-function eliminarCliente0(){
-    eliminarCliente(0);
-}
-function eliminarCliente1(){
-    eliminarCliente(1);
-}
-function eliminarCliente2(){
-    eliminarCliente(2);
-}
-function eliminarCliente3(){
-    eliminarCliente(3);
-}
-function eliminarCliente4(){
-    eliminarCliente(4);
-}
-function eliminarCliente5(){
-    eliminarCliente(5);
-}
-function eliminarCliente6(){
-    eliminarCliente(6);
-}
-function eliminarCliente7(){
-    eliminarCliente(7);
-}
-
 function editarCliente(num){
     var x="ocultar"+num;
     var input=document.getElementById(x);
@@ -133,24 +83,42 @@ function eliminarCliente(num){
     form.submit();
 }
 
+function editarOperario(){
+    var x="ocultar0";
+    var input=document.getElementById(x);
+    var x="formulario0";
+    var form=document.getElementById(x);
+
+    input.value="editarOperario";
+    form.submit();
+}
+
+function eliminarOperario(){
+    
+    var x="formulario0";
+    var form=document.getElementById(x);
+    form.submit();
+}
+
+
+$('.eliminarCliente').on("click", function eliminarOperario(){
+    $(this).children().submit();
+});
+
+$('.editarCliente').on("click", function eliminarOperario(){
+    $(this).children().submit();
+});
+
+$('.eliminarOperario').on("click", function eliminarOperario(){
+    $(this).children().submit();
+});
+
+$('.editarOperario').on("click", function eliminarOperario(){
+    $(this).children().submit();
+});
 
 
 document.getElementById("arrow-next").addEventListener("click", siguiente);
 document.getElementById("arrow-prev").addEventListener("click", anterior);
-document.getElementById("0editarCliente").addEventListener("click", editarCliente0);
-document.getElementById("0eliminarCliente").addEventListener("click", eliminarCliente0);
-document.getElementById("1editarCliente").addEventListener("click", editarCliente1);
-document.getElementById("1eliminarCliente").addEventListener("click", eliminarCliente1);
-document.getElementById("2editarCliente").addEventListener("click", editarCliente2);
-document.getElementById("2eliminarCliente").addEventListener("click", eliminarCliente2);
-document.getElementById("3editarCliente").addEventListener("click", editarCliente3);
-document.getElementById("3eliminarCliente").addEventListener("click", eliminarCliente3);
-document.getElementById("4editarCliente").addEventListener("click", editarCliente4);
-document.getElementById("4eliminarCliente").addEventListener("click", eliminarCliente4);
-document.getElementById("5editarCliente").addEventListener("click", editarCliente5);
-document.getElementById("5eliminarCliente").addEventListener("click", eliminarCliente5);
-document.getElementById("6editarCliente").addEventListener("click", editarCliente6);
-document.getElementById("6eliminarCliente").addEventListener("click", eliminarCliente6);
-document.getElementById("7editarCliente").addEventListener("click", editarCliente7);
-document.getElementById("7eliminarCliente").addEventListener("click", eliminarCliente7);
+
 

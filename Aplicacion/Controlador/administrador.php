@@ -33,6 +33,33 @@
 			$this->mostrarVista($plantilla);
 		}
 
+		public function vistaConsultarOperarios(){
+			$plantilla=$this->cargarConsultarOperarios();
+			$this->mostrarVista($plantilla);
+		}
+
+		public function cargarConsultarOperarios(){
+			$adminBD=new AdministradorBD();
+			$datos=$adminBD->visualizarOperarios();
+
+			$plantilla = $this -> init();
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/consultarUsuarios.html");
+			$plantilla=$this->procesarConsulta($plantilla, $workspace, "Operario", $datos);
+
+			return $plantilla;
+		}
+
+		public function vistaConsultarOperarioDNI($dni){
+			$adminBD=new AdministradorBD();
+			$datos=$adminBD->visualizarOperario($dni);
+
+			$plantilla = $this -> init();
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/consultarUsuarios.html");
+			$plantilla=$this->procesarConsulta($plantilla, $workspace, "Operario", $datos);
+			
+			$this->mostrarVista($plantilla);
+		}
+
 		public function vistaConsultarClientes(){
 			$plantilla=$this->cargarConsultarClientes();
 			$this->mostrarVista($plantilla);
@@ -43,7 +70,7 @@
 			$datos=$adminBD->visualizarClientes();
 
 			$plantilla = $this -> init();
-			$workspace = $this->leerPlantilla("Aplicacion/Vista/consultarClientes.html");
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/consultarUsuarios.html");
 			$plantilla=$this->procesarConsulta($plantilla, $workspace, "Cliente", $datos);
 
 			return $plantilla;
@@ -54,7 +81,7 @@
 			$datos=$adminBD->visualizarCliente($dni);
 
 			$plantilla = $this -> init();
-			$workspace = $this->leerPlantilla("Aplicacion/Vista/consultarClientes.html");
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/consultarUsuarios.html");
 			$plantilla=$this->procesarConsulta($plantilla, $workspace, "Cliente", $datos);
 			
 			$this->mostrarVista($plantilla);
@@ -79,12 +106,29 @@
 			$this->mostrarVista($plantilla);
 		}
 
-		public function vistaELiminarCliente($dni){
+		public function vistaEliminarCliente($dni){
 			$adminBD=new AdministradorBD();
 			$datos=$adminBD->visualizarCliente($dni);
 			$plantilla=$this->init();
 			$workspace=$this->leerPlantilla("Aplicacion/Vista/confirmarEliminar.html");
+			$workspace=$this->reemplazar($workspace, "{{cargo}}", "Cliente");
+			$workspace=$this->reemplazar($workspace, "{{dni}}", $dni);
+			$workspace=$this->reemplazar($workspace, "{{nombre}}", $datos[0][2]);
 			$plantilla=$this->reemplazar($plantilla, "{{workspace}}", $workspace);
+			$this->mostrarVista($plantilla);
+		}
+
+		public function vistaEliminoCliente($dni){
+			$adminBD=new AdministradorBD();
+			$ok=$adminBD->eliminarUsuario($dni);
+
+			$plantilla=$this->cargarConsultarClientes();
+			if($ok){
+				$plantilla=$this->alerta($plantilla, "CLIENTE ELIMINADO EXITOSAMENTE", "");
+			}else{
+				$plantilla=$this->alerta($plantilla, "NO SE PUDO ELIMINAR EL CLIENTE", "");
+			}
+
 			$this->mostrarVista($plantilla);
 		}
 
@@ -150,9 +194,83 @@
 		public function cargarRegistroOperario(){
 			$plantilla = $this -> init();
 			$workspace = $this->leerPlantilla("Aplicacion/Vista/registro.html");
+
+			$workspace = $this->reemplazar($workspace, "{{dir}}", "");
+			$workspace = $this->reemplazar($workspace, "{{tel}}", "");
+			$workspace = $this->reemplazar($workspace, "{{correo}}", "");
+			$workspace = $this->reemplazar($workspace, "{{password}}", "");
+			$workspace = $this->reemplazar($workspace, "{{cedula}}", "");
+			$workspace = $this->reemplazar($workspace, "{{nombre}}", "");
+			$workspace = $this->reemplazar($workspace, "{{editable}}", "required");
+			$workspace = $this->reemplazar($workspace, "{{OPCION}}", "REGISTRAR");
+
 			$workspace = $this->reemplazar($workspace, "{{tipo}}", "registroOperario");
 			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
 			return $plantilla;
+		}
+
+		public function cargarEditarOperario($datos){
+			$plantilla = $this -> init();
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/registro.html");
+
+			$workspace = $this->reemplazar($workspace, "{{dir}}", $datos[0][6]);
+			$workspace = $this->reemplazar($workspace, "{{tel}}", $datos[0][4]);
+			$workspace = $this->reemplazar($workspace, "{{correo}}", $datos[0][5]);
+			$workspace = $this->reemplazar($workspace, "{{password}}", "********");
+			$workspace = $this->reemplazar($workspace, "{{cedula}}", $datos[0][0]);
+			$workspace = $this->reemplazar($workspace, "{{nombre}}", $datos[0][2]);
+			$workspace = $this->reemplazar($workspace, "{{editable}}", "readonly");
+			$workspace = $this->reemplazar($workspace, "{{OPCION}}", "EDITAR");
+
+			$workspace = $this->reemplazar($workspace, "{{tipo}}", "edicionOperario");
+			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
+			return $plantilla;
+		}
+
+		public function vistaEditarOperario($dni){
+			$adminBD=new AdministradorBD();
+			$datos=$adminBD->visualizarOperario($dni);
+			$plantilla=$this->cargarEditarOperario($datos);
+			$this->mostrarVista($plantilla);
+		}
+
+		public function vistaEliminarOperario($dni){
+			$adminBD=new AdministradorBD();
+			$datos=$adminBD->visualizarOperario($dni);
+			$plantilla=$this->init();
+			$workspace=$this->leerPlantilla("Aplicacion/Vista/confirmarEliminar.html");
+			$workspace=$this->reemplazar($workspace, "{{cargo}}", "Operario");
+			$workspace=$this->reemplazar($workspace, "{{dni}}", $dni);
+			$workspace=$this->reemplazar($workspace, "{{nombre}}", $datos[0][2]);
+			$plantilla=$this->reemplazar($plantilla, "{{workspace}}", $workspace);
+			$this->mostrarVista($plantilla);
+		}
+
+		public function vistaEliminoOperario($dni){
+			$adminBD=new AdministradorBD();
+			$ok=$adminBD->eliminarUsuario($dni);
+
+			$plantilla=$this->cargarConsultarOperarios();
+			if($ok){
+				$plantilla=$this->alerta($plantilla, "OPERARIO ELIMINADO EXITOSAMENTE", "");
+			}else{
+				$plantilla=$this->alerta($plantilla, "NO SE PUDO ELIMINAR EL OPERARIO", "");
+			}
+
+			$this->mostrarVista($plantilla);
+		}
+
+		public function vistaEdicionOperario($DNI, $mail, $dir){
+			$adminBD=new AdministradorBD();
+			$ok=$adminBD->modificarUsuario($DNI,$mail,$dir);
+			$plantilla=$this->cargarConsultarOperarios();
+			if($ok){
+				$plantilla=$this->alerta($plantilla, "EDICIÓN EXITOSA", "");
+			}else{
+				$plantilla=$this->alerta($plantilla, "NO SE PUDO REALIZAR LA EDICIÓN", "Por favor revisar los datos ingresados.");
+			}
+
+			$this->mostrarVista($plantilla);
 		}
 
 		public function init(){
@@ -226,6 +344,7 @@
 		}
 
 		public function procesarConsulta($plantilla, $workspace, $cargo, $datos){
+			$plantilla= $this->reemplazar($plantilla, "{{cargo}}", $cargo);
 
 			$tam=count($datos);
 
@@ -236,6 +355,8 @@
 				$filas="";
 				for($i=0; $i<$tam; $i++){
 					$aux=$this->leerPlantilla("Aplicacion/Vista/filaUsuario.html");
+					$aux=$this->reemplazar($aux, "{{n}}", $i."");
+
 					$aux=$this->reemplazar($aux, "{{cargo}}", $cargo);
 					$aux=$this->reemplazar($aux, "{{nombre}}", $datos[$i][2]);
 					$aux=$this->reemplazar($aux, "{{cedula}}", $datos[$i][0]);
@@ -243,7 +364,7 @@
 					$aux=$this->reemplazar($aux, "{{direccion}}", $datos[$i][6]);
 					$aux=$this->reemplazar($aux, "{{correo}}", $datos[$i][5]);
 
-					$aux=$this->reemplazar($aux, "{{num}}", $i."");
+					
 
 					$filas=$filas.$aux;
 				}

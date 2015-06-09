@@ -427,6 +427,56 @@ h1,h2,h3,h4,h5,h6,p{
     box-shadow: 0 0 1px #CCC;
 }
 
+.form-warning{
+	position: absolute; 
+	top: 50%;
+	left: 50%;
+	vertical-align: middle;
+	width: 40rem;
+	height: 20rem;
+	background-color: #FFF;
+	transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    text-align: center;
+    padding-top: 2rem;
+    padding-right: 3rem;
+    padding-left: 3rem;
+    font-size: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 1px #CCC;
+}
+
+.warning span{
+	font-size: 3rem;
+	color: #e74c3c;
+}
+
+.notificacion{
+	margin-top: 1rem;
+}
+
+.botones form{
+	display: inline-block;
+}
+
+.botones .botonEnviar{
+	width: 12rem;
+	background-color: #e74c3c;
+}
+
+.botones .botonEnviar:hover{
+	background-color: #c0392b;
+}
+
+.warning span:hover{
+	color: #c0392b;
+}
+
+.botones{
+	margin-top: 2rem;
+	display: inline-block;
+}
+
 .alerta{
 	position: absolute;
 	bottom: 6rem;
@@ -498,22 +548,33 @@ h1,h2,h3,h4,h5,h6,p{
 }
 .tituloTabla .celda:nth-child(6){
 	width: 8rem;
+	padding-top: 0rem;
+	padding-bottom: 0rem;
 }
 
-.eliminarCliente:hover{
+.eliminarCliente, .eliminarOperario, .editarCliente, .editarOperario{
+	width: 2.3rem;
+	height: 2rem;
+	display: inline-block;
+	padding-left: 1rem;
+}
+
+.icon-user-minus:hover{
 	color: #c0392b;
 }
 
-.eliminarCliente{
+.icon-user-minus{
 	color: #e74c3c;
+	transition: all .3s ease;
 }
 
-.editarCliente:hover{
+.icon-user-check:hover{
 	color: #f39c12;
 }
 
-.editarCliente{
+.icon-user-check{
 	color: #f1c40f;
+	transition: all .3s ease;
 }
 
 .arreglo{
@@ -544,9 +605,6 @@ h1,h2,h3,h4,h5,h6,p{
 }
 
 .icono{
-	float: right;
-	padding-right: 1rem;
-	padding-left: 1rem;
 	font-size: 1.5rem;
 	box-sizing: border-box;
 		-webkit-box-sizing: border-box;

@@ -5,15 +5,26 @@
 			<div class="celda">{{direccion}}</div>
 			<div class="celda">{{correo}}</div>
 			<div class="celda">
-				<form id="formulario{{n}}" class="formulario" href="index.php" method="POST">
-					<input type="text" class="ocultar" name="dni" value="{{cedula}}">
-					<input id="ocultar{{n}}" type="text" class="ocultar" name="tipo" value="prueba">
-					<div id="{{n}}eliminar{{cargo}}" class="eliminar{{cargo}} icono">
-						<span class="icon-user-minus"></span>
-					</div>
-					<div id="{{n}}editar{{cargo}}" class="editar{{cargo}} icono">
-						<span class="icon-user-check"></span>
-					</div>
-				</form>
+
+				<div id="editar{{cargo}}" class="editar{{cargo}}">
+					<form id="formulario" class="formulario" href="index.php" method="POST">
+						<input type="text" class="ocultar" name="dni" value="{{cedula}}">
+						<input type="text" class="ocultar" name="tipo" value="editar{{cargo}}">
+						<div class="icono">
+							<span class="icon-user-check"></span>
+						</div>
+					</form>
+				</div>
+
+				<div id="eliminar{{cargo}}" class="eliminar{{cargo}}">
+					<form id="formulario" class="formulario" href="index.php" method="POST">
+						<input type="text" class="ocultar" name="dni" value="{{cedula}}">
+						<input type="text" class="ocultar" name="tipo" value="eliminar{{cargo}}">
+						<div class="icono">
+							<span class="icon-user-minus"></span>
+						</div>
+					</form>
+				</div>
+
 			</div>
 </div>
