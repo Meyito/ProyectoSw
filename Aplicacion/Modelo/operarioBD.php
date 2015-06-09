@@ -167,7 +167,7 @@
 			$this->desconectar();
 			return $aux;
 		}
-		public function visualizarCotizaciones($DNI_Cliente,$estado)
+		public function visualizarCotizacionesCliente($DNI_Cliente,$estado)
 		{
 			$aux = false;
 			$this->conectar();
