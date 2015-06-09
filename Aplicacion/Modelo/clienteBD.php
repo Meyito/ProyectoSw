@@ -64,14 +64,14 @@ class ClienteBD extends Modelo
 			if($estado == "")
 			{
 				$aux = $this->consultar("SELECT p.codigo,p.fecha_Creacion,p.fecha_Recoleccion,p.fecha_Entrega,p.direccion,
-										c.DNI_Cliente,c.DNI_Operario,c.descripcion,c.precioTotal,c.cantidad,p.codigoEstado,c.codigoDisenio,c.codigoBodega
+										c.DNI_Cliente,c.DNI_Operario,c.descripcion,c.precioTotal,c.cantidad,p.codigoEstado,c.codigoDisenio,p.codigoBodega
 										FROM Cotizacion c,Pedido p WHERE p.codigoCotizacion = c.codigo
 										AND c.DNI_Cliente = ".$DNI_Cliente."");
 			}
 			else
 			{
 				$aux = $this->consultar("SELECT p.codigo,p.fecha_Creacion,p.fecha_Recoleccion,p.fecha_Entrega,p.direccion,
-										c.DNI_Cliente,c.DNI_Operario,c.descripcion,c.precioTotal,c.cantidad,p.codigoEstado,c.codigoDisenio,c.codigoBodega
+										c.DNI_Cliente,c.DNI_Operario,c.descripcion,c.precioTotal,c.cantidad,p.codigoEstado,c.codigoDisenio,p.codigoBodega
 										FROM Cotizacion c,Pedido p WHERE p.codigoCotizacion = c.codigo
 										AND c.DNI_Cliente = ".$DNI_Cliente."
 										AND p.estado='".$estado."'");
@@ -171,10 +171,10 @@ class ClienteBD extends Modelo
 		return $datos;
 	}
 	*/
-	public function responderCotizacion($codigo,$DNI,$estado)
+	public function responderCotizacion($codigoCotizacion,$estado)
 	{
 		$this->conectar();
-		$aux = $this->consultar("UPDATE Cotizacion SET estado = '".$estado."' WHERE codigo = ".$codigo."");
+		$aux = $this->consultar("UPDATE Cotizacion SET estado = '".$estado."' WHERE codigo = ".$codigoCotizacion."");
 		if($aux && $estado == 'aceptada')
 		{
 			$aux = $this->consultar("INSERT INTO Pedido(estado,codigoCotizacion,fecha_Creacion) VALUES('vigente',".$codigo.",CURDATE())");
@@ -206,10 +206,18 @@ class ClienteBD extends Modelo
 		$this->desconectar();
 		return $aux;
 	}
-	public function visualizarCotizaciones($codigoCliente,$estado)
+	public function visualizarCotizaciones($DNICliente,$estado)
 	{
+		$aux = false;
 		$this->conectar();
-		$aux = $this->consultar("SELECT * FROM Cotizacion WHERE DNI_Cliente = '".$codigoCliente."' AND estado = '".$estado."'");
+		if($estado = "")
+		{
+			$aux = $this->consultar("SELECT * FROM Cotizacion WHERE DNI_Cliente = '".$DNICliente."'");
+		}
+		else
+		{
+			$aux = $this->consultar("SELECT * FROM Cotizacion WHERE DNI_Cliente = '".$DNICliente."' AND estado = '".$estado."'");
+		}
 		$this->desconectar();
 		$datos = array();
 		while($fila = mysqli_fetch_array($aux))
