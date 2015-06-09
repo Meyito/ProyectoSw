@@ -86,12 +86,10 @@ $tabla = "CREATE TABLE Cotizacion(
 	precioTotal int,
 	cantidad int,
 	codigoDisenio int,
-	codigoBodega int,
 	PRIMARY KEY(codigo),
 	FOREIGN KEY(DNI_Cliente) REFERENCES Usuario(DNI),
 	FOREIGN KEY(DNI_Operario) REFERENCES Usuario(DNI),
-	FOREIGN KEY(codigoDisenio) REFERENCES Disenio(codigo),
-	FOREIGN KEY(codigoBodega) REFERENCES Bodega(codigo)
+	FOREIGN KEY(codigoDisenio) REFERENCES Disenio(codigo)
 	)";
 if(mysqli_query($conexion,$tabla))
 {
@@ -112,9 +110,11 @@ $tabla = "CREATE TABLE Pedido(
 	fecha_Recoleccion Date,
 	fecha_Entrega Date,
 	direccion varchar(30),
+	codigoBodega int NOT NULL,
 	PRIMARY KEY(codigo),
 	FOREIGN KEY(codigoCotizacion) REFERENCES Cotizacion(codigo),
 	FOREIGN KEY(codigoEstado) REFERENCES Estado(codigo),
+	FOREIGN KEY(codigoBodega) REFERENCES Bodega(codigo),
 	UNIQUE KEY(codigoCotizacion)
 	)";
 if(mysqli_query($conexion,$tabla))

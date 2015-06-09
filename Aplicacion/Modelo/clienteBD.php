@@ -196,11 +196,11 @@ class ClienteBD extends Modelo
 		$this->conectar();
 		if($descripcion == "")
 		{
-			$aux = $this->consultar("INSERT INTO Cotizacion(DNI_Cliente,estado,fecha) VALUES('".$DNI_Cliente."','pendiente',CURDATE())");
+			$aux = $this->consultar("INSERT INTO Cotizacion(DNI_Cliente,estado,fecha,cantidad,codigoDisenio) VALUES('".$DNI_Cliente."','pendiente',CURDATE(),".$cantidad.",".$codigoDisenio.")");
 		}
 		else
 		{
-			$aux = $this->consultar("INSERT INTO Cotizacion(DNI_Cliente,estado,fecha,descripcion) VALUES('".$DNI_Cliente."','pendiente',CURDATE(),'".$descripcion."')");
+			$aux = $this->consultar("INSERT INTO Cotizacion(DNI_Cliente,estado,fecha,descripcion,cantidad,codigoDisenio) VALUES('".$DNI_Cliente."','pendiente',CURDATE(),'".$descripcion."',".$cantidad.",".$codigoDisenio.")");
 		}
 		
 		$this->desconectar();
