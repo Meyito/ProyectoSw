@@ -58,9 +58,13 @@
 			$this->desconectar();
 			return false;
 		}
-		public function modificarPedidos()
+		public function modificarPedidos($codigoPedido,$codigoEstado,$fechaRecoleccion,$fechaEntrega,$direccion,$codigoBodega)
 		{
+			$aux = false;
+			$this->conectar();
+			$aux = $this->consultar("");
 
+			return $aux;
 		}
 		public function visualizarPedidos($estado)
 		{
