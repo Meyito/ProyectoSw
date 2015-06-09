@@ -206,17 +206,17 @@ class ClienteBD extends Modelo
 		$this->desconectar();
 		return $aux;
 	}
-	public function visualizarCotizaciones($DNICliente,$estado)
+	public function visualizarCotizaciones($DNI_Cliente,$estado)
 	{
 		$aux = false;
 		$this->conectar();
 		if($estado = "")
 		{
-			$aux = $this->consultar("SELECT * FROM Cotizacion WHERE DNI_Cliente = '".$DNICliente."'");
+			$aux = $this->consultar("SELECT * FROM Cotizacion WHERE DNI_Cliente = '".$DNI_Cliente."'");
 		}
 		else
 		{
-			$aux = $this->consultar("SELECT * FROM Cotizacion WHERE DNI_Cliente = '".$DNICliente."' AND estado = '".$estado."'");
+			$aux = $this->consultar("SELECT * FROM Cotizacion WHERE DNI_Cliente = '".$DNI_Cliente."' AND estado = '".$estado."'");
 		}
 		$this->desconectar();
 		$datos = array();
