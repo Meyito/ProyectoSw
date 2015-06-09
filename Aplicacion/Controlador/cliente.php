@@ -28,10 +28,15 @@
 		}
 
 		public function crearPedido(){
+			$plantilla = $this -> cargarCrearPedido();
+			$this->mostrarVista($plantilla);
+		}
+
+		public function cargarCrearPedido(){
 			$plantilla = $this -> init();
 			$workspace = $this->leerPlantilla("Aplicacion/Vista/crearPedido.html");
 			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
-			$this->mostrarVista($plantilla);
+			return $plantilla;
 		}
 
 		public function vistaConfiguracion(){
@@ -85,5 +90,36 @@
 				$this->mostrarVista($plantilla);
 			}
 		}	
+
+		public function consultarCodDis($nombre){
+			//AQUI LLAMO AL METODO PENDIENTE DE DANIEL
+			return 1;
+		}
+
+		public function solicitarCotizacion($dni, $codImagen, $cant, $desc){
+			//AQUI LLAMO AL METODO REGISTRAR DE DANIEL :3
+			/*echo $dni."<br>";
+			echo $codImagen."<br>";
+			echo $cant."<br>";
+			echo $desc."<br>";*/
+
+			$ok=false;
+			$plantilla=$this->cargarCrearPedido();
+			if($ok){
+				$plantilla=$this->alerta($plantilla, "SOLICITUD ENVIADA EXITOSAMENTE", "");
+			}else{
+				$plantilla=$this->alerta($plantilla, "FALLO AL PROCESAR LA SOLICITUD", "Por favor intentelo nuevamente");
+			}
+
+			$this->mostrarVista($plantilla);
+		}
+
+		public function registrarDisenios($nombre,$desc){
+			$cBD=new ClienteBD();
+
+			$cBD->registrarDisenios($nombre,$desc);
+
+			return;
+		}
 	}
 ?>
