@@ -63,7 +63,7 @@
 			$aux = false;
 			$this->conectar();
 			$aux = $this->consultar("");
-
+			$this->desconectar();
 			return $aux;
 		}
 		public function visualizarPedidos($estado)
