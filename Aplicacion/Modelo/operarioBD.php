@@ -147,36 +147,43 @@
 			return $aux;
 		}
 		*/
-		public function visualizarCotizacion()
+		public function visualizarCotizaciones($DNI_Cliente,$estado)
 		{
+			$aux = false;
 			$this->conectar();
-			$aux = $consultar("SELECT * FROM Cotizacion");
+			if($estado = "")
+			{
+				$aux = $this->consultar("SELECT * FROM Cotizacion WHERE DNI_Cliente = '".$DNI_Cliente."'");
+			}
+			else
+			{
+				$aux = $this->consultar("SELECT * FROM Cotizacion WHERE DNI_Cliente = '".$DNI_Cliente."' AND estado = '".$estado."'");
+			}
+			$this->desconectar();
 			$datos = array();
 			while($fila = mysqli_fetch_array($aux))
 			{
-				array_push($datos, $fila);
+				array_push($datos,$fila);
 			}
 			return $datos;
 		}
-		public function visualizarCotizacionesPendientes()
+		public function visualizarCotizaciones($estado)
 		{
+			$aux = false;
 			$this->conectar();
-			$aux = $consultar("SELECT * FROM Cotizacion WHERE estado = 'pendiente'");
-			$datos = array();
-			while($fila = mysqli_fetch_array($aux))
+			if($estado = "")
 			{
-				array_push($datos, $fila);
+				$aux = $this->consultar("SELECT * FROM Cotizacion");
 			}
-			return $datos;
-		}
-		public function visualizarCotizacionCliente($DNI_Cliente)
-		{
-			$this->conectar();
-			$aux = $consultar("SELECT * FROM Cotizacion WHERE DNI_Cliente = '".$DNI_Cliente."'");
+			else
+			{
+				$aux = $this->consultar("SELECT * FROM Cotizacion WHERE estado = '".$estado."'");
+			}
+			$this->desconectar();
 			$datos = array();
 			while($fila = mysqli_fetch_array($aux))
 			{
-				array_push($datos, $fila);
+				array_push($datos,$fila);
 			}
 			return $datos;
 		}
