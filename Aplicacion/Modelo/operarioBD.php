@@ -167,18 +167,18 @@
 			}
 			return $datos;
 		}
-		public function responderCotizacion($codigoOperario,$codigo,$precioTotal)
+		public function responderCotizacion($codigoOperario,$codigo,$precioTotal, $descripcion)
 		{
 			$aux = false;
 			$this->conectar();
 			if($descripcion == "")
 			{
-				$aux = $consultar("UPDATE Cotizacion SET DNI_Operario = '".$codigoOperario."',estado = 'respuesta',precioTotal = ".$precioTotal."
+				$aux = $this->consultar("UPDATE Cotizacion SET DNI_Operario = '".$codigoOperario."',estado = 'respuesta',precioTotal = ".$precioTotal."
 									WHERE codigo='".$codigo."'");
 			}
 			else
 			{
-				$aux = $consultar("UPDATE Cotizacion SET DNI_Operario = '".$codigoOperario."',descripcion = '".$descripcion."',estado = 'respuesta',precioTotal = '".$precioTotal."'
+				$aux = $this->consultar("UPDATE Cotizacion SET DNI_Operario = '".$codigoOperario."',descripcion = '".$descripcion."',estado = 'respuesta',precioTotal = '".$precioTotal."'
 									WHERE codigo='".$codigo."'");
 			}
 			$this->desconectar();

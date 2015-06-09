@@ -105,12 +105,29 @@
 			$workspace=$this->reemplazar($workspace, "{{desc}}", $datos[0][5]);
 			$workspace=$this->reemplazar($workspace, "{{editable1}}", "readonly");
 			$workspace=$this->reemplazar($workspace, "{{accion}}", "responderSolicitud");
+			$workspace=$this->reemplazar($workspace, "{{codigoCot}}", $codigo);
 			$workspace=$this->reemplazar($workspace, "{{depende}}", "RESPONDER");
 
 			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
 			return $plantilla;
 		}
 
+		public function editarSolicitud($codOp, $codCot, $precio, $desc){
+			$opBD=new OperarioBD();
+
+			$ok=$opBD->responderCotizacion($codOp,$codCot,$precio, $desc);
+
+			$plantilla=$this->cargarSolicitudes();
+
+			if($ok){
+				$plantilla=$this->alerta($plantilla, "COTIZACION ENVIADA EXITOSAMENTE", "");
+			}else{
+				$plantilla=$this->alerta($plantilla, "COTIZACION NO ENVIADA", "Por favor intentelo nuevamente");
+			}
+
+			$this->mostrarVista($plantilla);
+		}
+		
 		public function cambiarPassword($actual, $nueva, $confirmacion){
 			$nueva2=$this->encriptarPassword($nueva);
 			$confirmacion2=$this->encriptarPassword($confirmacion);

@@ -63,7 +63,7 @@
 					$x=$ppal->alerta($x, "LA SOLICITUD NO FUE RESPONDIDA", "");
 					$ppal->mostrarVista($x);
 				}if($_POST["tipo"]=="responderSolicitud"){
-					echo "HELLO";
+					$op->editarSolicitud($_SESSION["dni"], $_POST["codCot"], $_POST["precio"], $_POST["desc"]);
 				}
 
 			}else if($_SESSION["tipo"]=="Cliente"){
