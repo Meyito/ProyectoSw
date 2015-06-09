@@ -58,31 +58,32 @@ class ClienteBD extends Modelo
 		$this->desconectar();
 		return false;
 	}
-	public function visualizarPedidosCliente($codigoCliente,$estado)
-	{
-		$aux = false;
-		$this->conectar();
-		if($estado == "")
+	public function visualizarPedidosCliente($DNI_Cliente,$estado)
 		{
-			$aux = $this->consultar("SELECT p.codigo,p.fecha_Creacion,p.fecha_Recoleccion,p.fecha_Entrega,p.direccion 
-									FROM Cotizacion c,Pedido p WHERE p.codigoCotizacion = c.codigo
-									AND c.DNI_Cliente = ".$codigoCliente."");
+			$this->conectar();
+			if($estado == "")
+			{
+				$aux = $this->consultar("SELECT p.codigo,p.fecha_Creacion,p.fecha_Recoleccion,p.fecha_Entrega,p.direccion,
+										c.DNI_Cliente,c.DNI_Operario,c.descripcion,c.precioTotal,c.cantidad,p.codigoEstado,c.codigoDisenio,c.codigoBodega
+										FROM Cotizacion c,Pedido p WHERE p.codigoCotizacion = c.codigo
+										AND c.DNI_Cliente = ".$DNI_Cliente."");
+			}
+			else
+			{
+				$aux = $this->consultar("SELECT p.codigo,p.fecha_Creacion,p.fecha_Recoleccion,p.fecha_Entrega,p.direccion,
+										c.DNI_Cliente,c.DNI_Operario,c.descripcion,c.precioTotal,c.cantidad,p.codigoEstado,c.codigoDisenio,c.codigoBodega
+										FROM Cotizacion c,Pedido p WHERE p.codigoCotizacion = c.codigo
+										AND c.DNI_Cliente = ".$DNI_Cliente."
+										AND p.estado='".$estado."'");
+			}
+			$this->desconectar();
+			$datos = array();
+			while($fila = mysqli_fetch_array($aux))
+			{
+				array_push($datos, $fila);
+			}
+			return $datos;
 		}
-		else
-		{
-			$aux = $this->consultar("SELECT p.codigo,p.fecha_Creacion,p.fecha_Recoleccion,p.fecha_Entrega,p.direccion 
-									FROM Cotizacion c,Pedido p WHERE p.codigoCotizacion = c.codigo
-									AND c.DNI_Cliente = ".$codigoCliente." 
-									AND p.estado='".$estado."'");
-		}
-		$this->desconectar();
-		$datos = array();
-		while($fila = mysqli_fetch_array($aux))
-		{
-			array_push($datos, $fila);
-		}
-		return $datos;
-	}
 	public function registrarDisenios($url,$descripcion)
 	{
 		$aux = false;
