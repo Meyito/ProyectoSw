@@ -1,0 +1,43 @@
+<div class="responderSol">
+
+	<form action="index.php" method="POST">
+
+		<div class="divIzq">
+
+			<div class="imagenSol">
+				<img src="Estatico/img/modelo/{{foto}}">
+			</div>
+
+		</div>
+
+
+
+		<div class="divDer">
+			{{cambiarImagen}}
+				<div class="datosRS datosRS1">
+					<p>CANTIDAD JEANS:</p>
+					<input type="number" name="cantJeans" value="{{numJeans}}" {{editable1}}>
+				</div>
+
+				<div class="datosRS">
+					<p>PRECIO:</p>
+					<input type="text" name="precio" {{editable2}}>
+				</div>
+
+				<div class="datosRS datosTextArea">
+					<p>DESCRIPCION:</p>
+					<textarea name="desc">{{desc}}</textarea>
+				</div>
+
+		</div>
+
+		<div class="ajuste"></div>
+		<input type="text" class="ocultar" name="tipo" value="{{accion}}">
+		<input class="botonEnviar botonSol" type="submit" value="{{depende}}">
+	</form>
+
+		<form action="index.php" method="POST">
+			<input type="text" class="ocultar" name="tipo" value="cancelarEdicion">
+			<input class="botonEnviar botonROJO" type="submit" value="CANCELAR">
+		</form>
+</div>

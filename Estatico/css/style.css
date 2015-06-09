@@ -579,6 +579,36 @@ h1,h2,h3,h4,h5,h6,p{
 	display: table-header-group;
 	text-align: center;
 }
+ .tituloTabla2{
+	display: table-header-group;
+	text-align: center;
+}
+.tituloTabla2 .celda:nth-child(1){
+	border-left:  1px solid #1abc9c;
+	width: 10rem;
+}
+
+.tituloTabla2 .celda:nth-child(2){
+	width: 26rem;
+}
+
+.tituloTabla2 .celda:nth-child(3){
+	width: 14rem;
+}
+
+.tituloTabla2 .celda:nth-child(4){
+	width: 14rem;
+}
+
+.tituloTabla2 .celda:nth-child(5){
+	width: 10rem;
+	padding-top: 0rem;
+	padding-bottom: 0rem;
+}
+
+.primera{
+	width: 10rem!important;
+}
 
 .tituloTabla .celda:nth-child(1), .col2 .celda:nth-child(1){
 	border-left:  1px solid #1abc9c;
@@ -640,7 +670,7 @@ h1,h2,h3,h4,h5,h6,p{
 .arrow-prev:hover, .arrow-next:hover{
 	color: #055E4D;
 }
-.tituloTabla .celda{
+.tituloTabla .celda, .tituloTabla2 .celda{
 	padding-top: 1rem;
 	padding-bottom: 1rem;
   	font-size: 1.5rem;
@@ -972,6 +1002,22 @@ footer h3, h4{
     box-shadow: 0 0 1px #CCC;
 }
 
+.barraCotizacion{
+	background-color: #FFF;
+	box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+     	-moz-box-sizing: border-box; 
+    border-radius: 12px;
+    height: 5rem;
+    width: 90%;
+    margin: auto;
+    margin-top: 1rem;
+    padding-top: 1.5rem;
+    text-align: center;
+    font-size: 2rem;
+    box-shadow: 0 0 1px #CCC;
+    color: #1abc9c;
+}
 .espacioConsulta{
 	background-color: #FFF;
 	box-sizing: border-box;
@@ -997,9 +1043,93 @@ footer h3, h4{
 	border: none;
 }
 
+.enviarAmarillo{
+	margin-left: 2.5rem;
+	width: 7.3rem;
+	height: 2rem;
+	color: #FFF;
+	background-color: #f1c40f;
+	border: none;
+	transition: all .3s ease;
+}
+
+.enviarAmarillo:hover{
+	background-color: #f39c12;
+}
+
 .izq{
 	width: 100%;
 	text-align: right;
+}
+
+.responderSol{
+	position: absolute; 
+	top: 50%;
+	left: 50%;
+	vertical-align: middle;
+	width: 60rem;
+	height: 35rem;
+	background-color: #FFF;
+	transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    text-align: center;
+    padding-top: 1rem;
+    padding-right: 3rem;
+    padding-left: 3rem;
+    font-size: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 0 1px #CCC;
+}
+
+.divIzq{
+	width: 30rem;
+	float: left;
+}
+
+.imagenSol{
+	box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+     	-moz-box-sizing: border-box; 
+     margin-top: 3rem;
+}
+
+.datosRS input{
+	margin-top: 0!important;
+}
+
+.botonSol, .botonROJO{
+	width: 14rem;
+	margin-top: 1.5rem;
+	margin-right: 10rem;
+	float:right;
+}
+
+.botonROJO{
+	background-color: #e74c3c;
+}
+
+.datosRS1{
+	padding-top: 2rem;
+	box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+     	-moz-box-sizing: border-box; 
+
+}
+
+
+
+.datosRS textarea{
+	width: 25rem;
+	height: 4rem;
+}
+
+.imagenSol img{
+	width: 25rem;
+	height: 25rem;
+}
+.divDer{
+	width: 30rem;
+	float: left;
 }
 
 

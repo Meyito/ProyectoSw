@@ -62,45 +62,6 @@ function anterior(){
     prevDot.addClass('active-dot');
 }
 
-function editarCliente(num){
-    var x="ocultar"+num;
-    var input=document.getElementById(x);
-    var x="formulario"+num;
-    var form=document.getElementById(x);
-
-    input.value="editarCliente";
-    form.submit();
-}
-
-function eliminarCliente(num){
-    var x="ocultar"+num;
-    var input=document.getElementById(x);
-    var x="formulario"+num;
-    console.log(x);
-    var form=document.getElementById(x);
-
-    input.value="eliminarCliente";
-    form.submit();
-}
-
-function editarOperario(){
-    var x="ocultar0";
-    var input=document.getElementById(x);
-    var x="formulario0";
-    var form=document.getElementById(x);
-
-    input.value="editarOperario";
-    form.submit();
-}
-
-function eliminarOperario(){
-    
-    var x="formulario0";
-    var form=document.getElementById(x);
-    form.submit();
-}
-
-
 $('.eliminarCliente').on("click", function eliminarOperario(){
     $(this).children().submit();
 });
@@ -114,6 +75,10 @@ $('.eliminarOperario').on("click", function eliminarOperario(){
 });
 
 $('.editarOperario').on("click", function eliminarOperario(){
+    $(this).children().submit();
+});
+
+$('.editarSolicitudOperario').on("click", function eliminarOperario(){
     $(this).children().submit();
 });
 

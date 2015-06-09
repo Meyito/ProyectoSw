@@ -56,6 +56,14 @@
 				}if($_POST["tipo"]=="agregarDis"){
 					$nombre=$ppal->procesarImagen($_FILES['imagen']['tmp_name']);
 					$op->agregarImagen($nombre, $_POST["descripcion"]);
+				}if($_POST["tipo"]=="editarSolicitudOperario"){
+					$op->responderSolicitud($_POST["codCot"]);
+				}if($_POST["tipo"]=="cancelarEdicion"){
+					$x=$op->cargarSolicitudes();
+					$x=$ppal->alerta($x, "LA SOLICITUD NO FUE RESPONDIDA", "");
+					$ppal->mostrarVista($x);
+				}if($_POST["tipo"]=="responderSolicitud"){
+					echo "HELLO";
 				}
 
 			}else if($_SESSION["tipo"]=="Cliente"){
@@ -67,7 +75,7 @@
 					$nombre=$ppal->procesarImagen($_FILES['imagen']['tmp_name']);
 					$cliente->solicitarCotizacion($_SESSION["dni"], $nombre, $_POST["numJeans"], $_POST["desc"]);
 				}
-			
+
 			}
 
 		}else if($_SESSION["tipo"]=="Administrador"){
