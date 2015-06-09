@@ -60,7 +60,6 @@ $tabla = "CREATE TABLE Usuario(
 	DNI varchar(10),
 	password varchar(40) NOT NULL,
 	nombre varchar(20) NOT NULL,
-	tipo int NOT NULL,
 	telefono varchar(15),
 	correo_electronico varchar(30),
 	direccion varchar(30),
