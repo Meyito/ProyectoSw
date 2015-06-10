@@ -143,7 +143,7 @@ mysqli_query($conexion,$query);
 $query = "INSERT INTO Estado(nombre) VALUES('Producto Entregado')";
 mysqli_query($conexion,$query);
 
-$query = "INSERT INTO Usuario VALUES('1090484841','1234','Daniel Vega',1,'3043430740','daniel.dvs95@hotmail.com','Calle 2n #14e-28 Villa Prado')";
+$query = "INSERT INTO Usuario VALUES('1090484841','".sha1('1234')."','Daniel Vega',1,'3043430740','daniel.dvs95@hotmail.com','Calle 2n #14e-28 Villa Prado')";
 mysqli_query($conexion,$query);
 
 mysqli_close($conexion);
