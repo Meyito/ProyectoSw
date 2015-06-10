@@ -204,7 +204,7 @@ class ClienteBD extends Modelo
 		{
 			if($estado == 'aceptada')
 			{
-				$aux = $this->consultar("INSERT INTO Pedido(estado,codigoCotizacion,fecha_Creacion) VALUES('vigente',".$codigo.",CURDATE())");
+				$aux = $this->consultar("INSERT INTO Pedido(estado,codigoCotizacion,codigoEstado,fecha_Creacion) VALUES('vigente',".$codigo.",1,CURDATE())");
 			}
 		}
 		$this->desconectar();

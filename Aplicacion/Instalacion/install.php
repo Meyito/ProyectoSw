@@ -128,6 +128,9 @@ else
 $query = "INSERT INTO Bodega(nombre,direccion) VALUES('Bodega Principal','Av. 5 # 16N-102 Ciudadela')";
 mysqli_query($conexion,$query);
 
+$query = "INSERT INTO Estado(nombre) VALUES('En Procesamiento')";
+mysqli_query($conexion,$query);
+
 $query = "INSERT INTO Estado(nombre) VALUES('En Almacenamiento')";
 mysqli_query($conexion,$query);
 
