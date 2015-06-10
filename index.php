@@ -74,6 +74,21 @@
 				}if($_POST["tipo"]=="solPedido"){
 					$nombre=$ppal->procesarImagen($_FILES['imagen']['tmp_name']);
 					$cliente->solicitarCotizacion($_SESSION["dni"], $nombre, $_POST["numJeans"], $_POST["desc"]);
+				}if($_POST["tipo"]=="editarSolicitudCliente"){
+					$cliente->abrirCotizacion($_POST["codCot"]);
+				}if($_POST["tipo"]=="modificarSolicitud"){
+					$ok=$cliente->editarSolicitud($_POST["codCot"], $_POST["cantJeans"], $_POST["urlImagen"], $_POST["desc"]);
+					$plantilla=$cliente->cargarCotizaciones();
+					if($ok){
+						$plantilla=$ppal->alerta($plantilla, "MODIFICACION REALIZADA EXITOSAMENTE", "");
+					}else{
+						$plantilla=$ppal->alerta($plantilla, "FALLO AL REALIZAR LA MODIFICACION", "Por favor intentelo nuevamente");
+					}
+					$ppal->mostrarVista($plantilla);
+				}if($_POST["tipo"]=="aceptarCotizacion"){
+					$cliente->aceptarCotizacion($_POST["codCot"]);
+				}if($_POST["tipo"]=="rechazarCotizacion"){
+					$cliente->cancelarCotizacion($_POST["codCot"]);
 				}
 
 			}

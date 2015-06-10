@@ -1104,6 +1104,13 @@ footer h3, h4{
 	float:right;
 }
 
+.boton3{
+	background-color: #16a085!important;
+	float: right;
+	margin-right: 5rem;
+
+}
+
 .botonROJO{
 	background-color: #e74c3c;
 }

@@ -202,7 +202,7 @@ class ClienteBD extends Modelo
 		$aux = $this->consultar("UPDATE Cotizacion SET estado = '".$estado."' WHERE codigo = ".$codigoCotizacion."");
 		if($aux && $estado == 'aceptada')
 		{
-			$aux = $this->consultar("INSERT INTO Pedido(estado,codigoCotizacion,fecha_Creacion) VALUES('vigente',".$codigo.",CURDATE())");
+			$aux = $this->consultar("INSERT INTO Pedido(estado,codigoCotizacion,fecha_Creacion) VALUES('vigente',".$codigoCotizacion.",CURDATE())");
 		}
 		
 		$this->desconectar();
@@ -211,6 +211,7 @@ class ClienteBD extends Modelo
 	public function modificarCotizacion($codigoCotizacion,$cantidad,$codigoDisenio,$descripcion)
 	{
 		$this->conectar();
+
 		$aux = $this->consultar(" UPDATE Cotizacion SET cantidad = ".$cantidad.",codigoDisenio = ".$codigoDisenio.",descripcion = '".$descripcion."',estado = 'pendiente' WHERE codigo = ".$codigoCotizacion."");
 		$this->desconectar();
 		return $aux;
@@ -235,7 +236,7 @@ class ClienteBD extends Modelo
 	{
 		$aux = false;
 		$this->conectar();
-		if($estado = "")
+		if($estado == "")
 		{
 			$aux = $this->consultar("SELECT * FROM Cotizacion WHERE DNI_Cliente = '".$DNI_Cliente."'");
 		}
@@ -251,6 +252,34 @@ class ClienteBD extends Modelo
 		}
 		return $datos;
 	}
+	public function getCotizacion($codigo)
+		{
+			$aux = false;
+			$this->conectar();
+
+			$aux = $this->consultar("SELECT * FROM Cotizacion WHERE codigo='".$codigo."'");
+			
+			$this->desconectar();
+			$datos = array();
+			while($fila = mysqli_fetch_array($aux))
+			{
+				array_push($datos,$fila);
+			}
+			return $datos;
+		}
+
+	public function getDisenio($codigo)
+		{
+			$this->conectar();
+			$aux = $this->consultar("SELECT * FROM Disenio WHERE codigo = '".$codigo."'");
+			$this->desconectar();
+			$datos = array();
+			while($fila = mysqli_fetch_array($aux))
+			{
+				array_push($datos,$fila);
+			}
+			return $datos;
+		}
 }
 
 ?>
