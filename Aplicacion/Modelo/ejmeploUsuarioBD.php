@@ -1,6 +1,22 @@
 <?php
 
+	/**
+ 	* .............................................
+ 	* UNIVERSIDAD  FRANCISCO  DE  PAULA  SANTANDER
+ 	*    PROGRAMA  DE  INGENIERIA   DE   SISTEMAS
+ 	*      LAUNDRYSOFT - LAVA RAPID JEANS S.A.S
+ 	*             SAN JOSE DE CUCUTA-2015
+	 * ............................................
+ 	*/
+
 	include_once "Aplicacion/Modelo/modelo.php";
+
+	/**
+	* @author Angie Melissa Delgado León 1150990
+	* @author Juan Daniel Vega Santos 1150958
+	* @author Edgar Yesid Garcia Ortiz 1150967
+	* @author Fernando Antonio Peñaranda Torres 1150684
+	*/
 
 	/**
 	* Clase encargada del manejo de los usuarios no docentes en la base de datos. Recibe llamados desde el controlador.php

@@ -1,8 +1,24 @@
 <?php
 
+	/**
+ 	* .............................................
+ 	* UNIVERSIDAD  FRANCISCO  DE  PAULA  SANTANDER
+ 	*    PROGRAMA  DE  INGENIERIA   DE   SISTEMAS
+ 	*      LAUNDRYSOFT - LAVA RAPID JEANS S.A.S
+ 	*             SAN JOSE DE CUCUTA-2015
+	 * ............................................
+ 	*/
+
+
 	require_once "Aplicacion/Controlador/controlador.php";
 	include_once "Aplicacion/Modelo/clienteBD.php";
 
+	/**
+	* @author Angie Melissa Delgado León 1150990
+	* @author Juan Daniel Vega Santos 1150958
+	* @author Edgar Yesid Garcia Ortiz 1150967
+	* @author Fernando Antonio Peñaranda Torres 1150684
+	*/
 
 	class Cliente extends Controlador{
 
@@ -14,9 +30,14 @@
 		}
 
 		public function vistaPedidos(){
+			$clBD=new ClienteBD();
+			$datos=$clBD->visualizarPedidos("");
+
 			$plantilla = $this -> init();
-			$workspace = $this->leerPlantilla("Aplicacion/Vista/cliente-pedidos.html");
-			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/consultarPedido.html");
+			
+			$plantilla=$this->procesarPedidos($plantilla, $workspace, "Operario", $datos);
+
 			$this->mostrarVista($plantilla);
 		}
 
@@ -88,7 +109,7 @@
 			$barraSup=$this->leerPlantilla("Aplicacion/Vista/barraSup.html");
 			$barraSup = $this->reemplazar($barraSup, "{{username}}", $_SESSION["username"]);
 			$barraSup = $this->reemplazar($barraSup, "{{tipo}}", $_SESSION["tipo"]);
-			$barraSup = $this->reemplazar($barraSup, "{{img}}", "2.jpg");
+			$barraSup = $this->reemplazar($barraSup, "{{img}}", "usuario.png");
 
 			$barraLat = $this->leerPlantilla("Aplicacion/Vista/barraLateralCliente.html");
 
@@ -165,11 +186,6 @@
 		}
 
 		public function solicitarCotizacion($dni, $nombre, $cant, $desc){
-			//AQUI LLAMO AL METODO REGISTRAR DE DANIEL :3
-			/*echo $dni."<br>";
-			echo $codImagen."<br>";
-			echo $cant."<br>";
-			echo $desc."<br>";*/
 			$plantilla=$this->cargarCrearPedido();
 
 			if($cant>=70){
@@ -280,6 +296,93 @@
 			
 			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
 			
+			return $plantilla;
+		}
+
+		public function procesarPedidos($plantilla, $workspace, $cargo, $datos){
+			$tam=count($datos);
+			$cliente=new ClienteBD();
+
+			if($tam<=8){
+				$slides=$this->leerPlantilla("Aplicacion/Vista/sliderConsultarPedidos.html");
+				$slides=$this->reemplazar($slides, "{{tipo}}", "active-slide");
+
+				$filas="";
+				for($i=0; $i<$tam; $i++){
+					$aux=$this->leerPlantilla("Aplicacion/Vista/filaPedidos.html");
+
+					$aux=$this->reemplazar($aux, "{{codigo}}", $datos[$i][0]);
+
+					$dato2=$cliente->getEstado($datos[$i][10]);
+					$aux=$this->reemplazar($aux, "{{estado}}", $dato2[0][1]);
+
+					$dato2=$cliente->visualizarCliente($datos[$i][5]);
+					$aux=$this->reemplazar($aux, "{{cliente}}", $dato2[0][2]);
+
+					$aux=$this->reemplazar($aux, "{{fecha}}", $datos[$i][1]);
+
+					$dato2=$cliente->visualizarOperario($datos[$i][6]);
+					$aux=$this->reemplazar($aux, "{{operario}}", $dato2[0][2]);
+					$aux=$this->reemplazar($aux, "{{precio}}", $datos[$i][8]);
+
+					
+
+					$filas=$filas.$aux;
+				}
+
+				$slides=$this->reemplazar($slides, "{{filas}}", $filas);
+				$workspace=$this->reemplazar($workspace, "{{nav}}", "");
+				$workspace=$this->reemplazar($workspace, "{{slides}}", $slides);
+			}else{
+				$totalSlides="";
+				$nav=$this->leerPlantilla("Aplicacion/Vista/sliderNav.html");
+				$puntos="";
+
+				for($i=0; $i<$tam; $i++){
+					$auxSlide=$this->leerPlantilla("Aplicacion/Vista/slideConsultarPedidos.html");
+					
+					if($i==0){
+						$auxSlide=$this->reemplazar($auxSlide, "{{tipo}}", "active-slide");
+						$puntos="<li class='dot active-dot'>&bull;</li>";
+					}else{
+						$auxSlide=$this->reemplazar($auxSlide, "{{tipo}}", "");
+						$puntos=$puntos."<li class='dot'>&bull;</li>";
+					}
+
+					$filas="";
+					for($j=0; ($j<7 && $i<$tam); $j++, $i++){
+						$aux=$this->leerPlantilla("Aplicacion/Vista/filaPedidos.html");
+
+						$aux=$this->reemplazar($aux, "{{codigo}}", $datos[$i][0]);
+
+						$dato2=$cliente->getEstado($datos[$i][10]);
+						$aux=$this->reemplazar($aux, "{{estado}}", $dato2[0][1]);
+
+						$dato2=$cliente->visualizarCliente($datos[$i][5]);
+						$aux=$this->reemplazar($aux, "{{cliente}}", $dato2[0][2]);
+
+						$aux=$this->reemplazar($aux, "{{fecha}}", $datos[$i][1]);
+
+						$dato2=$cliente->visualizarOperario($datos[$i][6]);
+						$aux=$this->reemplazar($aux, "{{operario}}", $dato2[0][2]);
+						$aux=$this->reemplazar($aux, "{{precio}}", $datos[$i][8]);
+
+						$filas=$filas.$aux;
+					}
+
+					$auxSlide=$this->reemplazar($auxSlide, "{{filas}}", $filas);
+
+					$totalSlides=$totalSlides.$auxSlide;
+				}
+
+				$nav=$this->reemplazar($nav, "{{puntos}}", $puntos);
+				$workspace=$this->reemplazar($workspace, "{{nav}}", $nav);
+				$workspace=$this->reemplazar($workspace, "{{slides}}", $totalSlides);
+			}
+
+			
+
+			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
 			return $plantilla;
 		}
 	}

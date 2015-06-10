@@ -1,6 +1,22 @@
 <?php
 
+	/**
+ 	* .............................................
+ 	* UNIVERSIDAD  FRANCISCO  DE  PAULA  SANTANDER
+ 	*    PROGRAMA  DE  INGENIERIA   DE   SISTEMAS
+ 	*      LAUNDRYSOFT - LAVA RAPID JEANS S.A.S
+ 	*             SAN JOSE DE CUCUTA-2015
+	 * ............................................
+ 	*/
+
 include_once "Aplicacion/Modelo/modelo.php";
+
+	/**
+	* @author Angie Melissa Delgado León 1150990
+	* @author Juan Daniel Vega Santos 1150958
+	* @author Edgar Yesid Garcia Ortiz 1150967
+	* @author Fernando Antonio Peñaranda Torres 1150684
+	*/
 
 class ClienteBD extends Modelo
 {
@@ -204,7 +220,7 @@ class ClienteBD extends Modelo
 		{
 			if($estado == 'aceptada')
 			{
-				$aux = $this->consultar("INSERT INTO Pedido(estado,codigoCotizacion,codigoEstado,fecha_Creacion,codigoBodega) VALUES('vigente',".$codigo.",1,CURDATE(),1)");
+				$aux = $this->consultar("INSERT INTO Pedido(estado,codigoCotizacion,codigoEstado,fecha_Creacion,codigoBodega) VALUES('vigente',".$codigoCotizacion.",1,CURDATE(),1)");
 			}
 		}
 		$this->desconectar();
@@ -275,6 +291,54 @@ class ClienteBD extends Modelo
 			$this->conectar();
 			$aux = $this->consultar("SELECT * FROM Disenio WHERE codigo = '".$codigo."'");
 			$this->desconectar();
+			$datos = array();
+			while($fila = mysqli_fetch_array($aux))
+			{
+				array_push($datos,$fila);
+			}
+			return $datos;
+		}
+
+		public function visualizarPedidos($estado)
+		{
+			$this->conectar();
+			if($estado == "")
+			{
+				$aux = $this->consultar("SELECT p.codigo,p.fecha_Creacion,p.fecha_Recoleccion,p.fecha_Entrega,p.direccion,
+										c.DNI_Cliente,c.DNI_Operario,c.descripcion,c.precioTotal,c.cantidad,p.codigoEstado,c.codigoDisenio,p.codigoBodega
+										FROM Cotizacion c,Pedido p WHERE p.codigoCotizacion = c.codigo");
+			}
+			else
+			{
+				$aux = $this->consultar("SELECT p.codigo,p.fecha_Creacion,p.fecha_Recoleccion,p.fecha_Entrega,p.direccion,
+										c.DNI_Cliente,c.DNI_Operario,c.descripcion,c.precioTotal,c.cantidad,p.codigoEstado,c.codigoDisenio,p.codigoBodega
+										FROM Cotizacion c,Pedido p WHERE p.codigoCotizacion = c.codigo
+										AND p.estado='".$estado."'");
+			}
+			$this->desconectar();
+			$datos = array();
+			while($fila = mysqli_fetch_array($aux))
+			{
+				array_push($datos, $fila);
+			}
+			return $datos;
+		}
+		public function getEstado($cod){
+			$this->conectar();
+			$aux = $this->consultar("SELECT * FROM Estado WHERE codigo= '".$cod."'");
+			$this->desconectar();
+			$datos = array();
+			while($fila = mysqli_fetch_array($aux))
+			{
+				array_push($datos,$fila);
+			}
+			return $datos;
+
+		}
+		public function visualizarCliente($DNI)
+		{
+			$this->conectar();
+			$aux = $this->consultar("SELECT * FROM Usuario WHERE DNI = '".$DNI."' AND tipo = 3");
 			$datos = array();
 			while($fila = mysqli_fetch_array($aux))
 			{

@@ -289,8 +289,13 @@ h1,h2,h3,h4,h5,h6,p{
 }
 
 .principal{
-	padding-top: 2.5rem;
 	background-color: #1abc9c;
+}
+
+.principal img{
+	margin-top: -1rem;
+	width: 6.5rem;
+	height: 6.5rem;
 }
 
 .top-bar{
@@ -579,10 +584,35 @@ h1,h2,h3,h4,h5,h6,p{
 	display: table-header-group;
 	text-align: center;
 }
- .tituloTabla2{
+ .tituloTabla2, .tituloTabla3{
 	display: table-header-group;
 	text-align: center;
 }
+
+.tituloTabla3 .celda:nth-child(1){
+	border-left:  1px solid #1abc9c;
+	width: 10rem!important;
+}
+
+.tituloTabla3 .celda:nth-child(2){
+	width: 20rem!important;
+}
+.tituloTabla3 .celda:nth-child(3){
+	width: 30rem!important;
+}
+
+.tituloTabla3 .celda:nth-child(4){
+	width: 14rem!important;
+}
+
+.tituloTabla3 .celda:nth-child(5){
+	width: 24rem!important;
+}
+
+.tituloTabla3 .celda:nth-child(6){
+	width: 20rem!important;
+}
+
 .tituloTabla2 .celda:nth-child(1){
 	border-left:  1px solid #1abc9c;
 	width: 10rem;
@@ -606,7 +636,7 @@ h1,h2,h3,h4,h5,h6,p{
 	padding-bottom: 0rem;
 }
 
-.primera{
+.primera, .primera2{
 	width: 10rem!important;
 }
 
@@ -670,7 +700,7 @@ h1,h2,h3,h4,h5,h6,p{
 .arrow-prev:hover, .arrow-next:hover{
 	color: #055E4D;
 }
-.tituloTabla .celda, .tituloTabla2 .celda{
+.tituloTabla .celda, .tituloTabla2 .celda, .tituloTabla3 .celda{
 	padding-top: 1rem;
 	padding-bottom: 1rem;
   	font-size: 1.5rem;
