@@ -189,11 +189,11 @@
 			$this->conectar();
 			if($descripcion == "")
 			{
-				$aux = $this->consultar("UPDATE Cotizacion SET DNI_Operario = '".$codigoOperario."',estado = 'respuesta',precioTotal = ".$precioTotal."
+				$aux = $this->consultar("UPDATE Cotizacion SET DNI_Operario = '".$codigoOperario."',estado = 'respuesta',precioTotal = '".$precioTotal."'
 									WHERE codigo='".$codigo."'");
 			}
 			else
-			{
+			{	
 				$aux = $this->consultar("UPDATE Cotizacion SET DNI_Operario = '".$codigoOperario."',descripcion = '".$descripcion."',estado = 'respuesta',precioTotal = '".$precioTotal."'
 									WHERE codigo='".$codigo."'");
 			}
