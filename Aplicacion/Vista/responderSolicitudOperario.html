@@ -13,7 +13,6 @@
 
 
 		<div class="divDer">
-			{{cambiarImagen}}
 				<div class="datosRS datosRS1">
 					<p>CANTIDAD JEANS:</p>
 					<input type="number" name="cantJeans" value="{{numJeans}}" {{editable1}}>
@@ -21,7 +20,7 @@
 
 				<div class="datosRS">
 					<p>PRECIO:</p>
-					<input type="text" name="precio" {{editable2}}>
+					<input type="text" name="precio" value="{{precio}}" {{editable2}}>
 				</div>
 
 				<div class="datosRS datosTextArea">
@@ -34,11 +33,17 @@
 		<div class="ajuste"></div>
 		<input type="text" class="ocultar" name="tipo" value="{{accion}}">
 		<input type="text" class="ocultar" name="codCot" value="{{codigoCot}}">
-		<input class="botonEnviar botonSol" type="submit" value="{{depende}}">
+		<input type="text" class="ocultar" name="urlImagen" value="{{foto}}">
+		<input class="botonEnviar botonSol {{class}}" type="submit" value="{{depende}}">
 	</form>
 
+		{{boton}}
+
 		<form action="index.php" method="POST">
-			<input type="text" class="ocultar" name="tipo" value="cancelarEdicion">
-			<input class="botonEnviar botonROJO" type="submit" value="CANCELAR">
+			<input type="text" class="ocultar" name="tipo" value="{{accion2}}">
+			<input type="text" class="ocultar" name="codCot" value="{{codigoCot}}">
+			<input class="botonEnviar botonROJO {{class}}" type="submit" value="{{otro}}">
 		</form>
+
+
 </div>

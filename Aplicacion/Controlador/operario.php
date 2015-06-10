@@ -43,6 +43,8 @@
 
 			$plantilla = $this -> init();
 			$workspace = $this->leerPlantilla("Aplicacion/Vista/consultarSolicitudes.html");
+			$workspace =$this->reemplazar($workspace, "{{algo}}", "SOLICITUDES DE");
+			$workspace =$this->reemplazar($workspace, "{{algo2}}", "");
 			$plantilla=$this->procesarConsulta($plantilla, $workspace, "Solicitudes", $datos);
 			
 			return $plantilla;
@@ -98,15 +100,18 @@
 
 
 			$workspace=$this->reemplazar($workspace, "{{foto}}", $img[0][1]);
-			$workspace=$this->reemplazar($workspace, "{{cambiarImagen}}", "");
 			$workspace=$this->reemplazar($workspace, "{{numJeans}}", $datos[0][7]);
+			$workspace=$this->reemplazar($workspace, "{{precio}}", $datos[0][6]);
 			$workspace=$this->reemplazar($workspace, "{{editable1}}", "readonly");
 			$workspace=$this->reemplazar($workspace, "{{editable2}}", "required");
 			$workspace=$this->reemplazar($workspace, "{{desc}}", $datos[0][5]);
-			$workspace=$this->reemplazar($workspace, "{{editable1}}", "readonly");
 			$workspace=$this->reemplazar($workspace, "{{accion}}", "responderSolicitud");
 			$workspace=$this->reemplazar($workspace, "{{codigoCot}}", $codigo);
 			$workspace=$this->reemplazar($workspace, "{{depende}}", "RESPONDER");
+			$workspace=$this->reemplazar($workspace, "{{class}}", "");
+			$workspace=$this->reemplazar($workspace, "{{boton}}", "");
+			$workspace=$this->reemplazar($workspace, "{{accion2}}", "cancelarEdicion");
+			$workspace=$this->reemplazar($workspace, "{{otro}}", "CANCELAR");
 
 			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
 			return $plantilla;
@@ -187,6 +192,7 @@
 					$aux=$this->reemplazar($aux, "{{tel}}", $datosCliente[0][4]);
 					$aux=$this->reemplazar($aux, "{{fecha}}", $datos[$i][4]);
 					$aux=$this->reemplazar($aux, "{{quien}}", "Operario");
+					$aux=$this->reemplazar($aux, "{{haceAlgo}}", "RESPONDER");
 
 					$filas=$filas.$aux;
 				}
@@ -223,6 +229,7 @@
 						$aux=$this->reemplazar($aux, "{{tel}}", $datosCliente[0][4]);
 						$aux=$this->reemplazar($aux, "{{fecha}}", $datos[$i][4]);
 						$aux=$this->reemplazar($aux, "{{quien}}", "Operario");
+						$aux=$this->reemplazar($aux, "{{haceALgo}}", "RESPONDER");
 
 						$filas=$filas.$aux;
 					}

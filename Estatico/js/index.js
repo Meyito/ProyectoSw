@@ -82,6 +82,9 @@ $('.editarSolicitudOperario').on("click", function eliminarOperario(){
     $(this).children().submit();
 });
 
+$('.editarSolicitudCliente').on("click", function eliminarOperario(){
+    $(this).children().submit();
+});
 
 document.getElementById("arrow-next").addEventListener("click", siguiente);
 document.getElementById("arrow-prev").addEventListener("click", anterior);
