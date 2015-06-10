@@ -200,11 +200,13 @@ class ClienteBD extends Modelo
 	{
 		$this->conectar();
 		$aux = $this->consultar("UPDATE Cotizacion SET estado = '".$estado."' WHERE codigo = ".$codigoCotizacion."");
-		if($aux && $estado == 'aceptada')
+		if($aux)
 		{
-			$aux = $this->consultar("INSERT INTO Pedido(estado,codigoCotizacion,fecha_Creacion) VALUES('vigente',".$codigo.",CURDATE())");
+			if($estado == 'aceptada')
+			{
+				$aux = $this->consultar("INSERT INTO Pedido(estado,codigoCotizacion,fecha_Creacion) VALUES('vigente',".$codigo.",CURDATE())");
+			}
 		}
-		
 		$this->desconectar();
 		return $aux;
 	}
