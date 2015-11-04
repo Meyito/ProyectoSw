@@ -37,8 +37,7 @@
 		* @param $plantilla - Ruta del archivo a cargar
 		* @return string con el valor html que debe ser mostrado
 		*/
-		public function leerPlantilla($plantilla)
-		{
+		public function leerPlantilla($plantilla){
 			return file_get_contents($plantilla);
 		}
 

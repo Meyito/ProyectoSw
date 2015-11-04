@@ -385,8 +385,6 @@
 					$aux=$this->reemplazar($aux, "{{direccion}}", $datos[$i][6]);
 					$aux=$this->reemplazar($aux, "{{correo}}", $datos[$i][5]);
 
-					
-
 					$filas=$filas.$aux;
 				}
 
