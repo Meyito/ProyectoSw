@@ -1,0 +1,29 @@
+<tr>
+    <th>{{nombre}}</th>
+    <th>{{cedula}}</th>
+    <th>{{tel}}</th>
+    <th>{{direccion}}</th>
+    <th>{{correo}}</th>
+    <th>
+    	<div id="editar{{cargo}}" class="editar{{cargo}}">
+					<form id="formulario" class="formulario" href="index.php" method="POST">
+						<input type="text" class="ocultar" name="dni" value="{{cedula}}">
+						<input type="text" class="ocultar" name="tipo" value="editar{{cargo}}">
+						<div class="icono">
+							<span class="icon-user-check"></span>
+						</div>
+					</form>
+				</div>
+    </th>
+    <th>
+    	<div id="eliminar{{cargo}}" class="eliminar{{cargo}}">
+					<form id="formulario" class="formulario" href="index.php" method="POST">
+						<input type="text" class="ocultar" name="dni" value="{{cedula}}">
+						<input type="text" class="ocultar" name="tipo" value="eliminar{{cargo}}">
+						<div class="icono">
+							<span class="icon-user-minus"></span>
+						</div>
+					</form>
+				</div>
+    </th>
+</tr>

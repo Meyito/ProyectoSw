@@ -173,6 +173,8 @@
 			}
 			return $datos;
 		}
+
+		//CAMBIAR JOIN CON NOMBRE USUARIO
 		public function visualizarPedidos($estado)
 		{
 			$this->conectar();
