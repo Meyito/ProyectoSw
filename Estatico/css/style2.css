@@ -436,12 +436,6 @@ h1,h2,h3,h4,h5,h6,p{
 	background-color: #e74c3c;
 }
 
-#workspace{
-	height: 551px;
-	overflow: auto;
-}
-
-
 .row{
 	display: block;
 	width: 90%;
@@ -520,7 +514,127 @@ h1,h2,h3,h4,h5,h6,p{
 	text-align: center;
 }
 
+
+.algo{
+	display: inline-block;
+	text-align: left;
+	margin-top: 1rem;
+}
+
+.pedido{
+	width: 10rem!important;
+}
+
+.chooser{
+	
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+}
+
+.descPed{
+	width: 24rem;
+}
+
+.algo p, .algo input{
+	display: inline-block;
+}
+
+.algo2{
+	margin-top: 1.5rem;
+}
+
+.algo2 input{
+	width:14rem!important;
+}
+
+.divIzq{
+	width: 30rem;
+	float: left;
+}
+
+.imagenSol{
+	box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+     	-moz-box-sizing: border-box; 
+     margin-top: 3rem;
+}
+.datosRS textarea{
+	width: 25rem;
+	height: 4rem;
+}
+
+.botonSol, .botonROJO{
+	width: 14rem;
+	margin-top: 1.5rem;
+	margin-right: 10rem;
+	float:right;
+}
+
+.boton3{
+	background-color: #e74c3c!important;
+	float: right;
+	margin-right: 5rem;
+}
+
+.boton3:hover{
+	background-color: #c0392b!important;
+}
+
+.imagenSol img{
+	width: 25rem;
+	height: 25rem;
+}
+.divDer{
+	width: 30rem;
+	float: left;
+}
+
+.ajuste{
+	width: 0;
+	height: 0;
+	clear: both;
+}
+
 /*CONTAINER*/
+
+.responderSol{
+	position: absolute; 
+	top: 50%;
+	left: 50%;
+	vertical-align: middle;
+	width: 60rem;
+	height: 35rem;
+	background-color: #FFF;
+	transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    text-align: center;
+    padding-top: 1rem;
+    padding-right: 3rem;
+    padding-left: 3rem;
+    font-size: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 0 1px #CCC;
+}
+
+.form-solPedido{
+	position: absolute; 
+	top: 50%;
+	left: 50%;
+	vertical-align: middle;
+	width: 40rem;
+	height: 26rem;
+	background-color: #FFF;
+	transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    text-align: center;
+    padding-top: 1rem;
+    padding-right: 3rem;
+    padding-left: 3rem;
+    font-size: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 0 1px #CCC;
+}
+
 
 .form-login{
 	position: absolute; 
@@ -675,6 +789,21 @@ h1,h2,h3,h4,h5,h6,p{
 }
 
 /*INPUTS*/
+
+.enviarAmarillo{
+	margin-left: 2.5rem;
+	width: 7.3rem;
+	height: 2rem;
+	color: #FFF;
+	background-color: #e74c3c;
+	border: none;
+	transition: all .3s ease;
+}
+
+.enviarAmarillo:hover{
+	background-color: #c0392b;
+}
+
 .inputCaja{
 	width: 100%;
 }

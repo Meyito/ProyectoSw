@@ -1,9 +1,9 @@
 <?php
 	session_start();
-	require "Aplicacion/Controlador2/controlador.php";
-	require "Aplicacion/Controlador2/administrador.php";
-	//require "Aplicacion/Controlador2/cliente.php";
-	//require "Aplicacion/Controlador2/operario.php";
+	require_once "Aplicacion/Controlador2/controlador.php";
+	require_once "Aplicacion/Controlador2/administrador.php";
+	require_once "Aplicacion/Controlador2/cliente.php";
+	require_once "Aplicacion/Controlador2/operario.php";
 
 	$ppal=new controlador();
 
@@ -115,6 +115,69 @@
 				}
 			}else{
 				$admin->index();
+			}
+		}else if($_SESSION["tipo"]=="Cliente"){
+
+			$cliente=new Cliente();
+
+			if(isset($_POST["tipo"])){
+
+				if($_POST["tipo"]=="settings"){
+
+					$cliente->cambiarPassword($_POST["password"], $_POST["nuevop"], $_POST["confp"]);
+
+				}else if($_POST["tipo"]=="solPedido"){
+
+					$nombre=$ppal->procesarImagen($_FILES['imagen']['tmp_name']);
+					$cliente->solicitarCotizacion($_SESSION["dni"], $nombre, $_POST["numJeans"], $_POST["desc"]);
+
+				}else if($_POST["tipo"]=="editarSolicitudCliente"){
+
+					$cliente->abrirCotizacion($_POST["codCot"]);
+
+				}else if($_POST["tipo"]=="modificarSolicitud"){
+
+					$cliente->editarSolicitud($_POST["codCot"], $_POST["cantJeans"], $_POST["urlImagen"], $_POST["desc"]);
+
+				}else if($_POST["tipo"]=="aceptarCotizacion"){
+
+					$cliente->aceptarCotizacion($_POST["codCot"]);
+
+				}if($_POST["tipo"]=="rechazarCotizacion"){
+
+					$cliente->cancelarCotizacion($_POST["codCot"]);
+					
+				}
+
+			}else if(isset($_GET["accion"])){
+
+				if($_GET["accion"]=="settings"){
+
+					$cliente->vistaConfiguracion();
+
+				}else if($_GET["accion"]=="logout"){
+
+					$_SESSION["nombre"] = false;
+					$_SESSION["tipoUsuario"] = false;
+					session_destroy();
+					header('location:index.php');
+
+				}else if($_GET["accion"]=="pedidos"){
+
+					$cliente->vistaPedidos();
+
+				}else if($_GET["accion"]=="cotizaciones"){
+
+					$cliente->vistaCotizaciones();
+
+				}else if($_GET["accion"]=="solicitarPedido"){
+
+					$cliente->vistaCrearPedido();
+
+				}
+
+			}else{
+				$cliente->index();
 			}
 		}
 	}

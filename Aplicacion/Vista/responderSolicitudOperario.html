@@ -37,7 +37,11 @@
 		<input class="botonEnviar botonSol {{class}}" type="submit" value="{{depende}}">
 	</form>
 
-		{{boton}}
+		<form action='index.php' method='POST'>
+			<input type='text' class='ocultar' name='codCot' value='{{codigoCot}}'>
+			<input type='text' class='ocultar' name='tipo' value='aceptarCotizacion'>
+			<input class='botonEnviar botonROJO boton3' type='submit' value='ACEPTAR'>
+		</form>
 
 		<form action="index.php" method="POST">
 			<input type="text" class="ocultar" name="tipo" value="{{accion2}}">

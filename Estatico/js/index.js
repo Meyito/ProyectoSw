@@ -77,7 +77,9 @@ $(document).ready(function() {
     } );*/
 
 if ( $.fn.dataTable.isDataTable( '#pedido' ) ) {
-    table = $('#pedido').DataTable();
+    table = $('#pedido').DataTable({
+        paging: false
+    });
 }
 else {
     table = $('#pedido').DataTable( {
@@ -86,20 +88,27 @@ else {
 }
 
 if ( $.fn.dataTable.isDataTable( '#usuario' ) ) {
-    table = $('#usuario').DataTable( {
-        "scrollY":        "200px",
-        "scrollCollapse": true,
-        "paging":         false
-    } );
+    table = $('#usuario').DataTable({
+        paging: false
+    });
 }
 else {
-    table = $('#usuario').DataTable( {
+    table = $('#usuario').DataTable({
         paging: false
-    } );
+    });
 }
 
-var a=$('#workspace').height();
-var b=$('#topBar').height();
-$('#container').height(a+b);
+if ( $.fn.dataTable.isDataTable( '#cotizacion' ) ) {
+    table = $('#cotizacion').DataTable({
+        paging: false
+    });
+}
+else {
+    table = $('#cotizacion').DataTable({
+        paging: false
+    });
+}
+
+
 } );
 
