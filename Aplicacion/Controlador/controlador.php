@@ -169,5 +169,24 @@
 			return $nombre;
 		}
 
+		public function registrar(){
+			$plantilla = $this->leerPlantilla("Aplicacion/Vista/registrar.html");
+			$this->mostrarVista($plantilla);
+		}
+
+		public function registroCliente($nombre, $cedula, $password, $email, $direccion, $tel){
+			$admin=new AdministradorBD();
+			$password2=$this->encriptarPassword($password);
+			$ok=$admin->registrarCliente($cedula,$password2,$nombre,$tel,$email,$direccion);
+			
+			if($ok){
+				$plantilla = $this->leerPlantilla("Aplicacion/Vista/index.html");
+			}else{
+				$plantilla = $this->leerPlantilla("Aplicacion/Vista/registrar.html");
+				$plantilla = $this->alerta($plantilla, "Registro No Exitoso", "Por favor verifique que los datos ingresados sean validos");
+			}
+			$this->mostrarVista($plantilla);
+		}
+
 	}
 ?>

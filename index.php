@@ -249,7 +249,19 @@
 	}
 	//Para los usuarios que no estan logueados
 	else if(isset($_POST["accion"])){
-		$ppal->login($_POST["cedula"], $_POST["password"]);
+
+		if($_POST["accion"]=="RegistrarCliente"){
+
+			$ppal->registroCliente($_POST["nombre"], $_POST["cedula"], $_POST["password"], $_POST["email"], $_POST["direccion"], $_POST["tel"]);
+
+		}else{
+			$ppal->login($_POST["cedula"], $_POST["password"]);
+		}
+
+	}else if(isset($_GET["accion"]) && $_GET["accion"]=="Registrar"){
+
+		$ppal->registrar();
+
 	}
 
 	//Muestra el inicio de la aplicacion
