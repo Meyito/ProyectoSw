@@ -13,6 +13,7 @@
 	include_once "Aplicacion/Modelo/AdministradorBD.php";
 	include_once "Aplicacion/Modelo/clienteBD.php";
 	include_once "Aplicacion/Modelo/operarioBD.php";
+	include_once "Aplicacion/Modelo/usuarioBD.php";
 
 	/**
 	* @author Angie Melissa Delgado León 1150990
@@ -24,13 +25,7 @@
 
 	class Controlador{
 
-		/**
-		* Metodo que toma el archivo estatico de la pagina inicial y lo carga en pantalla
-		*/
-		public function inicio(){
-			$inicio = $this->leerPlantilla("Aplicacion/Vista/index.html");
-			$this->mostrarVista($inicio);
-		}
+	/*GENERALES*/
 
 		/**
 		* Metodo que carga un archivo de la vista
@@ -63,62 +58,46 @@
 		}
 
 		/**
-		*	Método que se encarga de iniciar la variable de sesión con el username y la foto de perfil del usuario
-		*	@param   $nombre - nombre del usuario
+		*	Método que se encarga de agregar una alerta al documento html
+		*	@param   $plantilla - plantilla sobre la cua se debe mostrar la alerta
+		*	@param   $titulo - titulo de la alerta
+		*	@param   $alerta - mensaje de la alerta
+		*	@return  un string del html de la plantilla que permite la ejecucion de la alerta
 		*/
-		public function cargarPerfil($nombre, $cedula, $tipo){
-			$_SESSION["tipo"]=$tipo;
-			$_SESSION["username"]=$nombre;
-			$_SESSION["dni"]=$cedula;
+		public function alerta($plantilla, $titulo, $alerta)
+		{
+			return $plantilla."<script>alerta(\"".$titulo."\",\"".$alerta."\",3000);</script>";
 		}
+
+	/*VISTAS*/
+		/**
+		* Metodo que toma el archivo estatico de la pagina inicial y lo carga en pantalla
+		*/
+		public function inicio(){
+			$inicio = $this->leerPlantilla("Aplicacion/Vista/index.html");
+			$this->mostrarVista($inicio);
+		}
+
+	/*MÉTODOS AUXILIARES*/
 
 		/**
 		*	Metodo que inicia sesión y crea una clase del tipo de usuario correspondiente
 		*	@param $cedula - Numero de cedula del usuario a verificar
 		*	@param $contrasena - Contrasena del usuario a verificar
 		*/
-		public function login($cedula, $password, $tipo){
+		public function login($cedula, $password){
 			$passwordSSH=$this->encriptarPassword($password);
 
-			if($tipo=="Administrador"){
+			$userBD=new UsuarioBD();
+			$datos=$userBD->login($cedula, $passwordSSH);
 
-				$adminBD=new AdministradorBD();
-				$datos=$adminBD->login($cedula, $passwordSSH, 1);
-				if($datos!=false){
-					$this->cargarPerfil($datos, $cedula, $tipo);
-					header('Location: index.php');
-				}else{
-					$inicio = $this->leerPlantilla("Aplicacion/Vista/index.html");
-					$inicio = $this->alerta($inicio, "No se ha podido iniciar sesión", "Verifique sus datos e intentelo nuevamente");
-					$this->mostrarVista($inicio);
-				}
-
-			}else if($tipo=="Operario"){
-
-				$opBD=new OperarioBD();
-				$datos=$opBD->login($cedula, $passwordSSH, 2);
-				if($datos!=false){
-					$this->cargarPerfil($datos, $cedula, $tipo);
-					header('Location: index.php');
-				}else{
-					$inicio = $this->leerPlantilla("Aplicacion/Vista/index.html");
-					$inicio = $this->alerta($inicio, "No se ha podido iniciar sesión", "Verifique sus datos e intentelo nuevamente");
-					$this->mostrarVista($inicio);
-				}
-
+			if($datos!=false){
+				$this->cargarPerfil($datos);
+				header('Location: index.php');
 			}else{
-
-				$clienteBD=new ClienteBD();
-				$datos=$clienteBD->login($cedula, $passwordSSH, 3);
-				if($datos!=false){
-					$this->cargarPerfil($datos, $cedula, $tipo);
-					header('Location: index.php');
-				}else{
-					$inicio = $this->leerPlantilla("Aplicacion/Vista/index.html");
-					$inicio = $this->alerta($inicio, "No se ha podido iniciar sesión", "Verifique sus datos e intentelo nuevamente");
-					$this->mostrarVista($inicio);
-				}
-
+				$inicio = $this->leerPlantilla("Aplicacion/Vista/index.html");
+				$inicio = $this->alerta($inicio, "No se ha podido iniciar sesión", "Verifique sus datos e intentelo nuevamente");
+				$this->mostrarVista($inicio);
 			}
 		}
 
@@ -134,15 +113,37 @@
 		}
 
 		/**
-		*	Método que se encarga de agregar una alerta al documento html
-		*	@param   $plantilla - plantilla sobre la cua se debe mostrar la alerta
-		*	@param   $titulo - titulo de la alerta
-		*	@param   $alerta - mensaje de la alerta
-		*	@return  un string del html de la plantilla que permite la ejecucion de la alerta
+		*	Método que se encarga de iniciar la variable de sesión con el username y la foto de perfil del usuario
+		*	@param   $datos - Array con los datos del usuario
 		*/
-		public function alerta($plantilla, $titulo, $alerta)
-		{
-			return $plantilla."<script>alerta(\"".$titulo."\",\"".$alerta."\",3000);</script>";
+		public function cargarPerfil($datos){
+			$_SESSION["username"]=$datos[0][0];
+			$_SESSION["dni"]=$datos[0][1];
+			$tipo="";
+			if($datos[0][2]==1){
+				$tipo="Administrador";
+				$_SESSION["img"]="admin.png";
+			}else if($datos[0][2]==2){
+				$tipo="Operario";
+				$_SESSION["img"]="operario.png";
+			}else{
+				$tipo="Cliente";
+				$_SESSION["img"]="usuario.png";
+			}
+			$_SESSION["tipo"]=$tipo;
+		}
+
+		public function init($barraLat){
+			$plantilla = $this->leerPlantilla("Aplicacion/Vista/principal.html");
+
+			$barraSup=$this->leerPlantilla("Aplicacion/Vista/barraSup.html");
+			$barraSup = $this->reemplazar($barraSup, "{{username}}", $_SESSION["username"]);
+			$barraSup = $this->reemplazar($barraSup, "{{tipo}}", $_SESSION["tipo"]);
+			$barraSup = $this->reemplazar($barraSup, "{{img}}", $_SESSION["img"]);
+			$plantilla = $this->reemplazar($plantilla, "{{barraSuperior}}", $barraSup);
+			$plantilla = $this->reemplazar($plantilla, "{{barraLateral}}", $barraLat);
+
+			return $plantilla;
 		}
 
 		/**
@@ -167,5 +168,6 @@
 			}
 			return $nombre;
 		}
+
 	}
 ?>

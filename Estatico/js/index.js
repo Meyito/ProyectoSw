@@ -109,6 +109,17 @@ else {
     });
 }
 
+if ( $.fn.dataTable.isDataTable( '#solicitudes' ) ) {
+    table = $('#solicitudes').DataTable({
+        paging: false
+    });
+}
+else {
+    table = $('#solicitudes').DataTable({
+        paging: false
+    });
+}
+
 
 } );
 

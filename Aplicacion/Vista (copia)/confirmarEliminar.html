@@ -1,0 +1,25 @@
+<div class="form-warning">
+	<div class="warning">
+		<span class="icon-notification"></span>
+	</div>
+	<div class="notificacion">
+		¿Esta seguro que desea eliminar el {{cargo}}:<br>
+		{{dni}} - {{nombre}}<br>
+		del sistema?
+	</div>
+	
+	<div class="botones">
+	<form action="index.php" method="POST">
+		<input type="text" class="ocultar" name="tipo" value="elimino{{cargo}}">
+		<input type="text" class="ocultar" name="dni" value="{{dni}}">
+		<input class="botonEnviar" type="submit" value="ELIMINAR">
+	</form>
+
+	<form action="index.php" method="POST">
+		<input type="text" class="ocultar" name="tipo" value="cancelo{{cargo}}">
+		<input class="botonEnviar" type="submit" value="CANCELAR">
+	</form>
+
+	</div>
+
+</div>

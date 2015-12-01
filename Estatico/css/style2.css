@@ -570,6 +570,14 @@ h1,h2,h3,h4,h5,h6,p{
 	float:right;
 }
 
+.contenedor1{
+	font-size: 1.5rem;
+}
+
+.desc{
+	width:36rem;
+}
+
 .boton3{
 	background-color: #e74c3c!important;
 	float: right;
@@ -932,6 +940,11 @@ input[type="password"]{
 
 .botonSettings{
 	width: 14rem !important;
+	color: #FFF;
+    background-color: #c0392b;
+    border: none;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 a{

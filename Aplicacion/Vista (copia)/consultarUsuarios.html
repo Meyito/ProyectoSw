@@ -1,0 +1,19 @@
+<div class="barraBusqueda">
+	<form action="index.php" method="POST">
+		<div class="izq">
+			<input class="buscar" type="text" name="cedula" placeholder="Cedula" required>
+			<input class="ocultar" type="text" name="tipo" value="consultar{{cargo}}">
+			<input class="botonEnviar" type="submit" value="Buscar">
+		</div>
+	</form>
+</div>
+
+<div class="espacioConsulta">
+	
+	<div class="slider">
+		{{slides}}
+	</div>
+
+	{{nav}}	
+
+</div>

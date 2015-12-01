@@ -1,0 +1,17 @@
+<div class="col2">
+			<div class="celda primera">{{codigo}}</div>
+			<div class="celda">{{nombre}}</div>
+			<div class="celda">{{tel}}</div>
+			<div class="celda">{{fecha}}</div>
+			<div class="celda">
+
+				<div id="editarSolicitud{{quien}}" class="editar{{cargo}}">
+					<form id="formulario" class="formulario" href="index.php" method="POST">
+						<input type="text" class="ocultar" name="codCot" value="{{codigo}}">
+						<input type="text" class="ocultar" name="tipo" value="editarSolicitud{{quien}}">
+						<input class="enviarAmarillo" type="submit" value="{{haceAlgo}}">
+					</form>
+				</div>
+
+			</div>
+</div>

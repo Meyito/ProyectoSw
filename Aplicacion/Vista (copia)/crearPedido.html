@@ -1,0 +1,35 @@
+<div class="form-solPedido">
+
+	<form action="index.php" method="POST" enctype="multipart/form-data">
+
+			<div class="algo">
+				<p>
+					CANTIDAD DE JEANS:
+				</p>
+
+					<input class="pedido" type="number" name="numJeans" value="70" required>
+
+			</div>
+
+			<div class="algo">
+				<div class="chooser">
+					<input type="file" name="imagen" accept="image/*" required>
+				</div>
+			</div>
+
+			<div class="algo">
+				<p>
+					DESCRIPCION:
+				</p>
+					<textarea class="descPed" name="desc"></textarea>
+			</div>
+
+
+		<input type="text" class="ocultar" name="tipo" value="solPedido">
+
+		<div class="inputBoton algo2">
+			<input type="submit" value="REALIZAR SOLICITUD">
+		</div>
+
+	</form>
+</div>

@@ -22,102 +22,70 @@
 	
 	class Operario extends Controlador{
 
-		public function inicioValidado(){
-			$plantilla = $this -> init();
+	/* VISTAS */
+
+		public function index(){
+			$barraLat = $this->leerPlantilla("Aplicacion/Vista/barraLateralOperario.html");
+			$plantilla = $this -> init($barraLat);
 			$workspace = $this->leerPlantilla("Aplicacion/Vista/op-home.html");
 			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
 			$this->mostrarVista($plantilla);
 		}
 
+		public function vistaPedidos(){
+			$opBD=new OperarioBD();
+			$datos=$opBD->visualizarPedidos("");
+			$barLat=$this->leerPlantilla("Aplicacion/Vista/barraLateralOperario.html");
+			$plantilla = $this -> init($barLat);
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/tablaPedidos.html");
+			$plantilla=$this->cargarTabla($plantilla, $workspace, $datos);
+			$this->mostrarVista($plantilla);
+		}
+
 		public function menuDisenos(){
-			$plantilla = $this -> init();
+			$barLat=$this->leerPlantilla("Aplicacion/Vista/barraLateralOperario.html");
+			$plantilla = $this -> init($barLat);
 			$workspace = $this->leerPlantilla("Aplicacion/Vista/op-gestionD.html");
 			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
 			$this->mostrarVista($plantilla);
 		}
 
-		public function vistaAnadirDisenos(){
-			$plantilla = $this -> cargarAnadirDis();
-			$this->mostrarVista($plantilla);
-		}
-
-		public function cargarAnadirDis(){
-			$plantilla = $this -> init();
-			$workspace = $this->leerPlantilla("Aplicacion/Vista/nuevoDis.html");
-			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
-			return $plantilla;
-		}
-
 		public function vistaSolicitudes(){
-			$plantilla = $this->cargarSolicitudes();
-			$this->mostrarVista($plantilla);
-		}
-
-		public function cargarSolicitudes(){
 			$opBD=new OperarioBD();
-
 			$datos=$opBD->visualizarCotizaciones("pendiente");
-
-			$plantilla = $this -> init();
-			$workspace = $this->leerPlantilla("Aplicacion/Vista/consultarSolicitudes.html");
-			$workspace =$this->reemplazar($workspace, "{{algo}}", "SOLICITUDES DE");
-			$workspace =$this->reemplazar($workspace, "{{algo2}}", "");
-			$plantilla=$this->procesarConsulta($plantilla, $workspace, "Solicitudes", $datos);
-			
-			return $plantilla;
-		}
-
-		public function vistaPedidos(){
-			$opBD=new OperarioBD();
-			$datos=$opBD->visualizarPedidos("");
-
-			$plantilla = $this -> init();
-			$workspace = $this->leerPlantilla("Aplicacion/Vista/consultarPedido.html");
-			
-			$plantilla=$this->procesarPedidos($plantilla, $workspace, "Operario", $datos);
-
+			$barLat=$this->leerPlantilla("Aplicacion/Vista/barraLateralOperario.html");
+			$plantilla = $this -> init($barLat);
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/tablaSolicitudes.html");
+			$plantilla=$this->cargarTablaSolicitudes($plantilla, $workspace, $datos);
 			$this->mostrarVista($plantilla);
 		}
 
 		public function vistaConfiguracion(){
-			$plantilla = $this -> cargarConfiguracion();
-			$this->mostrarVista($plantilla);
-		}
-
-		public function cargarConfiguracion(){
-			$plantilla = $this -> init();
+			$barLat=$this->leerPlantilla("Aplicacion/Vista/barraLateralOperario.html");
+			$plantilla = $this -> init($barLat);
 			$workspace = $this->leerPlantilla("Aplicacion/Vista/settings.html");
 			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
-			return $plantilla;
-		}
-
-		public function init(){
-			$plantilla = $this->leerPlantilla("Aplicacion/Vista/principal.html");
-
-			$barraSup=$this->leerPlantilla("Aplicacion/Vista/barraSup.html");
-			$barraSup = $this->reemplazar($barraSup, "{{username}}", $_SESSION["username"]);
-			$barraSup = $this->reemplazar($barraSup, "{{tipo}}", $_SESSION["tipo"]);
-			$barraSup = $this->reemplazar($barraSup, "{{img}}", "operario.png");
-
-			$barraLat = $this->leerPlantilla("Aplicacion/Vista/barraLateralOperario.html");
-
-			$plantilla = $this->reemplazar($plantilla, "{{barraSuperior}}", $barraSup);
-			$plantilla = $this->reemplazar($plantilla, "{{barraLateral}}", $barraLat);
-
-			return $plantilla;
-		}
-
-		public function responderSolicitud($codigo){
-			$plantilla = $this -> cargarResponderSolicitud($codigo);
 			$this->mostrarVista($plantilla);
 		}
 
-		public function cargarResponderSolicitud($codigo){
+		public function vistaAnadirDisenos(){
+			$barLat=$this->leerPlantilla("Aplicacion/Vista/barraLateralOperario.html");
+			$plantilla = $this -> init($barLat);
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/nuevoDis.html");
+			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
+			$this->mostrarVista($plantilla);
+		}
+
+	/* PROCESAMIENTO */
+
+		public function responderSolicitud($codigo){
+			$barLat=$this->leerPlantilla("Aplicacion/Vista/barraLateralOperario.html");
+			$plantilla = $this -> init($barLat);
+
 			$opBD=new OperarioBD();
 			$datos=$opBD->getCotizacion($codigo);
 			$img=$opBD->getDisenio($datos[0][8]);
 
-			$plantilla = $this -> init();
 			$workspace = $this->leerPlantilla("Aplicacion/Vista/responderSolicitudOperario.html");
 
 
@@ -136,7 +104,8 @@
 			$workspace=$this->reemplazar($workspace, "{{otro}}", "CANCELAR");
 
 			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
-			return $plantilla;
+
+			$this->mostrarVista($plantilla);
 		}
 
 		public function editarSolicitud($codOp, $codCot, $precio, $desc){
@@ -144,7 +113,12 @@
 
 			$ok=$opBD->responderCotizacion($codOp,$codCot,$precio, $desc);
 
-			$plantilla=$this->cargarSolicitudes();
+			$datos=$opBD->visualizarCotizaciones("pendiente");
+			$barLat=$this->leerPlantilla("Aplicacion/Vista/barraLateralOperario.html");
+			$plantilla = $this -> init($barLat);
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/tablaSolicitudes.html");
+			$plantilla=$this->cargarTablaSolicitudes($plantilla, $workspace, $datos);
+			$this->mostrarVista($plantilla);
 
 			if($ok){
 				$plantilla=$this->alerta($plantilla, "COTIZACION ENVIADA EXITOSAMENTE", "");
@@ -154,35 +128,28 @@
 
 			$this->mostrarVista($plantilla);
 		}
-		
-		public function cambiarPassword($actual, $nueva, $confirmacion){
-			$nueva2=$this->encriptarPassword($nueva);
-			$confirmacion2=$this->encriptarPassword($confirmacion);
 
-			if($nueva2==$confirmacion2){
-				$actual2=$this->encriptarPassword($actual);
-				$op=new OperarioBD();
-				$ok=$op->cambiarContrasenia($_SESSION["dni"],$actual2,$nueva2);
-				if($ok){
-					$plantilla=$this->cargarConfiguracion();
-					$plantilla=$this->alerta($plantilla, "Contraseña actual cambiada exitosamente", "");
-					$this->mostrarVista($plantilla);
-				}else{
-					$plantilla=$this->cargarConfiguracion();
-					$plantilla=$this->alerta($plantilla, "ERROR", "Contraseña incorrecta");
-					$this->mostrarVista($plantilla);
-				}
-			}else{
-				$plantilla=$this->cargarConfiguracion();
-				$plantilla=$this->alerta($plantilla, "ERROR", "Las contraseñas no son iguales");
-				$this->mostrarVista($plantilla);
-			}
+		public function cancelarEdicion(){
+
+			$opBD=new OperarioBD();
+			$datos=$opBD->visualizarCotizaciones("pendiente");
+			$barLat=$this->leerPlantilla("Aplicacion/Vista/barraLateralOperario.html");
+			$plantilla = $this -> init($barLat);
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/tablaSolicitudes.html");
+			$plantilla=$this->cargarTablaSolicitudes($plantilla, $workspace, $datos);
+			$plantilla=$this->alerta($plantilla, "LA SOLICITUD NO FUE RESPONDIDA", "");
+			$this->mostrarVista($plantilla);
 		}
 
 		public function agregarImagen($nombre, $desc){
 			$opBD=new OperarioBD();
 			$ok=$opBD->registrarDisenio($nombre,$desc);
-			$plantilla=$this->cargarAnadirDis();
+
+			$barLat=$this->leerPlantilla("Aplicacion/Vista/barraLateralOperario.html");
+			$plantilla = $this -> init($barLat);
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/nuevoDis.html");
+			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
+			
 			if($ok){
 				$plantilla=$this->alerta($plantilla, "DISEÑO AÑADIDO EXITOSAMENTE", "");
 			}else{
@@ -191,172 +158,74 @@
 			$this->mostrarVista($plantilla);
 		}
 
-		public function procesarConsulta($plantilla, $workspace, $tipo, $datos){
+		public function cambiarPassword($actual, $nueva, $confirmacion){
+			$nueva2=$this->encriptarPassword($nueva);
+			$confirmacion2=$this->encriptarPassword($confirmacion);
 
-			$tam=count($datos);
+			$barLat=$this->leerPlantilla("Aplicacion/Vista/barraLateralOperario.html");
+			$plantilla = $this -> init($barLat);
+			$workspace = $this->leerPlantilla("Aplicacion/Vista/settings.html");
+			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
 
-			$opBD=new OperarioBD();
-
-
-			if($tam<=8){
-				$slides=$this->leerPlantilla("Aplicacion/Vista/slideConsultarSolicitudes.html");
-				$slides=$this->reemplazar($slides, "{{tipo}}", "active-slide");
-				$slides=$this->reemplazar($slides, "{{dequien}}", "CLIENTE");
-
-				$filas="";
-				for($i=0; $i<$tam; $i++){
-					$aux=$this->leerPlantilla("Aplicacion/Vista/filaConsulta.html");
-
-					$datosCliente=$opBD->visualizarCliente($datos[$i][1]);
-
-					$aux=$this->reemplazar($aux, "{{codigo}}", $datos[$i][0]);
-					$aux=$this->reemplazar($aux, "{{nombre}}", $datosCliente[0][2]);
-					$aux=$this->reemplazar($aux, "{{tel}}", $datosCliente[0][4]);
-					$aux=$this->reemplazar($aux, "{{fecha}}", $datos[$i][4]);
-					$aux=$this->reemplazar($aux, "{{quien}}", "Operario");
-					$aux=$this->reemplazar($aux, "{{haceAlgo}}", "RESPONDER");
-
-					$filas=$filas.$aux;
+			if($nueva2==$confirmacion2){
+				$actual2=$this->encriptarPassword($actual);
+				$op=new OperarioBD();
+				$ok=$op->cambiarContrasenia($_SESSION["dni"],$actual2,$nueva2);
+				
+				if($ok){
+					$plantilla=$this->alerta($plantilla, "Contraseña actual cambiada exitosamente", "");
+				}else{
+					$plantilla=$this->alerta($plantilla, "ERROR", "Contraseña incorrecta");
 				}
-
-				$slides=$this->reemplazar($slides, "{{filas}}", $filas);
-				$workspace=$this->reemplazar($workspace, "{{nav}}", "");
-				$workspace=$this->reemplazar($workspace, "{{slides}}", $slides);
-
 			}else{
-				$totalSlides="";
-				$nav=$this->leerPlantilla("Aplicacion/Vista/sliderNav.html");
-				$puntos="";
-
-				for($i=0; $i<$tam; $i++){
-					$auxSlide=$this->leerPlantilla("Aplicacion/Vista/slideConsultarSolicitudes.html");
-					
-					if($i==0){
-						$auxSlide=$this->reemplazar($auxSlide, "{{tipo}}", "active-slide");
-						$puntos="<li class='dot active-dot'>&bull;</li>";
-					}else{
-						$auxSlide=$this->reemplazar($auxSlide, "{{tipo}}", "");
-						$puntos=$puntos."<li class='dot'>&bull;</li>";
-					}
-					$slides=$this->reemplazar($slides, "{{dequien}}", "CLIENTE");
-
-					$filas="";
-					for($j=0; ($j<7 && $i<$tam); $j++, $i++){
-						$aux=$this->leerPlantilla("Aplicacion/Vista/filaConsulta.html");
-
-						$datosCliente=$opBD->visualizarCliente($datos[$i][1]);
-
-						$aux=$this->reemplazar($aux, "{{codigo}}", $datos[$i][0]);
-						$aux=$this->reemplazar($aux, "{{nombre}}", $datosCliente[0][2]);
-						$aux=$this->reemplazar($aux, "{{tel}}", $datosCliente[0][4]);
-						$aux=$this->reemplazar($aux, "{{fecha}}", $datos[$i][4]);
-						$aux=$this->reemplazar($aux, "{{quien}}", "Operario");
-						$aux=$this->reemplazar($aux, "{{haceALgo}}", "RESPONDER");
-
-						$filas=$filas.$aux;
-					}
-
-					$auxSlide=$this->reemplazar($auxSlide, "{{filas}}", $filas);
-
-					$totalSlides=$totalSlides.$auxSlide;
-				}
-
-				$nav=$this->reemplazar($nav, "{{puntos}}", $puntos);
-				$workspace=$this->reemplazar($workspace, "{{nav}}", $nav);
-				$workspace=$this->reemplazar($workspace, "{{slides}}", $totalSlides);
+				$plantilla=$this->alerta($plantilla, "ERROR", "Las contraseñas no son iguales");
 			}
 
-			
-			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
-			
-			return $plantilla;
+			$this->mostrarVista($plantilla);
 		}
 
-		public function procesarPedidos($plantilla, $workspace, $cargo, $datos){
-			$tam=count($datos);
-			$op=new OperarioBD();
 
-			if($tam<=8){
-				$slides=$this->leerPlantilla("Aplicacion/Vista/sliderConsultarPedidos.html");
-				$slides=$this->reemplazar($slides, "{{tipo}}", "active-slide");
+	/* AUXILIARES */
 
-				$filas="";
-				for($i=0; $i<$tam; $i++){
-					$aux=$this->leerPlantilla("Aplicacion/Vista/filaPedidos.html");
+		public function cargarTabla($plantilla, $workspace, $datos){
+			$filaP=$this->leerPlantilla("Aplicacion/Vista/filaTablaPedidos.html");
+			$info="";
 
-					$aux=$this->reemplazar($aux, "{{codigo}}", $datos[$i][0]);
-
-					$dato2=$op->getEstado($datos[$i][10]);
-					$aux=$this->reemplazar($aux, "{{estado}}", $dato2[0][1]);
-
-					$dato2=$op->visualizarCliente($datos[$i][5]);
-					$aux=$this->reemplazar($aux, "{{cliente}}", $dato2[0][2]);
-
-					$aux=$this->reemplazar($aux, "{{fecha}}", $datos[$i][1]);
-
-					$dato2=$op->visualizarOperario($datos[$i][6]);
-					$aux=$this->reemplazar($aux, "{{operario}}", $dato2[0][2]);
-					$aux=$this->reemplazar($aux, "{{precio}}", $datos[$i][8]);
-
-					
-
-					$filas=$filas.$aux;
-				}
-
-				$slides=$this->reemplazar($slides, "{{filas}}", $filas);
-				$workspace=$this->reemplazar($workspace, "{{nav}}", "");
-				$workspace=$this->reemplazar($workspace, "{{slides}}", $slides);
-			}else{
-				$totalSlides="";
-				$nav=$this->leerPlantilla("Aplicacion/Vista/sliderNav.html");
-				$puntos="";
-
-				for($i=0; $i<$tam; $i++){
-					$auxSlide=$this->leerPlantilla("Aplicacion/Vista/slideConsultarPedidos.html");
-					
-					if($i==0){
-						$auxSlide=$this->reemplazar($auxSlide, "{{tipo}}", "active-slide");
-						$puntos="<li class='dot active-dot'>&bull;</li>";
-					}else{
-						$auxSlide=$this->reemplazar($auxSlide, "{{tipo}}", "");
-						$puntos=$puntos."<li class='dot'>&bull;</li>";
-					}
-
-					$filas="";
-					for($j=0; ($j<7 && $i<$tam); $j++, $i++){
-						$aux=$this->leerPlantilla("Aplicacion/Vista/filaPedidos.html");
-
-						$aux=$this->reemplazar($aux, "{{codigo}}", $datos[$i][0]);
-
-						$dato2=$op->getEstado($datos[$i][10]);
-						$aux=$this->reemplazar($aux, "{{estado}}", $dato2[0][1]);
-
-						$dato2=$op->visualizarCliente($datos[$i][5]);
-						$aux=$this->reemplazar($aux, "{{cliente}}", $dato2[0][2]);
-
-						$aux=$this->reemplazar($aux, "{{fecha}}", $datos[$i][1]);
-
-						$dato2=$op->visualizarOperario($datos[$i][6]);
-						$aux=$this->reemplazar($aux, "{{operario}}", $dato2[0][2]);
-						$aux=$this->reemplazar($aux, "{{precio}}", $datos[$i][8]);
-
-						$filas=$filas.$aux;
-					}
-
-					$auxSlide=$this->reemplazar($auxSlide, "{{filas}}", $filas);
-
-					$totalSlides=$totalSlides.$auxSlide;
-				}
-
-				$nav=$this->reemplazar($nav, "{{puntos}}", $puntos);
-				$workspace=$this->reemplazar($workspace, "{{nav}}", $nav);
-				$workspace=$this->reemplazar($workspace, "{{slides}}", $totalSlides);
+			for($i=0; $i<count($datos); $i++){
+				$aux=$filaP;
+				$aux=$this->reemplazar($aux, "{{codigo}}", $datos[$i][0]);
+				$aux=$this->reemplazar($aux, "{{estado}}", $datos[$i][10]);
+				$aux=$this->reemplazar($aux, "{{cliente}}", $datos[$i][5]);
+				$aux=$this->reemplazar($aux, "{{fecha}}", $datos[$i][1]);
+				$aux=$this->reemplazar($aux, "{{operario}}", $datos[$i][6]);
+				$aux=$this->reemplazar($aux, "{{precio}}", $datos[$i][8]);
+				$info.=$aux;
 			}
-
-			
-
+			$workspace=$this->reemplazar($workspace, "{{filas}}", $info);
 			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
 			return $plantilla;
 		}
+
+		public function cargarTablaSolicitudes($plantilla, $workspace, $datos){
+			$filaP=$this->leerPlantilla("Aplicacion/Vista/filaTablaSolicitudes.html");
+			$info="";
+			for($i=0; $i<count($datos); $i++){
+				$aux=$filaP;
+				$aux=$this->reemplazar($aux, "{{codigo}}", $datos[$i][0]);
+				$aux=$this->reemplazar($aux, "{{nombre}}", "Pepito");
+				$aux=$this->reemplazar($aux, "{{tel}}", "5782585");
+				$aux=$this->reemplazar($aux, "{{fecha}}", $datos[$i][4]);
+				$aux=$this->reemplazar($aux, "{{quien}}", "Operario");
+				$aux=$this->reemplazar($aux, "{{haceAlgo}}", "RESPONDER");
+
+				$info.=$aux;
+			}
+			$workspace=$this->reemplazar($workspace, "{{filas}}", $info);
+			$plantilla = $this->reemplazar($plantilla, "{{workspace}}", $workspace);
+			return $plantilla;
+		}
+
+
+		
 	}
 ?>

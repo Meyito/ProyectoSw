@@ -1,0 +1,15 @@
+<tr>
+    <th>{{codigo}}</th>
+    <th>{{nombre}}</th>
+    <th>{{tel}}</th>
+    <th>{{fecha}}</th>
+    <th>
+    	<div id="editarSolicitud{{quien}}" class="editar{{cargo}}">
+			<form id="formulario" class="formulario" href="index.php" method="POST">
+				<input type="text" class="ocultar" name="codCot" value="{{codigo}}">
+				<input type="text" class="ocultar" name="tipo" value="editarSolicitud{{quien}}">
+				<input class="enviarAmarillo" type="submit" value="{{haceAlgo}}">
+			</form>
+		</div>
+    </th>
+</tr>

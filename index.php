@@ -1,9 +1,9 @@
 <?php
 	session_start();
-	require_once "Aplicacion/Controlador2/controlador.php";
-	require_once "Aplicacion/Controlador2/administrador.php";
-	require_once "Aplicacion/Controlador2/cliente.php";
-	require_once "Aplicacion/Controlador2/operario.php";
+	require_once "Aplicacion/Controlador/controlador.php";
+	require_once "Aplicacion/Controlador/administrador.php";
+	require_once "Aplicacion/Controlador/cliente.php";
+	require_once "Aplicacion/Controlador/operario.php";
 
 	$ppal=new controlador();
 
@@ -146,7 +146,7 @@
 				}if($_POST["tipo"]=="rechazarCotizacion"){
 
 					$cliente->cancelarCotizacion($_POST["codCot"]);
-					
+
 				}
 
 			}else if(isset($_GET["accion"])){
@@ -179,6 +179,72 @@
 			}else{
 				$cliente->index();
 			}
+		}else if($_SESSION["tipo"]=="Operario"){
+
+			$operario=new Operario();
+
+			if(isset($_POST["tipo"])){
+
+				if($_POST["tipo"]=="settings"){
+
+					$operario->cambiarPassword($_POST["password"], $_POST["nuevop"], $_POST["confp"]);
+
+				}else if($_POST["tipo"]=="agregarDis"){
+
+					$nombre=$ppal->procesarImagen($_FILES['imagen']['tmp_name']);
+					$operario->agregarImagen($nombre, $_POST["descripcion"]);
+
+				}else if($_POST["tipo"]=="responderSolicitud"){
+
+					$operario->editarSolicitud($_SESSION["dni"], $_POST["codCot"], $_POST["precio"], $_POST["desc"]);
+				
+				}else if($_POST["tipo"]=="editarSolicitudOperario"){
+
+					$operario->responderSolicitud($_POST["codCot"]);
+
+				}else if($_POST["tipo"]=="cancelarEdicion"){
+
+					$operario->cancelarEdicion();
+					
+				}
+
+			}else if(isset($_GET["accion"])){
+
+				if($_GET["accion"]=="pedidos"){
+
+					$operario->vistaPedidos();
+
+				}else if($_GET["accion"]=="logout"){
+
+					$_SESSION["nombre"] = false;
+					$_SESSION["tipoUsuario"] = false;
+					session_destroy();
+					header('location:index.php');
+
+				}else if($_GET["accion"]=="disenos"){
+
+					$operario->menuDisenos();
+
+				}else if($_GET["accion"]=="solicitudes"){
+
+					$operario->vistaSolicitudes();
+
+				}else if($_GET["accion"]=="settings"){
+
+					$operario->vistaConfiguracion();
+
+				}else if($_GET["accion"]=="nuevoDis"){
+
+					$operario->vistaAnadirDisenos();
+
+				}
+
+			}else{
+
+				$operario->index();
+
+			}
+
 		}
 	}
 	//Para los usuarios que no estan logueados
