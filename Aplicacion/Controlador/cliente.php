@@ -215,11 +215,11 @@
 			for($i=0; $i<count($datos); $i++){
 				$aux=$filaP;
 				$aux=$this->reemplazar($aux, "{{codigo}}", $datos[$i][0]);
-				$aux=$this->reemplazar($aux, "{{estado}}", $datos[$i][10]);
-				$aux=$this->reemplazar($aux, "{{cliente}}", $datos[$i][5]);
-				$aux=$this->reemplazar($aux, "{{fecha}}", $datos[$i][1]);
-				$aux=$this->reemplazar($aux, "{{operario}}", $datos[$i][6]);
-				$aux=$this->reemplazar($aux, "{{precio}}", $datos[$i][8]);
+				$aux=$this->reemplazar($aux, "{{estado}}", $datos[$i][1]);
+				$aux=$this->reemplazar($aux, "{{cliente}}", $datos[$i][2]);
+				$aux=$this->reemplazar($aux, "{{fecha}}", $datos[$i][3]);
+				$aux=$this->reemplazar($aux, "{{operario}}", $datos[$i][4]);
+				$aux=$this->reemplazar($aux, "{{precio}}", $datos[$i][5]);
 				$info.=$aux;
 			}
 			$workspace=$this->reemplazar($workspace, "{{filas}}", $info);
@@ -233,9 +233,9 @@
 			for($i=0; $i<count($datos); $i++){
 				$aux=$filaP;
 				$aux=$this->reemplazar($aux, "{{codigo}}", $datos[$i][0]);
-				$aux=$this->reemplazar($aux, "{{nombre}}", "Pepito");
-				$aux=$this->reemplazar($aux, "{{tel}}", "5782585");
-				$aux=$this->reemplazar($aux, "{{fecha}}", $datos[$i][4]);
+				$aux=$this->reemplazar($aux, "{{nombre}}", $datos[$i][1]);
+				$aux=$this->reemplazar($aux, "{{tel}}", $datos[$i][2]);
+				$aux=$this->reemplazar($aux, "{{fecha}}", $datos[$i][3]);
 				$aux=$this->reemplazar($aux, "{{quien}}", "Cliente");
 				$aux=$this->reemplazar($aux, "{{haceAlgo}}", "ABRIR");
 

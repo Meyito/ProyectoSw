@@ -87,16 +87,17 @@
 			$this->conectar();
 			if($estado == "")
 			{
-				$aux = $this->consultar("SELECT p.codigo,p.fecha_Creacion,p.fecha_Recoleccion,p.fecha_Entrega,p.direccion,
-										c.DNI_Cliente,c.DNI_Operario,c.descripcion,c.precioTotal,c.cantidad,p.codigoEstado,c.codigoDisenio,p.codigoBodega
-										FROM Cotizacion c,Pedido p WHERE p.codigoCotizacion = c.codigo");
+				$aux = $this->consultar("SELECT p.codigo, e.nombre, u.nombre, p.fecha_Creacion, x.nombre, c.precioTotal 
+										FROM Cotizacion c,Pedido p, Estado e, Usuario u, Usuario x 
+										WHERE x.DNI=c.DNI_Operario AND u.DNI=c.DNI_Cliente AND e.codigo=p.codigoEstado 
+										AND p.codigoCotizacion = c.codigo");
 			}
 			else
 			{
-				$aux = $this->consultar("SELECT p.codigo,p.fecha_Creacion,p.fecha_Recoleccion,p.fecha_Entrega,p.direccion,
-										c.DNI_Cliente,c.DNI_Operario,c.descripcion,c.precioTotal,c.cantidad,p.codigoEstado,c.codigoDisenio,p.codigoBodega
-										FROM Cotizacion c,Pedido p WHERE p.codigoCotizacion = c.codigo
-										AND p.estado='".$estado."'");
+				$aux = $this->consultar("SELECT p.codigo, e.nombre, u.nombre, p.fecha_Creacion, x.nombre, c.precioTotal 
+										FROM Cotizacion c,Pedido p, Estado e, Usuario u, Usuario x 
+										WHERE x.DNI=c.DNI_Operario AND u.DNI=c.DNI_Cliente AND e.codigo=p.codigoEstado 
+										AND p.codigoCotizacion = c.codigo AND p.estado='".$estado."'");
 			}
 			$this->desconectar();
 			$datos = array();
@@ -226,11 +227,15 @@
 			$this->conectar();
 			if($estado == "")
 			{
-				$aux = $this->consultar("SELECT * FROM Cotizacion");
+				$aux = $this->consultar("SELECT c.codigo, u.nombre, u.telefono, c.fecha
+										FROM Cotizacion c, Usuario u
+										WHERE u.DNI=c.DNI_Cliente");
 			}
 			else
 			{
-				$aux = $this->consultar("SELECT * FROM Cotizacion WHERE estado = '".$estado."'");
+				$aux = $this->consultar("SELECT c.codigo, u.nombre, u.telefono, c.fecha
+										FROM Cotizacion c, Usuario u
+										WHERE u.DNI=c.DNI_Cliente AND estado = '".$estado."'");
 			}
 			$this->desconectar();
 			$datos = array();

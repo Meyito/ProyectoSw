@@ -256,11 +256,15 @@ class ClienteBD extends Modelo
 		$this->conectar();
 		if($estado == "")
 		{
-			$aux = $this->consultar("SELECT * FROM Cotizacion WHERE DNI_Cliente = '".$DNI_Cliente."'");
+			$aux = $this->consultar("SELECT c.codigo, u.nombre, u.telefono, c.fecha
+										FROM Cotizacion c, Usuario u
+										WHERE u.DNI=c.DNI_Operario AND DNI_Cliente = '".$DNI_Cliente."'");
 		}
 		else
 		{
-			$aux = $this->consultar("SELECT * FROM Cotizacion WHERE DNI_Cliente = '".$DNI_Cliente."' AND estado = '".$estado."'");
+			$aux = $this->consultar("SELECT c.codigo, u.nombre, u.telefono, c.fecha
+										FROM Cotizacion c, Usuario u
+										WHERE u.DNI=c.DNI_Operario AND estado = '".$estado."' AND DNI_Cliente = '".$DNI_Cliente."'");
 		}
 		$this->desconectar();
 		$datos = array();
